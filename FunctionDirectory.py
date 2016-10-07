@@ -23,7 +23,8 @@ class FunctionDirectory:
      # Borra / Resetea todo el diccionario y directorio de funciones.
      def resetDirectory(self):
           self.functionRow = []
-          self.functionDictionary = {}   
+          self.functionDictionary = {}
+          return True
 
      # Cantidad de funciones almacenadas en el directorio (+ Scope Global).
      def size(self):
@@ -106,11 +107,17 @@ class FunctionDirectory:
      def deleteVariable(self, function, nombre):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     self.functionRow[index][3][nombre].pop(indexVar)
                     del self.functionRow[index][2][nombre]
                     return True
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    self.functionRow[0][3][nombre].pop(indexVar)
+                    del self.functionRow[0][2][nombre]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -122,9 +129,14 @@ class FunctionDirectory:
      def getVariable(self, function, nombre):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     return self.functionRow[index][3][indexVar]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    return self.functionRow[0][3][indexVar]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -136,9 +148,14 @@ class FunctionDirectory:
      def getVariableType(self, function, nombre):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     return self.functionRow[index][3][indexVar][1]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    return self.functionRow[0][3][indexVar][1]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -150,9 +167,14 @@ class FunctionDirectory:
      def getVariableValue(self, function, nombre):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     return self.functionRow[index][3][indexVar][2]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    return self.functionRow[0][3][indexVar][2]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -164,9 +186,14 @@ class FunctionDirectory:
      def getVariableVirtualDirection(self, function, nombre):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     return self.functionRow[index][3][indexVar][3]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    return self.functionRow[0][3][indexVar][3]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -178,10 +205,16 @@ class FunctionDirectory:
      def setVariableType(self, function, nombre, tipo):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     self.functionRow[index][3][indexVar][1] = tipo
                     return self.functionRow[index][3][indexVar][1]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    self.functionRow[0][3][indexVar][1] = tipo
+                    return self.functionRow[0][3][indexVar][1]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -193,10 +226,16 @@ class FunctionDirectory:
      def setVariableValue(self, function, nombre, valor):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     self.functionRow[index][3][indexVar][2] = valor
                     return self.functionRow[index][3][indexVar][2]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    self.functionRow[0][3][indexVar][2] = valor
+                    return self.functionRow[0][3][indexVar][2]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None
@@ -208,10 +247,16 @@ class FunctionDirectory:
      def setVariableVirtualDirection(self, function, nombre, virdir):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
+               # Si existe en la variable en el scope de la funcion
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     self.functionRow[index][3][indexVar][3] = virdir
                     return self.functionRow[index][3][indexVar][3]
+               # Si existe en la variable en el scope global
+               elif nombre in self.functionRow[0][2].keys() :
+                    indexVar = self.functionRow[0][2][nombre]
+                    self.functionRow[0][3][indexVar][3] = virdir
+                    return self.functionRow[0][3][indexVar][3]
                else :
                     print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
                     return None

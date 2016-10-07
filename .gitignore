@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+parser.out
+*.out
+__pycache__/FunctionDirectory.cpython-35.pyc
+__pycache__/FunctionDirectory.cpython-35.pyc
+parsetab.py
