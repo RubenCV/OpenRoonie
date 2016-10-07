@@ -16,8 +16,8 @@ import os.path
 import Stack as Stack
 import FunctionDirectory as FunctionDirectory
 
-FunctionStack = Stack.Stack()
 TypeStack = Stack.Stack()
+FunctionStack = Stack.Stack()
 FunctionDirectory = FunctionDirectory.FunctionDirectory();
 
 reserved = {
@@ -105,12 +105,14 @@ precedence = (
     ('left','TIMES','DIVIDE'),
     )
 
-# Global
-FunctionDirectory.addFunction('global', None)
-FunctionStack.push('global')
-
 def p_programa(t):
-    'programa : PROGRAM ID SEMICOLON vars funcs main bloque'
+    'programa : prog ID SEMICOLON vars funcs main bloque'
+
+def p_prog(t):
+    'prog : PROGRAM'
+    # Global Scope
+    FunctionDirectory.addFunction('global', None)
+    FunctionStack.push('global')
 
 def p_main(t):
     'main : MAIN'
@@ -258,8 +260,7 @@ def p_arr(t):
            | empty'''
 
 def p_error(t):
-    print("Syntax error at '%s'" % t.value)
-    bError = True
+    print("ERROR de sintaxis en: '%s'" % t.value)
 
 def p_empty(t):
     'empty : '
@@ -268,25 +269,24 @@ def p_empty(t):
 import ply.yacc as yacc
 parser = yacc.yacc()
 
-
-print('Escriba "exit" para salir.');
-while True:    
-    sFileName = input('Introduzca el nombre del archivo. Ej "programa1.txt". ')
-    if sFileName == 'exit':
-        break;
-    bError = False
-
-    if os.path.isfile(sFileName):
-        # Guardamos las lineas de codigo y reemplazamos los 'enters' en data.
-        print('');
-        with open(sFileName, 'r') as myfile:
-            data=myfile.read().replace('\n', '')
-        parser.parse(data)
-
-        print('');
-        print('Programa verificado.');
-        print('Si tienes algun error, el sistema te habra notificado previamente.');
-        print('');
+# Main
+print("Escribe el nombre del archivo con el codigo fuente o 'exit' para salir: ")
+while True:
+    try:
+        fn = input('OpenRoonie > ')
+        if fn == 'exit' :
+            break
+        file = open(fn, 'r')
+        s = file.read()
+        parser.parse(s)
+        print("\nSi no hay mensajes de error, ¡Felicidades! El lexico, sintaxis y semantica de tu programa son correctos.\nEn caso contrario, verifica tu codigo.")
         FunctionDirectory.showDirectory();
-
-
+        FunctionDirectory.resetDirectory();
+    except EOFError:
+        break
+    except IOError:
+        print("\nERROR IO. Verifica que el nombre del archivo sea el correcto.")
+    except:
+        print("\nERROR IO. Error inesperado en: '%s'" % sys.exc_info()[0])
+        raise
+    print('')
