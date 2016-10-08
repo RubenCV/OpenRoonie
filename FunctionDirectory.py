@@ -57,7 +57,7 @@ class FunctionDirectory:
                self.functionRow[index].append([])          
                return self.functionRow[index]
           else :
-               print("\nERROR SEMANTICA. Ya existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa ya existe una funcion con nombre:", nombre)
                return None
 
      # Retorna la tupla: [nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, valor, direccion virtual]]]
@@ -66,7 +66,7 @@ class FunctionDirectory:
                index = self.functionDictionary[nombre]
                return self.functionRow[index]
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None
 
      # Borra toda la tupla de la funcion en el directorio de funciones.
@@ -77,7 +77,7 @@ class FunctionDirectory:
                del self.functionDictionary[nombre]
                return True
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None
 
      #####---- Variables's Methods ----#####
@@ -97,10 +97,10 @@ class FunctionDirectory:
                     self.functionRow[index][3][indexVar].append(0) # Place Holder de Direccion Virtual
                     return self.functionRow[index][3][indexVar]
                else :
-                    print("\nERROR SEMANTICA. Ya existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "ya existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Borra la tupla de la variable dada del renglon de la funcion correspondiente en el directorio de funciones.
@@ -119,10 +119,10 @@ class FunctionDirectory:
                     self.functionRow[0][3][nombre].pop(indexVar)
                     del self.functionRow[0][2][nombre]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Retorna la tupla: [nombreVar, tipo, valor, direccion virtual], para la funcion y variable dadas como argumento.
@@ -138,10 +138,10 @@ class FunctionDirectory:
                     indexVar = self.functionRow[0][2][nombre]
                     return self.functionRow[0][3][indexVar]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Retorna el tipo de dato al que pertenece la variable de la funcion dada como argumento.
@@ -157,10 +157,10 @@ class FunctionDirectory:
                     indexVar = self.functionRow[0][2][nombre]
                     return self.functionRow[0][3][indexVar][1]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Retorna el valor que contiene la variable de la funcion dada como argumento.
@@ -176,10 +176,10 @@ class FunctionDirectory:
                     indexVar = self.functionRow[0][2][nombre]
                     return self.functionRow[0][3][indexVar][2]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
           
      # Retorna la direccion virtual donde esta contenida la variable de la funcion dada como argumento.
@@ -195,10 +195,10 @@ class FunctionDirectory:
                     indexVar = self.functionRow[0][2][nombre]
                     return self.functionRow[0][3][indexVar][3]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
           
      # Sirve para establecer o modificar el tipo de dato de la variable de la funcion dada como argumento.
@@ -216,10 +216,10 @@ class FunctionDirectory:
                     self.functionRow[0][3][indexVar][1] = tipo
                     return self.functionRow[0][3][indexVar][1]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
@@ -237,10 +237,10 @@ class FunctionDirectory:
                     self.functionRow[0][3][indexVar][2] = valor
                     return self.functionRow[0][3][indexVar][2]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
      # Sirve para establecer o modificar la direccion virtual donde esta contenida la variable de la funcion dada como argumento.
@@ -258,8 +258,8 @@ class FunctionDirectory:
                     self.functionRow[0][3][indexVar][3] = virdir
                     return self.functionRow[0][3][indexVar][3]
                else :
-                    print("\nERROR SEMANTICA. No existe una variable con ese nombre en este scope.")
+                    print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
           else :
-               print("\nERROR SEMANTICA. No existe una funcion con ese nombre en este programa.")
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None

@@ -286,7 +286,4 @@ while True:
         break
     except IOError:
         print("\nERROR IO. Verifica que el nombre del archivo sea el correcto.")
-    except:
-        print("\nERROR IO. Error inesperado en: '%s'" % sys.exc_info()[0])
-        raise
     print('')
