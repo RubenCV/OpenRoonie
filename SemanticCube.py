@@ -15,7 +15,7 @@
 class SemanticCube:
 
      def __init__(self):
-             self.DataTypes = ['int', 'float', 'char', 'bool', 'string']
+             self.DataTypes  = ['int', 'float', 'char', 'bool', 'string']
              self.Operations = ['+','-','*','/','>','<', '>=', '<=', '<>', '==', '|', '&']
              self.Cube = [[[]]]
              self.InitCube()

@@ -10,9 +10,9 @@ function string helloWorld (string str)
 	print("HelloWorld");
 }
 
-function string myFunction (string str, int myInt, float myFloat)
+function string myFunction (float myFloat)
 {
-	var int myFunc1, myFunc2, myFunc3;
+	var int myFunc1, myFunc2;
 	print("str");
 }
 

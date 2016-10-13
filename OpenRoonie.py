@@ -266,7 +266,7 @@ def p_arr(t):
            | empty'''
 
 def p_error(t):
-    print("ERROR de sintaxis en: '%s'" % t.value)
+    print("\nERROR SINTAXIS. Token: '%s'" % t.value)
 
 def p_empty(t):
     'empty : '
@@ -285,7 +285,7 @@ while True:
         file = open(fn, 'r')
         s = file.read()
         parser.parse(s)
-        print("\nSi no hay mensajes de error, ¡Felicidades! El lexico, sintaxis y semantica de tu programa son correctos.\nEn caso contrario, verifica tu codigo.")
+        print("\nCompilacion terminada.")
         FunctionDirectory.showDirectory();
         FunctionDirectory.resetDirectory();
     except EOFError:

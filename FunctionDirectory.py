@@ -13,6 +13,7 @@
 # ----------------------------------------------------------- #
 
 import MemoryManager as MemoryManager
+import pprint
 
 class FunctionDirectory:
 
@@ -35,11 +36,12 @@ class FunctionDirectory:
 
      # Impresion del diccionario y directorio de funciones.
      def showDirectory(self):
-          print("\nDictionary: ")
-          print(self.functionDictionary)
-          print("\nDirectory: ")
-          for row in self.functionRow:
-               print(row)
+          print("\nFunction Dictionary: ")
+          pprint.pprint(self.functionDictionary)
+          print("\nFunction Directory: ")
+          pprint.pprint(self.functionRow)
+          print("\nMemory: ")
+          pprint.pprint(self.MemoryManager.Dictionary)
           return True
 
      #####---- Function's Methods ----#####
@@ -63,7 +65,7 @@ class FunctionDirectory:
                print("\nERROR SEMANTICA. En este programa ya existe una funcion con nombre:", nombre)
                return None
 
-     # Retorna la tupla: [nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, valor, direccion virtual]]]
+     # Retorna la tupla: [nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, direccion virtual]]]
      def getFunction(self, nombre):
           if nombre in self.functionDictionary.keys() :
                index = self.functionDictionary[nombre]
@@ -96,7 +98,6 @@ class FunctionDirectory:
                     self.functionRow[index][3].append([])
                     self.functionRow[index][3][indexVar].append(nombre)
                     self.functionRow[index][3][indexVar].append(tipo)
-                    #self.functionRow[index][3][indexVar].append(None)
                     self.functionRow[index][3][indexVar].append(self.MemoryManager.AddEntry(index, tipo, None))
                     return self.functionRow[index][3][indexVar]
                else :
@@ -114,7 +115,7 @@ class FunctionDirectory:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    self.MemoryManager.DeleteEntry(index, virDir)
+                    self.MemoryManager.DeleteEntry(virDir)
                     self.functionRow[index][3][nombre].pop(indexVar)
                     del self.functionRow[index][2][nombre]
                     return True
@@ -171,12 +172,12 @@ class FunctionDirectory:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    return self.MemoryManager.GetEntryValue(index, virDir)
+                    return self.MemoryManager.GetEntryValue(virDir)
                # Si existe en la variable en el scope global
                elif nombre in self.functionRow[0][2].keys() :
                     indexVar = self.functionRow[0][2][nombre]
                     virDir = self.functionRow[0][3][indexVar][2]
-                    return self.MemoryManager.GetEntryValue(0, virDir)
+                    return self.MemoryManager.GetEntryValue(virDir)
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
@@ -211,13 +212,13 @@ class FunctionDirectory:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    self.MemoryManager.SetEntryValue(index, virDir, valor)
+                    self.MemoryManager.SetEntryValue(virDir, valor)
                     return True
                # Si existe en la variable en el scope global
                elif nombre in self.functionRow[0][2].keys() :
                     indexVar = self.functionRow[0][2][nombre]
                     virDir = self.functionRow[0][3][indexVar][2]
-                    self.MemoryManager.SetEntryValue(0, virDir, valor)
+                    self.MemoryManager.SetEntryValue(virDir, valor)
                     return True
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
