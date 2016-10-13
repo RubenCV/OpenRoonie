@@ -7,7 +7,7 @@ function string helloWorld (string str)
 {
 	var int miint, miint2;
 	var char michar;
-	print("str");
+	print("HelloWorld");
 }
 
 function string myFunction (string str, int myInt, float myFloat)

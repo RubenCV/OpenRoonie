@@ -113,6 +113,12 @@ def p_prog(t):
     # Global Scope
     FunctionDirectory.addFunction('global', None)
     FunctionStack.push('global')
+    
+    # Temporal Scope
+    FunctionDirectory.addFunction('temp', None)
+    
+    # Constant Scope
+    FunctionDirectory.addFunction('const', None)
 
 def p_main(t):
     'main : MAIN'
@@ -219,7 +225,7 @@ def p_masid(t):
 
 def p_funcs(t):
     '''funcs : FUNCTION funcaux LPAREN args RPAREN bloque funcs
-             | empty''' 
+             | empty'''
 
 def p_funcaux(t):
     'funcaux : tipo ID'

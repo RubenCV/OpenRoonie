@@ -46,7 +46,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 parser.out
+parsetab.py
 *.out
 __pycache__/FunctionDirectory.cpython-35.pyc
 __pycache__/FunctionDirectory.cpython-35.pyc
-parsetab.py
+__pycache__/parsetab.cpython-35.pyc
