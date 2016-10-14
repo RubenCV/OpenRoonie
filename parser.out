@@ -18,156 +18,163 @@ Rule 7     masbloque -> empty
 Rule 8     ciclo -> WHILE LPAREN expresion RPAREN bloque
 Rule 9     escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON
 Rule 10    listaprint -> expresion masprint
-Rule 11    listaprint -> CTESTRING masprint
+Rule 11    listaprint -> ctestring masprint
 Rule 12    masprint -> COMMA listaprint
 Rule 13    masprint -> empty
 Rule 14    asignacion -> ID EQUALS expresion SEMICOLON
 Rule 15    asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
 Rule 16    factor -> LPAREN expresion RPAREN
 Rule 17    factor -> varcte
-Rule 18    factor -> ID
-Rule 19    exp -> termino masexp
-Rule 20    masexp -> PLUS exp
-Rule 21    masexp -> MINUS exp
-Rule 22    masexp -> empty
-Rule 23    comaexpresion -> COMMA expresion comaexpresion
-Rule 24    comaexpresion -> empty
-Rule 25    expresion -> expcomp masexpresion
-Rule 26    masexpresion -> AND expcomp
-Rule 27    masexpresion -> OR expcomp
-Rule 28    masexpresion -> empty
-Rule 29    termino -> factor masterminos
-Rule 30    masterminos -> TIMES exp
-Rule 31    masterminos -> DIVIDE exp
-Rule 32    masterminos -> empty
-Rule 33    expcomp -> exp expcompcontinuo
-Rule 34    expcompcontinuo -> MORETHAN exp
-Rule 35    expcompcontinuo -> LESSTHAN exp
-Rule 36    expcompcontinuo -> NOTEQUAL exp
-Rule 37    expcompcontinuo -> ISEQUALTO exp
-Rule 38    expcompcontinuo -> MORETHANEQUAL exp
-Rule 39    expcompcontinuo -> LESSTHANEQUAL exp
-Rule 40    expcompcontinuo -> empty
-Rule 41    estatuto -> asignacion
-Rule 42    estatuto -> condicion
-Rule 43    estatuto -> ciclo
-Rule 44    estatuto -> escritura
-Rule 45    estatuto -> vars
-Rule 46    masestatuto -> estatuto masestatuto
-Rule 47    masestatuto -> empty
-Rule 48    vars -> VAR tipo listaid SEMICOLON vars
-Rule 49    vars -> empty
-Rule 50    listaid -> ID masid
-Rule 51    masid -> COMMA listaid
-Rule 52    masid -> empty
-Rule 53    funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs
-Rule 54    funcs -> empty
-Rule 55    funcaux -> tipo ID
-Rule 56    args -> tipo ID masargs
-Rule 57    args -> empty
-Rule 58    masargs -> COMMA args
-Rule 59    masargs -> empty
-Rule 60    tipo -> INT
-Rule 61    tipo -> FLOAT
-Rule 62    tipo -> CHAR
-Rule 63    tipo -> BOOL
-Rule 64    tipo -> STRING
-Rule 65    varcte -> ID arr
-Rule 66    varcte -> CTEINT
-Rule 67    varcte -> CTEFLOAT
-Rule 68    varcte -> CTECHAR
-Rule 69    varcte -> CTESTRING
-Rule 70    varcte -> ctebool
-Rule 71    ctebool -> TRUE
-Rule 72    ctebool -> FALSE
-Rule 73    arr -> LSQBRACKET RSQBRACKET
-Rule 74    arr -> empty
-Rule 75    empty -> <empty>
+Rule 18    factor -> ID arr
+Rule 19    arr -> LSQBRACKET RSQBRACKET
+Rule 20    arr -> empty
+Rule 21    exp -> termino masexp
+Rule 22    masexp -> PLUS exp
+Rule 23    masexp -> MINUS exp
+Rule 24    masexp -> empty
+Rule 25    comaexpresion -> COMMA expresion comaexpresion
+Rule 26    comaexpresion -> empty
+Rule 27    expresion -> expcomp masexpresion
+Rule 28    masexpresion -> AND expcomp
+Rule 29    masexpresion -> OR expcomp
+Rule 30    masexpresion -> empty
+Rule 31    termino -> factor masterminos
+Rule 32    masterminos -> TIMES exp
+Rule 33    masterminos -> DIVIDE exp
+Rule 34    masterminos -> empty
+Rule 35    expcomp -> exp expcompcontinuo
+Rule 36    expcompcontinuo -> MORETHAN exp
+Rule 37    expcompcontinuo -> LESSTHAN exp
+Rule 38    expcompcontinuo -> NOTEQUAL exp
+Rule 39    expcompcontinuo -> ISEQUALTO exp
+Rule 40    expcompcontinuo -> MORETHANEQUAL exp
+Rule 41    expcompcontinuo -> LESSTHANEQUAL exp
+Rule 42    expcompcontinuo -> empty
+Rule 43    estatuto -> asignacion
+Rule 44    estatuto -> condicion
+Rule 45    estatuto -> ciclo
+Rule 46    estatuto -> escritura
+Rule 47    estatuto -> vars
+Rule 48    masestatuto -> estatuto masestatuto
+Rule 49    masestatuto -> empty
+Rule 50    vars -> VAR tipo listaid SEMICOLON vars
+Rule 51    vars -> empty
+Rule 52    listaid -> ID masid
+Rule 53    masid -> COMMA listaid
+Rule 54    masid -> empty
+Rule 55    funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs
+Rule 56    funcs -> empty
+Rule 57    funcaux -> tipo ID
+Rule 58    args -> tipo ID masargs
+Rule 59    args -> empty
+Rule 60    masargs -> COMMA args
+Rule 61    masargs -> empty
+Rule 62    tipo -> INT
+Rule 63    tipo -> FLOAT
+Rule 64    tipo -> CHAR
+Rule 65    tipo -> BOOL
+Rule 66    tipo -> STRING
+Rule 67    varcte -> cteint
+Rule 68    varcte -> ctefloat
+Rule 69    varcte -> ctechar
+Rule 70    varcte -> ctestring
+Rule 71    varcte -> ctebool
+Rule 72    cteint -> CTEINT
+Rule 73    ctefloat -> CTEFLOAT
+Rule 74    ctechar -> CTECHAR
+Rule 75    ctestring -> CTESTRING
+Rule 76    ctebool -> TRUE
+Rule 77    ctebool -> FALSE
+Rule 78    empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 26
-BOOL                 : 63
-CHAR                 : 62
-COMMA                : 12 23 51 58
-CTECHAR              : 68
-CTEFLOAT             : 67
-CTEINT               : 66
-CTESTRING            : 11 69
-DIVIDE               : 31
+AND                  : 28
+BOOL                 : 65
+CHAR                 : 64
+COMMA                : 12 25 53 60
+CTECHAR              : 74
+CTEFLOAT             : 73
+CTEINT               : 72
+CTESTRING            : 75
+DIVIDE               : 33
 ELSE                 : 6
 EQUALS               : 14 15
 EXECUTE              : 
-FALSE                : 72
-FLOAT                : 61
-FUNCTION             : 53
-ID                   : 1 14 15 18 50 55 56 65
+FALSE                : 77
+FLOAT                : 63
+FUNCTION             : 55
+ID                   : 1 14 15 18 52 57 58
 IF                   : 4
-INT                  : 60
-ISEQUALTO            : 37
+INT                  : 62
+ISEQUALTO            : 39
 LBRACKET             : 5
-LESSTHAN             : 35
-LESSTHANEQUAL        : 39
-LPAREN               : 4 8 9 16 53
-LSQBRACKET           : 15 15 73
+LESSTHAN             : 37
+LESSTHANEQUAL        : 41
+LPAREN               : 4 8 9 16 55
+LSQBRACKET           : 15 15 19
 MAIN                 : 3
-MINUS                : 21
-MORETHAN             : 34
-MORETHANEQUAL        : 38
-NOTEQUAL             : 36
-OR                   : 27
-PLUS                 : 20
+MINUS                : 23
+MORETHAN             : 36
+MORETHANEQUAL        : 40
+NOTEQUAL             : 38
+OR                   : 29
+PLUS                 : 22
 PRINT                : 9
 PROGRAM              : 2
 QUIT                 : 
 RBRACKET             : 5
-RPAREN               : 4 8 9 16 53
-RSQBRACKET           : 15 15 73
-SEMICOLON            : 1 9 14 15 48
-STRING               : 64
-TIMES                : 30
-TRUE                 : 71
-VAR                  : 48
+RPAREN               : 4 8 9 16 55
+RSQBRACKET           : 15 15 19
+SEMICOLON            : 1 9 14 15 50
+STRING               : 66
+TIMES                : 32
+TRUE                 : 76
+VAR                  : 50
 WHILE                : 8
 error                : 
 
 Nonterminals, with rules where they appear
 
-args                 : 53 58
-arr                  : 65
-asignacion           : 41
-bloque               : 1 4 6 8 53
-ciclo                : 43
-comaexpresion        : 15 23
-condicion            : 42
-ctebool              : 70
-empty                : 7 13 22 24 28 32 40 47 49 52 54 57 59 74
-escritura            : 44
-estatuto             : 46
-exp                  : 20 21 30 31 33 34 35 36 37 38 39
-expcomp              : 25 26 27
-expcompcontinuo      : 33
-expresion            : 4 8 10 14 15 16 23
-factor               : 29
-funcaux              : 53
-funcs                : 1 53
-listaid              : 48 51
+args                 : 55 60
+arr                  : 18
+asignacion           : 43
+bloque               : 1 4 6 8 55
+ciclo                : 45
+comaexpresion        : 15 25
+condicion            : 44
+ctebool              : 71
+ctechar              : 69
+ctefloat             : 68
+cteint               : 67
+ctestring            : 11 70
+empty                : 7 13 20 24 26 30 34 42 49 51 54 56 59 61
+escritura            : 46
+estatuto             : 48
+exp                  : 22 23 32 33 35 36 37 38 39 40 41
+expcomp              : 27 28 29
+expcompcontinuo      : 35
+expresion            : 4 8 10 14 15 16 25
+factor               : 31
+funcaux              : 55
+funcs                : 1 55
+listaid              : 50 53
 listaprint           : 9 12
 main                 : 1
-masargs              : 56
+masargs              : 58
 masbloque            : 4
-masestatuto          : 5 46
-masexp               : 19
-masexpresion         : 25
-masid                : 50
+masestatuto          : 5 48
+masexp               : 21
+masexpresion         : 27
+masid                : 52
 masprint             : 10 11
-masterminos          : 29
+masterminos          : 31
 prog                 : 1
 programa             : 0
-termino              : 19
-tipo                 : 48 55 56
+termino              : 21
+tipo                 : 50 57 58
 varcte               : 17
-vars                 : 1 45 48
+vars                 : 1 47 50
 
 Parsing method: LALR
 
@@ -177,29 +184,29 @@ state 0
     (1) programa -> . prog ID SEMICOLON vars funcs main bloque
     (2) prog -> . PROGRAM
 
-    PROGRAM         shift and go to state 3
+    PROGRAM         shift and go to state 1
 
-    prog                           shift and go to state 1
-    programa                       shift and go to state 2
+    prog                           shift and go to state 2
+    programa                       shift and go to state 3
 
 state 1
+
+    (2) prog -> PROGRAM .
+
+    ID              reduce using rule 2 (prog -> PROGRAM .)
+
+
+state 2
 
     (1) programa -> prog . ID SEMICOLON vars funcs main bloque
 
     ID              shift and go to state 4
 
 
-state 2
+state 3
 
     (0) S' -> programa .
 
-
-
-state 3
-
-    (2) prog -> PROGRAM .
-
-    ID              reduce using rule 2 (prog -> PROGRAM .)
 
 
 state 4
@@ -212,660 +219,724 @@ state 4
 state 5
 
     (1) programa -> prog ID SEMICOLON . vars funcs main bloque
-    (48) vars -> . VAR tipo listaid SEMICOLON vars
-    (49) vars -> . empty
-    (75) empty -> .
+    (50) vars -> . VAR tipo listaid SEMICOLON vars
+    (51) vars -> . empty
+    (78) empty -> .
 
-    VAR             shift and go to state 6
-    FUNCTION        reduce using rule 75 (empty -> .)
-    MAIN            reduce using rule 75 (empty -> .)
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 78 (empty -> .)
+    MAIN            reduce using rule 78 (empty -> .)
 
-    vars                           shift and go to state 7
+    vars                           shift and go to state 6
     empty                          shift and go to state 8
 
 state 6
 
-    (48) vars -> VAR . tipo listaid SEMICOLON vars
-    (60) tipo -> . INT
-    (61) tipo -> . FLOAT
-    (62) tipo -> . CHAR
-    (63) tipo -> . BOOL
-    (64) tipo -> . STRING
+    (1) programa -> prog ID SEMICOLON vars . funcs main bloque
+    (55) funcs -> . FUNCTION funcaux LPAREN args RPAREN bloque funcs
+    (56) funcs -> . empty
+    (78) empty -> .
 
-    INT             shift and go to state 13
-    FLOAT           shift and go to state 14
-    CHAR            shift and go to state 11
-    BOOL            shift and go to state 10
-    STRING          shift and go to state 9
+    FUNCTION        shift and go to state 9
+    MAIN            reduce using rule 78 (empty -> .)
 
-    tipo                           shift and go to state 12
+    funcs                          shift and go to state 10
+    empty                          shift and go to state 11
 
 state 7
 
-    (1) programa -> prog ID SEMICOLON vars . funcs main bloque
-    (53) funcs -> . FUNCTION funcaux LPAREN args RPAREN bloque funcs
-    (54) funcs -> . empty
-    (75) empty -> .
+    (50) vars -> VAR . tipo listaid SEMICOLON vars
+    (62) tipo -> . INT
+    (63) tipo -> . FLOAT
+    (64) tipo -> . CHAR
+    (65) tipo -> . BOOL
+    (66) tipo -> . STRING
 
-    FUNCTION        shift and go to state 15
-    MAIN            reduce using rule 75 (empty -> .)
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    CHAR            shift and go to state 15
+    BOOL            shift and go to state 13
+    STRING          shift and go to state 12
 
-    empty                          shift and go to state 16
-    funcs                          shift and go to state 17
+    tipo                           shift and go to state 14
 
 state 8
 
-    (49) vars -> empty .
+    (51) vars -> empty .
 
-    FUNCTION        reduce using rule 49 (vars -> empty .)
-    MAIN            reduce using rule 49 (vars -> empty .)
-    ID              reduce using rule 49 (vars -> empty .)
-    IF              reduce using rule 49 (vars -> empty .)
-    WHILE           reduce using rule 49 (vars -> empty .)
-    PRINT           reduce using rule 49 (vars -> empty .)
-    VAR             reduce using rule 49 (vars -> empty .)
-    RBRACKET        reduce using rule 49 (vars -> empty .)
+    FUNCTION        reduce using rule 51 (vars -> empty .)
+    MAIN            reduce using rule 51 (vars -> empty .)
+    ID              reduce using rule 51 (vars -> empty .)
+    IF              reduce using rule 51 (vars -> empty .)
+    WHILE           reduce using rule 51 (vars -> empty .)
+    PRINT           reduce using rule 51 (vars -> empty .)
+    VAR             reduce using rule 51 (vars -> empty .)
+    RBRACKET        reduce using rule 51 (vars -> empty .)
 
 
 state 9
 
-    (64) tipo -> STRING .
+    (55) funcs -> FUNCTION . funcaux LPAREN args RPAREN bloque funcs
+    (57) funcaux -> . tipo ID
+    (62) tipo -> . INT
+    (63) tipo -> . FLOAT
+    (64) tipo -> . CHAR
+    (65) tipo -> . BOOL
+    (66) tipo -> . STRING
 
-    ID              reduce using rule 64 (tipo -> STRING .)
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    CHAR            shift and go to state 15
+    BOOL            shift and go to state 13
+    STRING          shift and go to state 12
 
+    tipo                           shift and go to state 18
+    funcaux                        shift and go to state 19
 
 state 10
-
-    (63) tipo -> BOOL .
-
-    ID              reduce using rule 63 (tipo -> BOOL .)
-
-
-state 11
-
-    (62) tipo -> CHAR .
-
-    ID              reduce using rule 62 (tipo -> CHAR .)
-
-
-state 12
-
-    (48) vars -> VAR tipo . listaid SEMICOLON vars
-    (50) listaid -> . ID masid
-
-    ID              shift and go to state 19
-
-    listaid                        shift and go to state 18
-
-state 13
-
-    (60) tipo -> INT .
-
-    ID              reduce using rule 60 (tipo -> INT .)
-
-
-state 14
-
-    (61) tipo -> FLOAT .
-
-    ID              reduce using rule 61 (tipo -> FLOAT .)
-
-
-state 15
-
-    (53) funcs -> FUNCTION . funcaux LPAREN args RPAREN bloque funcs
-    (55) funcaux -> . tipo ID
-    (60) tipo -> . INT
-    (61) tipo -> . FLOAT
-    (62) tipo -> . CHAR
-    (63) tipo -> . BOOL
-    (64) tipo -> . STRING
-
-    INT             shift and go to state 13
-    FLOAT           shift and go to state 14
-    CHAR            shift and go to state 11
-    BOOL            shift and go to state 10
-    STRING          shift and go to state 9
-
-    funcaux                        shift and go to state 21
-    tipo                           shift and go to state 20
-
-state 16
-
-    (54) funcs -> empty .
-
-    MAIN            reduce using rule 54 (funcs -> empty .)
-
-
-state 17
 
     (1) programa -> prog ID SEMICOLON vars funcs . main bloque
     (3) main -> . MAIN
 
-    MAIN            shift and go to state 23
+    MAIN            shift and go to state 20
 
-    main                           shift and go to state 22
+    main                           shift and go to state 21
+
+state 11
+
+    (56) funcs -> empty .
+
+    MAIN            reduce using rule 56 (funcs -> empty .)
+
+
+state 12
+
+    (66) tipo -> STRING .
+
+    ID              reduce using rule 66 (tipo -> STRING .)
+
+
+state 13
+
+    (65) tipo -> BOOL .
+
+    ID              reduce using rule 65 (tipo -> BOOL .)
+
+
+state 14
+
+    (50) vars -> VAR tipo . listaid SEMICOLON vars
+    (52) listaid -> . ID masid
+
+    ID              shift and go to state 23
+
+    listaid                        shift and go to state 22
+
+state 15
+
+    (64) tipo -> CHAR .
+
+    ID              reduce using rule 64 (tipo -> CHAR .)
+
+
+state 16
+
+    (62) tipo -> INT .
+
+    ID              reduce using rule 62 (tipo -> INT .)
+
+
+state 17
+
+    (63) tipo -> FLOAT .
+
+    ID              reduce using rule 63 (tipo -> FLOAT .)
+
 
 state 18
 
-    (48) vars -> VAR tipo listaid . SEMICOLON vars
+    (57) funcaux -> tipo . ID
 
-    SEMICOLON       shift and go to state 24
+    ID              shift and go to state 24
 
 
 state 19
 
-    (50) listaid -> ID . masid
-    (51) masid -> . COMMA listaid
-    (52) masid -> . empty
-    (75) empty -> .
+    (55) funcs -> FUNCTION funcaux . LPAREN args RPAREN bloque funcs
 
-    COMMA           shift and go to state 26
-    SEMICOLON       reduce using rule 75 (empty -> .)
+    LPAREN          shift and go to state 25
 
-    empty                          shift and go to state 25
-    masid                          shift and go to state 27
 
 state 20
-
-    (55) funcaux -> tipo . ID
-
-    ID              shift and go to state 28
-
-
-state 21
-
-    (53) funcs -> FUNCTION funcaux . LPAREN args RPAREN bloque funcs
-
-    LPAREN          shift and go to state 29
-
-
-state 22
-
-    (1) programa -> prog ID SEMICOLON vars funcs main . bloque
-    (5) bloque -> . LBRACKET masestatuto RBRACKET
-
-    LBRACKET        shift and go to state 31
-
-    bloque                         shift and go to state 30
-
-state 23
 
     (3) main -> MAIN .
 
     LBRACKET        reduce using rule 3 (main -> MAIN .)
 
 
+state 21
+
+    (1) programa -> prog ID SEMICOLON vars funcs main . bloque
+    (5) bloque -> . LBRACKET masestatuto RBRACKET
+
+    LBRACKET        shift and go to state 26
+
+    bloque                         shift and go to state 27
+
+state 22
+
+    (50) vars -> VAR tipo listaid . SEMICOLON vars
+
+    SEMICOLON       shift and go to state 28
+
+
+state 23
+
+    (52) listaid -> ID . masid
+    (53) masid -> . COMMA listaid
+    (54) masid -> . empty
+    (78) empty -> .
+
+    COMMA           shift and go to state 30
+    SEMICOLON       reduce using rule 78 (empty -> .)
+
+    masid                          shift and go to state 29
+    empty                          shift and go to state 31
+
 state 24
 
-    (48) vars -> VAR tipo listaid SEMICOLON . vars
-    (48) vars -> . VAR tipo listaid SEMICOLON vars
-    (49) vars -> . empty
-    (75) empty -> .
+    (57) funcaux -> tipo ID .
 
-  ! shift/reduce conflict for VAR resolved as shift
-    VAR             shift and go to state 6
-    FUNCTION        reduce using rule 75 (empty -> .)
-    MAIN            reduce using rule 75 (empty -> .)
-    ID              reduce using rule 75 (empty -> .)
-    IF              reduce using rule 75 (empty -> .)
-    WHILE           reduce using rule 75 (empty -> .)
-    PRINT           reduce using rule 75 (empty -> .)
-    RBRACKET        reduce using rule 75 (empty -> .)
+    LPAREN          reduce using rule 57 (funcaux -> tipo ID .)
 
-  ! VAR             [ reduce using rule 75 (empty -> .) ]
-
-    vars                           shift and go to state 32
-    empty                          shift and go to state 8
 
 state 25
 
-    (52) masid -> empty .
+    (55) funcs -> FUNCTION funcaux LPAREN . args RPAREN bloque funcs
+    (58) args -> . tipo ID masargs
+    (59) args -> . empty
+    (62) tipo -> . INT
+    (63) tipo -> . FLOAT
+    (64) tipo -> . CHAR
+    (65) tipo -> . BOOL
+    (66) tipo -> . STRING
+    (78) empty -> .
 
-    SEMICOLON       reduce using rule 52 (masid -> empty .)
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    CHAR            shift and go to state 15
+    BOOL            shift and go to state 13
+    STRING          shift and go to state 12
+    RPAREN          reduce using rule 78 (empty -> .)
 
+    args                           shift and go to state 32
+    tipo                           shift and go to state 34
+    empty                          shift and go to state 33
 
 state 26
 
-    (51) masid -> COMMA . listaid
-    (50) listaid -> . ID masid
+    (5) bloque -> LBRACKET . masestatuto RBRACKET
+    (48) masestatuto -> . estatuto masestatuto
+    (49) masestatuto -> . empty
+    (43) estatuto -> . asignacion
+    (44) estatuto -> . condicion
+    (45) estatuto -> . ciclo
+    (46) estatuto -> . escritura
+    (47) estatuto -> . vars
+    (78) empty -> .
+    (14) asignacion -> . ID EQUALS expresion SEMICOLON
+    (15) asignacion -> . ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+    (4) condicion -> . IF LPAREN expresion RPAREN bloque masbloque
+    (8) ciclo -> . WHILE LPAREN expresion RPAREN bloque
+    (9) escritura -> . PRINT LPAREN listaprint RPAREN SEMICOLON
+    (50) vars -> . VAR tipo listaid SEMICOLON vars
+    (51) vars -> . empty
 
-    ID              shift and go to state 19
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for VAR resolved as shift
+    RBRACKET        reduce using rule 78 (empty -> .)
+    ID              shift and go to state 41
+    IF              shift and go to state 38
+    WHILE           shift and go to state 35
+    PRINT           shift and go to state 40
+    VAR             shift and go to state 7
 
-    listaid                        shift and go to state 33
+  ! ID              [ reduce using rule 78 (empty -> .) ]
+  ! IF              [ reduce using rule 78 (empty -> .) ]
+  ! WHILE           [ reduce using rule 78 (empty -> .) ]
+  ! PRINT           [ reduce using rule 78 (empty -> .) ]
+  ! VAR             [ reduce using rule 78 (empty -> .) ]
+
+    condicion                      shift and go to state 42
+    escritura                      shift and go to state 37
+    estatuto                       shift and go to state 46
+    empty                          shift and go to state 44
+    masestatuto                    shift and go to state 45
+    ciclo                          shift and go to state 36
+    asignacion                     shift and go to state 43
+    vars                           shift and go to state 39
 
 state 27
-
-    (50) listaid -> ID masid .
-
-    SEMICOLON       reduce using rule 50 (listaid -> ID masid .)
-
-
-state 28
-
-    (55) funcaux -> tipo ID .
-
-    LPAREN          reduce using rule 55 (funcaux -> tipo ID .)
-
-
-state 29
-
-    (53) funcs -> FUNCTION funcaux LPAREN . args RPAREN bloque funcs
-    (56) args -> . tipo ID masargs
-    (57) args -> . empty
-    (60) tipo -> . INT
-    (61) tipo -> . FLOAT
-    (62) tipo -> . CHAR
-    (63) tipo -> . BOOL
-    (64) tipo -> . STRING
-    (75) empty -> .
-
-    INT             shift and go to state 13
-    FLOAT           shift and go to state 14
-    CHAR            shift and go to state 11
-    BOOL            shift and go to state 10
-    STRING          shift and go to state 9
-    RPAREN          reduce using rule 75 (empty -> .)
-
-    args                           shift and go to state 34
-    empty                          shift and go to state 36
-    tipo                           shift and go to state 35
-
-state 30
 
     (1) programa -> prog ID SEMICOLON vars funcs main bloque .
 
     $end            reduce using rule 1 (programa -> prog ID SEMICOLON vars funcs main bloque .)
 
 
+state 28
+
+    (50) vars -> VAR tipo listaid SEMICOLON . vars
+    (50) vars -> . VAR tipo listaid SEMICOLON vars
+    (51) vars -> . empty
+    (78) empty -> .
+
+  ! shift/reduce conflict for VAR resolved as shift
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 78 (empty -> .)
+    MAIN            reduce using rule 78 (empty -> .)
+    ID              reduce using rule 78 (empty -> .)
+    IF              reduce using rule 78 (empty -> .)
+    WHILE           reduce using rule 78 (empty -> .)
+    PRINT           reduce using rule 78 (empty -> .)
+    RBRACKET        reduce using rule 78 (empty -> .)
+
+  ! VAR             [ reduce using rule 78 (empty -> .) ]
+
+    vars                           shift and go to state 47
+    empty                          shift and go to state 8
+
+state 29
+
+    (52) listaid -> ID masid .
+
+    SEMICOLON       reduce using rule 52 (listaid -> ID masid .)
+
+
+state 30
+
+    (53) masid -> COMMA . listaid
+    (52) listaid -> . ID masid
+
+    ID              shift and go to state 23
+
+    listaid                        shift and go to state 48
+
 state 31
 
-    (5) bloque -> LBRACKET . masestatuto RBRACKET
-    (46) masestatuto -> . estatuto masestatuto
-    (47) masestatuto -> . empty
-    (41) estatuto -> . asignacion
-    (42) estatuto -> . condicion
-    (43) estatuto -> . ciclo
-    (44) estatuto -> . escritura
-    (45) estatuto -> . vars
-    (75) empty -> .
-    (14) asignacion -> . ID EQUALS expresion SEMICOLON
-    (15) asignacion -> . ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
-    (4) condicion -> . IF LPAREN expresion RPAREN bloque masbloque
-    (8) ciclo -> . WHILE LPAREN expresion RPAREN bloque
-    (9) escritura -> . PRINT LPAREN listaprint RPAREN SEMICOLON
-    (48) vars -> . VAR tipo listaid SEMICOLON vars
-    (49) vars -> . empty
+    (54) masid -> empty .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for VAR resolved as shift
-    RBRACKET        reduce using rule 75 (empty -> .)
-    ID              shift and go to state 48
-    IF              shift and go to state 40
-    WHILE           shift and go to state 43
-    PRINT           shift and go to state 38
-    VAR             shift and go to state 6
+    SEMICOLON       reduce using rule 54 (masid -> empty .)
 
-  ! ID              [ reduce using rule 75 (empty -> .) ]
-  ! IF              [ reduce using rule 75 (empty -> .) ]
-  ! WHILE           [ reduce using rule 75 (empty -> .) ]
-  ! PRINT           [ reduce using rule 75 (empty -> .) ]
-  ! VAR             [ reduce using rule 75 (empty -> .) ]
-
-    ciclo                          shift and go to state 37
-    masestatuto                    shift and go to state 45
-    vars                           shift and go to state 39
-    estatuto                       shift and go to state 41
-    escritura                      shift and go to state 46
-    condicion                      shift and go to state 42
-    asignacion                     shift and go to state 47
-    empty                          shift and go to state 44
 
 state 32
 
-    (48) vars -> VAR tipo listaid SEMICOLON vars .
-
-    FUNCTION        reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    MAIN            reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    ID              reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    IF              reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    WHILE           reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    PRINT           reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    VAR             reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-    RBRACKET        reduce using rule 48 (vars -> VAR tipo listaid SEMICOLON vars .)
-
-
-state 33
-
-    (51) masid -> COMMA listaid .
-
-    SEMICOLON       reduce using rule 51 (masid -> COMMA listaid .)
-
-
-state 34
-
-    (53) funcs -> FUNCTION funcaux LPAREN args . RPAREN bloque funcs
+    (55) funcs -> FUNCTION funcaux LPAREN args . RPAREN bloque funcs
 
     RPAREN          shift and go to state 49
 
 
-state 35
+state 33
 
-    (56) args -> tipo . ID masargs
+    (59) args -> empty .
+
+    RPAREN          reduce using rule 59 (args -> empty .)
+
+
+state 34
+
+    (58) args -> tipo . ID masargs
 
     ID              shift and go to state 50
 
 
-state 36
+state 35
 
-    (57) args -> empty .
-
-    RPAREN          reduce using rule 57 (args -> empty .)
-
-
-state 37
-
-    (43) estatuto -> ciclo .
-
-    ID              reduce using rule 43 (estatuto -> ciclo .)
-    IF              reduce using rule 43 (estatuto -> ciclo .)
-    WHILE           reduce using rule 43 (estatuto -> ciclo .)
-    PRINT           reduce using rule 43 (estatuto -> ciclo .)
-    VAR             reduce using rule 43 (estatuto -> ciclo .)
-    RBRACKET        reduce using rule 43 (estatuto -> ciclo .)
-
-
-state 38
-
-    (9) escritura -> PRINT . LPAREN listaprint RPAREN SEMICOLON
+    (8) ciclo -> WHILE . LPAREN expresion RPAREN bloque
 
     LPAREN          shift and go to state 51
 
 
-state 39
+state 36
 
-    (45) estatuto -> vars .
+    (45) estatuto -> ciclo .
 
-    ID              reduce using rule 45 (estatuto -> vars .)
-    IF              reduce using rule 45 (estatuto -> vars .)
-    WHILE           reduce using rule 45 (estatuto -> vars .)
-    PRINT           reduce using rule 45 (estatuto -> vars .)
-    VAR             reduce using rule 45 (estatuto -> vars .)
-    RBRACKET        reduce using rule 45 (estatuto -> vars .)
+    ID              reduce using rule 45 (estatuto -> ciclo .)
+    IF              reduce using rule 45 (estatuto -> ciclo .)
+    WHILE           reduce using rule 45 (estatuto -> ciclo .)
+    PRINT           reduce using rule 45 (estatuto -> ciclo .)
+    VAR             reduce using rule 45 (estatuto -> ciclo .)
+    RBRACKET        reduce using rule 45 (estatuto -> ciclo .)
 
 
-state 40
+state 37
+
+    (46) estatuto -> escritura .
+
+    ID              reduce using rule 46 (estatuto -> escritura .)
+    IF              reduce using rule 46 (estatuto -> escritura .)
+    WHILE           reduce using rule 46 (estatuto -> escritura .)
+    PRINT           reduce using rule 46 (estatuto -> escritura .)
+    VAR             reduce using rule 46 (estatuto -> escritura .)
+    RBRACKET        reduce using rule 46 (estatuto -> escritura .)
+
+
+state 38
 
     (4) condicion -> IF . LPAREN expresion RPAREN bloque masbloque
 
     LPAREN          shift and go to state 52
 
 
+state 39
+
+    (47) estatuto -> vars .
+
+    ID              reduce using rule 47 (estatuto -> vars .)
+    IF              reduce using rule 47 (estatuto -> vars .)
+    WHILE           reduce using rule 47 (estatuto -> vars .)
+    PRINT           reduce using rule 47 (estatuto -> vars .)
+    VAR             reduce using rule 47 (estatuto -> vars .)
+    RBRACKET        reduce using rule 47 (estatuto -> vars .)
+
+
+state 40
+
+    (9) escritura -> PRINT . LPAREN listaprint RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 53
+
+
 state 41
 
-    (46) masestatuto -> estatuto . masestatuto
-    (46) masestatuto -> . estatuto masestatuto
-    (47) masestatuto -> . empty
-    (41) estatuto -> . asignacion
-    (42) estatuto -> . condicion
-    (43) estatuto -> . ciclo
-    (44) estatuto -> . escritura
-    (45) estatuto -> . vars
-    (75) empty -> .
-    (14) asignacion -> . ID EQUALS expresion SEMICOLON
-    (15) asignacion -> . ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
-    (4) condicion -> . IF LPAREN expresion RPAREN bloque masbloque
-    (8) ciclo -> . WHILE LPAREN expresion RPAREN bloque
-    (9) escritura -> . PRINT LPAREN listaprint RPAREN SEMICOLON
-    (48) vars -> . VAR tipo listaid SEMICOLON vars
-    (49) vars -> . empty
+    (14) asignacion -> ID . EQUALS expresion SEMICOLON
+    (15) asignacion -> ID . LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for VAR resolved as shift
-    RBRACKET        reduce using rule 75 (empty -> .)
-    ID              shift and go to state 48
-    IF              shift and go to state 40
-    WHILE           shift and go to state 43
-    PRINT           shift and go to state 38
-    VAR             shift and go to state 6
+    EQUALS          shift and go to state 54
+    LSQBRACKET      shift and go to state 55
 
-  ! ID              [ reduce using rule 75 (empty -> .) ]
-  ! IF              [ reduce using rule 75 (empty -> .) ]
-  ! WHILE           [ reduce using rule 75 (empty -> .) ]
-  ! PRINT           [ reduce using rule 75 (empty -> .) ]
-  ! VAR             [ reduce using rule 75 (empty -> .) ]
-
-    ciclo                          shift and go to state 37
-    masestatuto                    shift and go to state 53
-    vars                           shift and go to state 39
-    estatuto                       shift and go to state 41
-    escritura                      shift and go to state 46
-    condicion                      shift and go to state 42
-    asignacion                     shift and go to state 47
-    empty                          shift and go to state 44
 
 state 42
 
-    (42) estatuto -> condicion .
+    (44) estatuto -> condicion .
 
-    ID              reduce using rule 42 (estatuto -> condicion .)
-    IF              reduce using rule 42 (estatuto -> condicion .)
-    WHILE           reduce using rule 42 (estatuto -> condicion .)
-    PRINT           reduce using rule 42 (estatuto -> condicion .)
-    VAR             reduce using rule 42 (estatuto -> condicion .)
-    RBRACKET        reduce using rule 42 (estatuto -> condicion .)
+    ID              reduce using rule 44 (estatuto -> condicion .)
+    IF              reduce using rule 44 (estatuto -> condicion .)
+    WHILE           reduce using rule 44 (estatuto -> condicion .)
+    PRINT           reduce using rule 44 (estatuto -> condicion .)
+    VAR             reduce using rule 44 (estatuto -> condicion .)
+    RBRACKET        reduce using rule 44 (estatuto -> condicion .)
 
 
 state 43
 
-    (8) ciclo -> WHILE . LPAREN expresion RPAREN bloque
+    (43) estatuto -> asignacion .
 
-    LPAREN          shift and go to state 54
+    ID              reduce using rule 43 (estatuto -> asignacion .)
+    IF              reduce using rule 43 (estatuto -> asignacion .)
+    WHILE           reduce using rule 43 (estatuto -> asignacion .)
+    PRINT           reduce using rule 43 (estatuto -> asignacion .)
+    VAR             reduce using rule 43 (estatuto -> asignacion .)
+    RBRACKET        reduce using rule 43 (estatuto -> asignacion .)
 
 
 state 44
 
-    (47) masestatuto -> empty .
-    (49) vars -> empty .
+    (49) masestatuto -> empty .
+    (51) vars -> empty .
 
-  ! reduce/reduce conflict for RBRACKET resolved using rule 47 (masestatuto -> empty .)
-    RBRACKET        reduce using rule 47 (masestatuto -> empty .)
-    ID              reduce using rule 49 (vars -> empty .)
-    IF              reduce using rule 49 (vars -> empty .)
-    WHILE           reduce using rule 49 (vars -> empty .)
-    PRINT           reduce using rule 49 (vars -> empty .)
-    VAR             reduce using rule 49 (vars -> empty .)
+  ! reduce/reduce conflict for RBRACKET resolved using rule 49 (masestatuto -> empty .)
+    RBRACKET        reduce using rule 49 (masestatuto -> empty .)
+    ID              reduce using rule 51 (vars -> empty .)
+    IF              reduce using rule 51 (vars -> empty .)
+    WHILE           reduce using rule 51 (vars -> empty .)
+    PRINT           reduce using rule 51 (vars -> empty .)
+    VAR             reduce using rule 51 (vars -> empty .)
 
-  ! RBRACKET        [ reduce using rule 49 (vars -> empty .) ]
+  ! RBRACKET        [ reduce using rule 51 (vars -> empty .) ]
 
 
 state 45
 
     (5) bloque -> LBRACKET masestatuto . RBRACKET
 
-    RBRACKET        shift and go to state 55
+    RBRACKET        shift and go to state 56
 
 
 state 46
 
-    (44) estatuto -> escritura .
+    (48) masestatuto -> estatuto . masestatuto
+    (48) masestatuto -> . estatuto masestatuto
+    (49) masestatuto -> . empty
+    (43) estatuto -> . asignacion
+    (44) estatuto -> . condicion
+    (45) estatuto -> . ciclo
+    (46) estatuto -> . escritura
+    (47) estatuto -> . vars
+    (78) empty -> .
+    (14) asignacion -> . ID EQUALS expresion SEMICOLON
+    (15) asignacion -> . ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+    (4) condicion -> . IF LPAREN expresion RPAREN bloque masbloque
+    (8) ciclo -> . WHILE LPAREN expresion RPAREN bloque
+    (9) escritura -> . PRINT LPAREN listaprint RPAREN SEMICOLON
+    (50) vars -> . VAR tipo listaid SEMICOLON vars
+    (51) vars -> . empty
 
-    ID              reduce using rule 44 (estatuto -> escritura .)
-    IF              reduce using rule 44 (estatuto -> escritura .)
-    WHILE           reduce using rule 44 (estatuto -> escritura .)
-    PRINT           reduce using rule 44 (estatuto -> escritura .)
-    VAR             reduce using rule 44 (estatuto -> escritura .)
-    RBRACKET        reduce using rule 44 (estatuto -> escritura .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for VAR resolved as shift
+    RBRACKET        reduce using rule 78 (empty -> .)
+    ID              shift and go to state 41
+    IF              shift and go to state 38
+    WHILE           shift and go to state 35
+    PRINT           shift and go to state 40
+    VAR             shift and go to state 7
 
+  ! ID              [ reduce using rule 78 (empty -> .) ]
+  ! IF              [ reduce using rule 78 (empty -> .) ]
+  ! WHILE           [ reduce using rule 78 (empty -> .) ]
+  ! PRINT           [ reduce using rule 78 (empty -> .) ]
+  ! VAR             [ reduce using rule 78 (empty -> .) ]
+
+    condicion                      shift and go to state 42
+    escritura                      shift and go to state 37
+    estatuto                       shift and go to state 46
+    empty                          shift and go to state 44
+    masestatuto                    shift and go to state 57
+    ciclo                          shift and go to state 36
+    asignacion                     shift and go to state 43
+    vars                           shift and go to state 39
 
 state 47
 
-    (41) estatuto -> asignacion .
+    (50) vars -> VAR tipo listaid SEMICOLON vars .
 
-    ID              reduce using rule 41 (estatuto -> asignacion .)
-    IF              reduce using rule 41 (estatuto -> asignacion .)
-    WHILE           reduce using rule 41 (estatuto -> asignacion .)
-    PRINT           reduce using rule 41 (estatuto -> asignacion .)
-    VAR             reduce using rule 41 (estatuto -> asignacion .)
-    RBRACKET        reduce using rule 41 (estatuto -> asignacion .)
+    FUNCTION        reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    MAIN            reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    ID              reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    IF              reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    WHILE           reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    PRINT           reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    VAR             reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
+    RBRACKET        reduce using rule 50 (vars -> VAR tipo listaid SEMICOLON vars .)
 
 
 state 48
 
-    (14) asignacion -> ID . EQUALS expresion SEMICOLON
-    (15) asignacion -> ID . LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+    (53) masid -> COMMA listaid .
 
-    EQUALS          shift and go to state 57
-    LSQBRACKET      shift and go to state 56
+    SEMICOLON       reduce using rule 53 (masid -> COMMA listaid .)
 
 
 state 49
 
-    (53) funcs -> FUNCTION funcaux LPAREN args RPAREN . bloque funcs
+    (55) funcs -> FUNCTION funcaux LPAREN args RPAREN . bloque funcs
     (5) bloque -> . LBRACKET masestatuto RBRACKET
 
-    LBRACKET        shift and go to state 31
+    LBRACKET        shift and go to state 26
 
     bloque                         shift and go to state 58
 
 state 50
 
-    (56) args -> tipo ID . masargs
-    (58) masargs -> . COMMA args
-    (59) masargs -> . empty
-    (75) empty -> .
+    (58) args -> tipo ID . masargs
+    (60) masargs -> . COMMA args
+    (61) masargs -> . empty
+    (78) empty -> .
 
     COMMA           shift and go to state 60
-    RPAREN          reduce using rule 75 (empty -> .)
+    RPAREN          reduce using rule 78 (empty -> .)
 
-    empty                          shift and go to state 61
     masargs                        shift and go to state 59
+    empty                          shift and go to state 61
 
 state 51
 
-    (9) escritura -> PRINT LPAREN . listaprint RPAREN SEMICOLON
-    (10) listaprint -> . expresion masprint
-    (11) listaprint -> . CTESTRING masprint
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (8) ciclo -> WHILE LPAREN . expresion RPAREN bloque
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    CTESTRING       shift and go to state 64
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    ctebool                        shift and go to state 62
-    expcomp                        shift and go to state 70
-    varcte                         shift and go to state 76
-    factor                         shift and go to state 72
-    exp                            shift and go to state 63
-    listaprint                     shift and go to state 74
-    termino                        shift and go to state 65
-    expresion                      shift and go to state 68
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 71
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    ctestring                      shift and go to state 78
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 52
 
     (4) condicion -> IF LPAREN . expresion RPAREN bloque masbloque
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    expcomp                        shift and go to state 70
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    expresion                      shift and go to state 79
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 81
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    ctestring                      shift and go to state 78
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 53
 
-    (46) masestatuto -> estatuto masestatuto .
+    (9) escritura -> PRINT LPAREN . listaprint RPAREN SEMICOLON
+    (10) listaprint -> . expresion masprint
+    (11) listaprint -> . ctestring masprint
+    (27) expresion -> . expcomp masexpresion
+    (75) ctestring -> . CTESTRING
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    RBRACKET        reduce using rule 46 (masestatuto -> estatuto masestatuto .)
+    CTESTRING       shift and go to state 69
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 82
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    listaprint                     shift and go to state 83
+    ctestring                      shift and go to state 84
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 54
 
-    (8) ciclo -> WHILE LPAREN . expresion RPAREN bloque
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (14) asignacion -> ID EQUALS . expresion SEMICOLON
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    expcomp                        shift and go to state 70
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    expresion                      shift and go to state 80
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 85
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 55
+
+    (15) asignacion -> ID LSQBRACKET . RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+
+    RSQBRACKET      shift and go to state 86
+
+
+state 56
 
     (5) bloque -> LBRACKET masestatuto RBRACKET .
 
@@ -875,468 +946,164 @@ state 55
     PRINT           reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
     VAR             reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
     RBRACKET        reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
+    $end            reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
+    ELSE            reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
     FUNCTION        reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
     MAIN            reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
-    ELSE            reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
-    $end            reduce using rule 5 (bloque -> LBRACKET masestatuto RBRACKET .)
-
-
-state 56
-
-    (15) asignacion -> ID LSQBRACKET . RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
-
-    RSQBRACKET      shift and go to state 81
 
 
 state 57
 
-    (14) asignacion -> ID EQUALS . expresion SEMICOLON
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (48) masestatuto -> estatuto masestatuto .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    RBRACKET        reduce using rule 48 (masestatuto -> estatuto masestatuto .)
 
-    expcomp                        shift and go to state 70
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    expresion                      shift and go to state 82
 
 state 58
 
-    (53) funcs -> FUNCTION funcaux LPAREN args RPAREN bloque . funcs
-    (53) funcs -> . FUNCTION funcaux LPAREN args RPAREN bloque funcs
-    (54) funcs -> . empty
-    (75) empty -> .
+    (55) funcs -> FUNCTION funcaux LPAREN args RPAREN bloque . funcs
+    (55) funcs -> . FUNCTION funcaux LPAREN args RPAREN bloque funcs
+    (56) funcs -> . empty
+    (78) empty -> .
 
-    FUNCTION        shift and go to state 15
-    MAIN            reduce using rule 75 (empty -> .)
+    FUNCTION        shift and go to state 9
+    MAIN            reduce using rule 78 (empty -> .)
 
-    empty                          shift and go to state 16
-    funcs                          shift and go to state 83
+    funcs                          shift and go to state 87
+    empty                          shift and go to state 11
 
 state 59
 
-    (56) args -> tipo ID masargs .
+    (58) args -> tipo ID masargs .
 
-    RPAREN          reduce using rule 56 (args -> tipo ID masargs .)
+    RPAREN          reduce using rule 58 (args -> tipo ID masargs .)
 
 
 state 60
 
-    (58) masargs -> COMMA . args
-    (56) args -> . tipo ID masargs
-    (57) args -> . empty
-    (60) tipo -> . INT
-    (61) tipo -> . FLOAT
-    (62) tipo -> . CHAR
-    (63) tipo -> . BOOL
-    (64) tipo -> . STRING
-    (75) empty -> .
+    (60) masargs -> COMMA . args
+    (58) args -> . tipo ID masargs
+    (59) args -> . empty
+    (62) tipo -> . INT
+    (63) tipo -> . FLOAT
+    (64) tipo -> . CHAR
+    (65) tipo -> . BOOL
+    (66) tipo -> . STRING
+    (78) empty -> .
 
-    INT             shift and go to state 13
-    FLOAT           shift and go to state 14
-    CHAR            shift and go to state 11
-    BOOL            shift and go to state 10
-    STRING          shift and go to state 9
-    RPAREN          reduce using rule 75 (empty -> .)
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    CHAR            shift and go to state 15
+    BOOL            shift and go to state 13
+    STRING          shift and go to state 12
+    RPAREN          reduce using rule 78 (empty -> .)
 
-    args                           shift and go to state 84
-    empty                          shift and go to state 36
-    tipo                           shift and go to state 35
+    tipo                           shift and go to state 34
+    args                           shift and go to state 88
+    empty                          shift and go to state 33
 
 state 61
 
-    (59) masargs -> empty .
+    (61) masargs -> empty .
 
-    RPAREN          reduce using rule 59 (masargs -> empty .)
+    RPAREN          reduce using rule 61 (masargs -> empty .)
 
 
 state 62
 
-    (70) varcte -> ctebool .
+    (72) cteint -> CTEINT .
 
-    TIMES           reduce using rule 70 (varcte -> ctebool .)
-    DIVIDE          reduce using rule 70 (varcte -> ctebool .)
-    PLUS            reduce using rule 70 (varcte -> ctebool .)
-    MINUS           reduce using rule 70 (varcte -> ctebool .)
-    AND             reduce using rule 70 (varcte -> ctebool .)
-    OR              reduce using rule 70 (varcte -> ctebool .)
-    COMMA           reduce using rule 70 (varcte -> ctebool .)
-    RPAREN          reduce using rule 70 (varcte -> ctebool .)
-    SEMICOLON       reduce using rule 70 (varcte -> ctebool .)
-    RSQBRACKET      reduce using rule 70 (varcte -> ctebool .)
-    MORETHAN        reduce using rule 70 (varcte -> ctebool .)
-    LESSTHAN        reduce using rule 70 (varcte -> ctebool .)
-    NOTEQUAL        reduce using rule 70 (varcte -> ctebool .)
-    ISEQUALTO       reduce using rule 70 (varcte -> ctebool .)
-    MORETHANEQUAL   reduce using rule 70 (varcte -> ctebool .)
-    LESSTHANEQUAL   reduce using rule 70 (varcte -> ctebool .)
+    TIMES           reduce using rule 72 (cteint -> CTEINT .)
+    DIVIDE          reduce using rule 72 (cteint -> CTEINT .)
+    PLUS            reduce using rule 72 (cteint -> CTEINT .)
+    MINUS           reduce using rule 72 (cteint -> CTEINT .)
+    AND             reduce using rule 72 (cteint -> CTEINT .)
+    OR              reduce using rule 72 (cteint -> CTEINT .)
+    RPAREN          reduce using rule 72 (cteint -> CTEINT .)
+    COMMA           reduce using rule 72 (cteint -> CTEINT .)
+    SEMICOLON       reduce using rule 72 (cteint -> CTEINT .)
+    RSQBRACKET      reduce using rule 72 (cteint -> CTEINT .)
+    MORETHAN        reduce using rule 72 (cteint -> CTEINT .)
+    LESSTHAN        reduce using rule 72 (cteint -> CTEINT .)
+    NOTEQUAL        reduce using rule 72 (cteint -> CTEINT .)
+    ISEQUALTO       reduce using rule 72 (cteint -> CTEINT .)
+    MORETHANEQUAL   reduce using rule 72 (cteint -> CTEINT .)
+    LESSTHANEQUAL   reduce using rule 72 (cteint -> CTEINT .)
 
 
 state 63
 
-    (33) expcomp -> exp . expcompcontinuo
-    (34) expcompcontinuo -> . MORETHAN exp
-    (35) expcompcontinuo -> . LESSTHAN exp
-    (36) expcompcontinuo -> . NOTEQUAL exp
-    (37) expcompcontinuo -> . ISEQUALTO exp
-    (38) expcompcontinuo -> . MORETHANEQUAL exp
-    (39) expcompcontinuo -> . LESSTHANEQUAL exp
-    (40) expcompcontinuo -> . empty
-    (75) empty -> .
+    (76) ctebool -> TRUE .
 
-    MORETHAN        shift and go to state 85
-    LESSTHAN        shift and go to state 88
-    NOTEQUAL        shift and go to state 90
-    ISEQUALTO       shift and go to state 86
-    MORETHANEQUAL   shift and go to state 89
-    LESSTHANEQUAL   shift and go to state 92
-    AND             reduce using rule 75 (empty -> .)
-    OR              reduce using rule 75 (empty -> .)
-    COMMA           reduce using rule 75 (empty -> .)
-    RPAREN          reduce using rule 75 (empty -> .)
-    SEMICOLON       reduce using rule 75 (empty -> .)
-    RSQBRACKET      reduce using rule 75 (empty -> .)
+    TIMES           reduce using rule 76 (ctebool -> TRUE .)
+    DIVIDE          reduce using rule 76 (ctebool -> TRUE .)
+    PLUS            reduce using rule 76 (ctebool -> TRUE .)
+    MINUS           reduce using rule 76 (ctebool -> TRUE .)
+    MORETHAN        reduce using rule 76 (ctebool -> TRUE .)
+    LESSTHAN        reduce using rule 76 (ctebool -> TRUE .)
+    NOTEQUAL        reduce using rule 76 (ctebool -> TRUE .)
+    ISEQUALTO       reduce using rule 76 (ctebool -> TRUE .)
+    MORETHANEQUAL   reduce using rule 76 (ctebool -> TRUE .)
+    LESSTHANEQUAL   reduce using rule 76 (ctebool -> TRUE .)
+    AND             reduce using rule 76 (ctebool -> TRUE .)
+    OR              reduce using rule 76 (ctebool -> TRUE .)
+    RPAREN          reduce using rule 76 (ctebool -> TRUE .)
+    COMMA           reduce using rule 76 (ctebool -> TRUE .)
+    SEMICOLON       reduce using rule 76 (ctebool -> TRUE .)
+    RSQBRACKET      reduce using rule 76 (ctebool -> TRUE .)
 
-    empty                          shift and go to state 91
-    expcompcontinuo                shift and go to state 87
 
 state 64
 
-    (11) listaprint -> CTESTRING . masprint
-    (69) varcte -> CTESTRING .
-    (12) masprint -> . COMMA listaprint
-    (13) masprint -> . empty
-    (75) empty -> .
+    (73) ctefloat -> CTEFLOAT .
 
-  ! shift/reduce conflict for COMMA resolved as shift
-  ! reduce/reduce conflict for RPAREN resolved using rule 69 (varcte -> CTESTRING .)
-    TIMES           reduce using rule 69 (varcte -> CTESTRING .)
-    DIVIDE          reduce using rule 69 (varcte -> CTESTRING .)
-    PLUS            reduce using rule 69 (varcte -> CTESTRING .)
-    MINUS           reduce using rule 69 (varcte -> CTESTRING .)
-    MORETHAN        reduce using rule 69 (varcte -> CTESTRING .)
-    LESSTHAN        reduce using rule 69 (varcte -> CTESTRING .)
-    NOTEQUAL        reduce using rule 69 (varcte -> CTESTRING .)
-    ISEQUALTO       reduce using rule 69 (varcte -> CTESTRING .)
-    MORETHANEQUAL   reduce using rule 69 (varcte -> CTESTRING .)
-    LESSTHANEQUAL   reduce using rule 69 (varcte -> CTESTRING .)
-    AND             reduce using rule 69 (varcte -> CTESTRING .)
-    OR              reduce using rule 69 (varcte -> CTESTRING .)
-    RPAREN          reduce using rule 69 (varcte -> CTESTRING .)
-    COMMA           shift and go to state 95
+    TIMES           reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    DIVIDE          reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    PLUS            reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    MINUS           reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    MORETHAN        reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    LESSTHAN        reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    NOTEQUAL        reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    ISEQUALTO       reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    MORETHANEQUAL   reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    LESSTHANEQUAL   reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    AND             reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    OR              reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    RPAREN          reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    COMMA           reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    SEMICOLON       reduce using rule 73 (ctefloat -> CTEFLOAT .)
+    RSQBRACKET      reduce using rule 73 (ctefloat -> CTEFLOAT .)
 
-  ! COMMA           [ reduce using rule 69 (varcte -> CTESTRING .) ]
-  ! RPAREN          [ reduce using rule 75 (empty -> .) ]
-
-    masprint                       shift and go to state 93
-    empty                          shift and go to state 94
 
 state 65
 
-    (19) exp -> termino . masexp
-    (20) masexp -> . PLUS exp
-    (21) masexp -> . MINUS exp
-    (22) masexp -> . empty
-    (75) empty -> .
+    (35) expcomp -> exp . expcompcontinuo
+    (36) expcompcontinuo -> . MORETHAN exp
+    (37) expcompcontinuo -> . LESSTHAN exp
+    (38) expcompcontinuo -> . NOTEQUAL exp
+    (39) expcompcontinuo -> . ISEQUALTO exp
+    (40) expcompcontinuo -> . MORETHANEQUAL exp
+    (41) expcompcontinuo -> . LESSTHANEQUAL exp
+    (42) expcompcontinuo -> . empty
+    (78) empty -> .
 
-    MORETHAN        reduce using rule 75 (empty -> .)
-    LESSTHAN        reduce using rule 75 (empty -> .)
-    NOTEQUAL        reduce using rule 75 (empty -> .)
-    ISEQUALTO       reduce using rule 75 (empty -> .)
-    MORETHANEQUAL   reduce using rule 75 (empty -> .)
-    LESSTHANEQUAL   reduce using rule 75 (empty -> .)
-    AND             reduce using rule 75 (empty -> .)
-    OR              reduce using rule 75 (empty -> .)
-    COMMA           reduce using rule 75 (empty -> .)
-    RPAREN          reduce using rule 75 (empty -> .)
-    SEMICOLON       reduce using rule 75 (empty -> .)
-    RSQBRACKET      reduce using rule 75 (empty -> .)
-    PLUS            reduce using rule 75 (empty -> .)
-    MINUS           reduce using rule 75 (empty -> .)
+    MORETHAN        shift and go to state 89
+    LESSTHAN        shift and go to state 90
+    NOTEQUAL        shift and go to state 91
+    ISEQUALTO       shift and go to state 92
+    MORETHANEQUAL   shift and go to state 94
+    LESSTHANEQUAL   shift and go to state 93
+    AND             reduce using rule 78 (empty -> .)
+    OR              reduce using rule 78 (empty -> .)
+    RPAREN          reduce using rule 78 (empty -> .)
+    COMMA           reduce using rule 78 (empty -> .)
+    SEMICOLON       reduce using rule 78 (empty -> .)
+    RSQBRACKET      reduce using rule 78 (empty -> .)
 
-  ! PLUS            [ shift and go to state 96 ]
-  ! MINUS           [ shift and go to state 97 ]
-
-    empty                          shift and go to state 98
-    masexp                         shift and go to state 99
+    empty                          shift and go to state 95
+    expcompcontinuo                shift and go to state 96
 
 state 66
-
-    (67) varcte -> CTEFLOAT .
-
-    TIMES           reduce using rule 67 (varcte -> CTEFLOAT .)
-    DIVIDE          reduce using rule 67 (varcte -> CTEFLOAT .)
-    PLUS            reduce using rule 67 (varcte -> CTEFLOAT .)
-    MINUS           reduce using rule 67 (varcte -> CTEFLOAT .)
-    AND             reduce using rule 67 (varcte -> CTEFLOAT .)
-    OR              reduce using rule 67 (varcte -> CTEFLOAT .)
-    COMMA           reduce using rule 67 (varcte -> CTEFLOAT .)
-    RPAREN          reduce using rule 67 (varcte -> CTEFLOAT .)
-    SEMICOLON       reduce using rule 67 (varcte -> CTEFLOAT .)
-    RSQBRACKET      reduce using rule 67 (varcte -> CTEFLOAT .)
-    MORETHAN        reduce using rule 67 (varcte -> CTEFLOAT .)
-    LESSTHAN        reduce using rule 67 (varcte -> CTEFLOAT .)
-    NOTEQUAL        reduce using rule 67 (varcte -> CTEFLOAT .)
-    ISEQUALTO       reduce using rule 67 (varcte -> CTEFLOAT .)
-    MORETHANEQUAL   reduce using rule 67 (varcte -> CTEFLOAT .)
-    LESSTHANEQUAL   reduce using rule 67 (varcte -> CTEFLOAT .)
-
-
-state 67
-
-    (68) varcte -> CTECHAR .
-
-    TIMES           reduce using rule 68 (varcte -> CTECHAR .)
-    DIVIDE          reduce using rule 68 (varcte -> CTECHAR .)
-    PLUS            reduce using rule 68 (varcte -> CTECHAR .)
-    MINUS           reduce using rule 68 (varcte -> CTECHAR .)
-    AND             reduce using rule 68 (varcte -> CTECHAR .)
-    OR              reduce using rule 68 (varcte -> CTECHAR .)
-    COMMA           reduce using rule 68 (varcte -> CTECHAR .)
-    RPAREN          reduce using rule 68 (varcte -> CTECHAR .)
-    SEMICOLON       reduce using rule 68 (varcte -> CTECHAR .)
-    RSQBRACKET      reduce using rule 68 (varcte -> CTECHAR .)
-    MORETHAN        reduce using rule 68 (varcte -> CTECHAR .)
-    LESSTHAN        reduce using rule 68 (varcte -> CTECHAR .)
-    NOTEQUAL        reduce using rule 68 (varcte -> CTECHAR .)
-    ISEQUALTO       reduce using rule 68 (varcte -> CTECHAR .)
-    MORETHANEQUAL   reduce using rule 68 (varcte -> CTECHAR .)
-    LESSTHANEQUAL   reduce using rule 68 (varcte -> CTECHAR .)
-
-
-state 68
-
-    (10) listaprint -> expresion . masprint
-    (12) masprint -> . COMMA listaprint
-    (13) masprint -> . empty
-    (75) empty -> .
-
-    COMMA           shift and go to state 95
-    RPAREN          reduce using rule 75 (empty -> .)
-
-    masprint                       shift and go to state 100
-    empty                          shift and go to state 94
-
-state 69
-
-    (18) factor -> ID .
-    (65) varcte -> ID . arr
-    (73) arr -> . LSQBRACKET RSQBRACKET
-    (74) arr -> . empty
-    (75) empty -> .
-
-  ! reduce/reduce conflict for TIMES resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for PLUS resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for MINUS resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for MORETHAN resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for LESSTHAN resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for NOTEQUAL resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for ISEQUALTO resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for MORETHANEQUAL resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for LESSTHANEQUAL resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for AND resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for OR resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for COMMA resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 18 (factor -> ID .)
-  ! reduce/reduce conflict for RSQBRACKET resolved using rule 18 (factor -> ID .)
-    TIMES           reduce using rule 18 (factor -> ID .)
-    DIVIDE          reduce using rule 18 (factor -> ID .)
-    PLUS            reduce using rule 18 (factor -> ID .)
-    MINUS           reduce using rule 18 (factor -> ID .)
-    AND             reduce using rule 18 (factor -> ID .)
-    OR              reduce using rule 18 (factor -> ID .)
-    COMMA           reduce using rule 18 (factor -> ID .)
-    RPAREN          reduce using rule 18 (factor -> ID .)
-    SEMICOLON       reduce using rule 18 (factor -> ID .)
-    RSQBRACKET      reduce using rule 18 (factor -> ID .)
-    MORETHAN        reduce using rule 18 (factor -> ID .)
-    LESSTHAN        reduce using rule 18 (factor -> ID .)
-    NOTEQUAL        reduce using rule 18 (factor -> ID .)
-    ISEQUALTO       reduce using rule 18 (factor -> ID .)
-    MORETHANEQUAL   reduce using rule 18 (factor -> ID .)
-    LESSTHANEQUAL   reduce using rule 18 (factor -> ID .)
-    LSQBRACKET      shift and go to state 103
-
-  ! TIMES           [ reduce using rule 75 (empty -> .) ]
-  ! DIVIDE          [ reduce using rule 75 (empty -> .) ]
-  ! PLUS            [ reduce using rule 75 (empty -> .) ]
-  ! MINUS           [ reduce using rule 75 (empty -> .) ]
-  ! MORETHAN        [ reduce using rule 75 (empty -> .) ]
-  ! LESSTHAN        [ reduce using rule 75 (empty -> .) ]
-  ! NOTEQUAL        [ reduce using rule 75 (empty -> .) ]
-  ! ISEQUALTO       [ reduce using rule 75 (empty -> .) ]
-  ! MORETHANEQUAL   [ reduce using rule 75 (empty -> .) ]
-  ! LESSTHANEQUAL   [ reduce using rule 75 (empty -> .) ]
-  ! AND             [ reduce using rule 75 (empty -> .) ]
-  ! OR              [ reduce using rule 75 (empty -> .) ]
-  ! COMMA           [ reduce using rule 75 (empty -> .) ]
-  ! RPAREN          [ reduce using rule 75 (empty -> .) ]
-  ! SEMICOLON       [ reduce using rule 75 (empty -> .) ]
-  ! RSQBRACKET      [ reduce using rule 75 (empty -> .) ]
-
-    arr                            shift and go to state 101
-    empty                          shift and go to state 102
-
-state 70
-
-    (25) expresion -> expcomp . masexpresion
-    (26) masexpresion -> . AND expcomp
-    (27) masexpresion -> . OR expcomp
-    (28) masexpresion -> . empty
-    (75) empty -> .
-
-    AND             shift and go to state 107
-    OR              shift and go to state 105
-    COMMA           reduce using rule 75 (empty -> .)
-    RPAREN          reduce using rule 75 (empty -> .)
-    SEMICOLON       reduce using rule 75 (empty -> .)
-    RSQBRACKET      reduce using rule 75 (empty -> .)
-
-    masexpresion                   shift and go to state 106
-    empty                          shift and go to state 104
-
-state 71
-
-    (71) ctebool -> TRUE .
-
-    TIMES           reduce using rule 71 (ctebool -> TRUE .)
-    DIVIDE          reduce using rule 71 (ctebool -> TRUE .)
-    PLUS            reduce using rule 71 (ctebool -> TRUE .)
-    MINUS           reduce using rule 71 (ctebool -> TRUE .)
-    MORETHAN        reduce using rule 71 (ctebool -> TRUE .)
-    LESSTHAN        reduce using rule 71 (ctebool -> TRUE .)
-    NOTEQUAL        reduce using rule 71 (ctebool -> TRUE .)
-    ISEQUALTO       reduce using rule 71 (ctebool -> TRUE .)
-    MORETHANEQUAL   reduce using rule 71 (ctebool -> TRUE .)
-    LESSTHANEQUAL   reduce using rule 71 (ctebool -> TRUE .)
-    AND             reduce using rule 71 (ctebool -> TRUE .)
-    OR              reduce using rule 71 (ctebool -> TRUE .)
-    RPAREN          reduce using rule 71 (ctebool -> TRUE .)
-    COMMA           reduce using rule 71 (ctebool -> TRUE .)
-    RSQBRACKET      reduce using rule 71 (ctebool -> TRUE .)
-    SEMICOLON       reduce using rule 71 (ctebool -> TRUE .)
-
-
-state 72
-
-    (29) termino -> factor . masterminos
-    (30) masterminos -> . TIMES exp
-    (31) masterminos -> . DIVIDE exp
-    (32) masterminos -> . empty
-    (75) empty -> .
-
-    TIMES           shift and go to state 111
-    DIVIDE          shift and go to state 110
-    MORETHAN        reduce using rule 75 (empty -> .)
-    LESSTHAN        reduce using rule 75 (empty -> .)
-    NOTEQUAL        reduce using rule 75 (empty -> .)
-    ISEQUALTO       reduce using rule 75 (empty -> .)
-    MORETHANEQUAL   reduce using rule 75 (empty -> .)
-    LESSTHANEQUAL   reduce using rule 75 (empty -> .)
-    AND             reduce using rule 75 (empty -> .)
-    OR              reduce using rule 75 (empty -> .)
-    COMMA           reduce using rule 75 (empty -> .)
-    RPAREN          reduce using rule 75 (empty -> .)
-    SEMICOLON       reduce using rule 75 (empty -> .)
-    RSQBRACKET      reduce using rule 75 (empty -> .)
-    PLUS            reduce using rule 75 (empty -> .)
-    MINUS           reduce using rule 75 (empty -> .)
-
-    masterminos                    shift and go to state 108
-    empty                          shift and go to state 109
-
-state 73
-
-    (16) factor -> LPAREN . expresion RPAREN
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
-
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
-
-    expcomp                        shift and go to state 70
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    expresion                      shift and go to state 112
-
-state 74
-
-    (9) escritura -> PRINT LPAREN listaprint . RPAREN SEMICOLON
-
-    RPAREN          shift and go to state 113
-
-
-state 75
-
-    (72) ctebool -> FALSE .
-
-    TIMES           reduce using rule 72 (ctebool -> FALSE .)
-    DIVIDE          reduce using rule 72 (ctebool -> FALSE .)
-    PLUS            reduce using rule 72 (ctebool -> FALSE .)
-    MINUS           reduce using rule 72 (ctebool -> FALSE .)
-    MORETHAN        reduce using rule 72 (ctebool -> FALSE .)
-    LESSTHAN        reduce using rule 72 (ctebool -> FALSE .)
-    NOTEQUAL        reduce using rule 72 (ctebool -> FALSE .)
-    ISEQUALTO       reduce using rule 72 (ctebool -> FALSE .)
-    MORETHANEQUAL   reduce using rule 72 (ctebool -> FALSE .)
-    LESSTHANEQUAL   reduce using rule 72 (ctebool -> FALSE .)
-    AND             reduce using rule 72 (ctebool -> FALSE .)
-    OR              reduce using rule 72 (ctebool -> FALSE .)
-    RPAREN          reduce using rule 72 (ctebool -> FALSE .)
-    COMMA           reduce using rule 72 (ctebool -> FALSE .)
-    RSQBRACKET      reduce using rule 72 (ctebool -> FALSE .)
-    SEMICOLON       reduce using rule 72 (ctebool -> FALSE .)
-
-
-state 76
 
     (17) factor -> varcte .
 
@@ -1344,741 +1111,1096 @@ state 76
     DIVIDE          reduce using rule 17 (factor -> varcte .)
     PLUS            reduce using rule 17 (factor -> varcte .)
     MINUS           reduce using rule 17 (factor -> varcte .)
-    AND             reduce using rule 17 (factor -> varcte .)
-    OR              reduce using rule 17 (factor -> varcte .)
-    COMMA           reduce using rule 17 (factor -> varcte .)
-    RPAREN          reduce using rule 17 (factor -> varcte .)
-    SEMICOLON       reduce using rule 17 (factor -> varcte .)
-    RSQBRACKET      reduce using rule 17 (factor -> varcte .)
     MORETHAN        reduce using rule 17 (factor -> varcte .)
     LESSTHAN        reduce using rule 17 (factor -> varcte .)
     NOTEQUAL        reduce using rule 17 (factor -> varcte .)
     ISEQUALTO       reduce using rule 17 (factor -> varcte .)
     MORETHANEQUAL   reduce using rule 17 (factor -> varcte .)
     LESSTHANEQUAL   reduce using rule 17 (factor -> varcte .)
+    AND             reduce using rule 17 (factor -> varcte .)
+    OR              reduce using rule 17 (factor -> varcte .)
+    RPAREN          reduce using rule 17 (factor -> varcte .)
+    COMMA           reduce using rule 17 (factor -> varcte .)
+    SEMICOLON       reduce using rule 17 (factor -> varcte .)
+    RSQBRACKET      reduce using rule 17 (factor -> varcte .)
+
+
+state 67
+
+    (27) expresion -> expcomp . masexpresion
+    (28) masexpresion -> . AND expcomp
+    (29) masexpresion -> . OR expcomp
+    (30) masexpresion -> . empty
+    (78) empty -> .
+
+    AND             shift and go to state 97
+    OR              shift and go to state 98
+    RPAREN          reduce using rule 78 (empty -> .)
+    COMMA           reduce using rule 78 (empty -> .)
+    SEMICOLON       reduce using rule 78 (empty -> .)
+    RSQBRACKET      reduce using rule 78 (empty -> .)
+
+    empty                          shift and go to state 100
+    masexpresion                   shift and go to state 99
+
+state 68
+
+    (67) varcte -> cteint .
+
+    TIMES           reduce using rule 67 (varcte -> cteint .)
+    DIVIDE          reduce using rule 67 (varcte -> cteint .)
+    PLUS            reduce using rule 67 (varcte -> cteint .)
+    MINUS           reduce using rule 67 (varcte -> cteint .)
+    MORETHAN        reduce using rule 67 (varcte -> cteint .)
+    LESSTHAN        reduce using rule 67 (varcte -> cteint .)
+    NOTEQUAL        reduce using rule 67 (varcte -> cteint .)
+    ISEQUALTO       reduce using rule 67 (varcte -> cteint .)
+    MORETHANEQUAL   reduce using rule 67 (varcte -> cteint .)
+    LESSTHANEQUAL   reduce using rule 67 (varcte -> cteint .)
+    AND             reduce using rule 67 (varcte -> cteint .)
+    OR              reduce using rule 67 (varcte -> cteint .)
+    RPAREN          reduce using rule 67 (varcte -> cteint .)
+    COMMA           reduce using rule 67 (varcte -> cteint .)
+    SEMICOLON       reduce using rule 67 (varcte -> cteint .)
+    RSQBRACKET      reduce using rule 67 (varcte -> cteint .)
+
+
+state 69
+
+    (75) ctestring -> CTESTRING .
+
+    TIMES           reduce using rule 75 (ctestring -> CTESTRING .)
+    DIVIDE          reduce using rule 75 (ctestring -> CTESTRING .)
+    PLUS            reduce using rule 75 (ctestring -> CTESTRING .)
+    MINUS           reduce using rule 75 (ctestring -> CTESTRING .)
+    MORETHAN        reduce using rule 75 (ctestring -> CTESTRING .)
+    LESSTHAN        reduce using rule 75 (ctestring -> CTESTRING .)
+    NOTEQUAL        reduce using rule 75 (ctestring -> CTESTRING .)
+    ISEQUALTO       reduce using rule 75 (ctestring -> CTESTRING .)
+    MORETHANEQUAL   reduce using rule 75 (ctestring -> CTESTRING .)
+    LESSTHANEQUAL   reduce using rule 75 (ctestring -> CTESTRING .)
+    AND             reduce using rule 75 (ctestring -> CTESTRING .)
+    OR              reduce using rule 75 (ctestring -> CTESTRING .)
+    RPAREN          reduce using rule 75 (ctestring -> CTESTRING .)
+    COMMA           reduce using rule 75 (ctestring -> CTESTRING .)
+    SEMICOLON       reduce using rule 75 (ctestring -> CTESTRING .)
+    RSQBRACKET      reduce using rule 75 (ctestring -> CTESTRING .)
+
+
+state 70
+
+    (18) factor -> ID . arr
+    (19) arr -> . LSQBRACKET RSQBRACKET
+    (20) arr -> . empty
+    (78) empty -> .
+
+    LSQBRACKET      shift and go to state 101
+    TIMES           reduce using rule 78 (empty -> .)
+    DIVIDE          reduce using rule 78 (empty -> .)
+    PLUS            reduce using rule 78 (empty -> .)
+    MINUS           reduce using rule 78 (empty -> .)
+    MORETHAN        reduce using rule 78 (empty -> .)
+    LESSTHAN        reduce using rule 78 (empty -> .)
+    NOTEQUAL        reduce using rule 78 (empty -> .)
+    ISEQUALTO       reduce using rule 78 (empty -> .)
+    MORETHANEQUAL   reduce using rule 78 (empty -> .)
+    LESSTHANEQUAL   reduce using rule 78 (empty -> .)
+    AND             reduce using rule 78 (empty -> .)
+    OR              reduce using rule 78 (empty -> .)
+    RPAREN          reduce using rule 78 (empty -> .)
+    COMMA           reduce using rule 78 (empty -> .)
+    SEMICOLON       reduce using rule 78 (empty -> .)
+    RSQBRACKET      reduce using rule 78 (empty -> .)
+
+    arr                            shift and go to state 102
+    empty                          shift and go to state 103
+
+state 71
+
+    (8) ciclo -> WHILE LPAREN expresion . RPAREN bloque
+
+    RPAREN          shift and go to state 104
+
+
+state 72
+
+    (68) varcte -> ctefloat .
+
+    TIMES           reduce using rule 68 (varcte -> ctefloat .)
+    DIVIDE          reduce using rule 68 (varcte -> ctefloat .)
+    PLUS            reduce using rule 68 (varcte -> ctefloat .)
+    MINUS           reduce using rule 68 (varcte -> ctefloat .)
+    MORETHAN        reduce using rule 68 (varcte -> ctefloat .)
+    LESSTHAN        reduce using rule 68 (varcte -> ctefloat .)
+    NOTEQUAL        reduce using rule 68 (varcte -> ctefloat .)
+    ISEQUALTO       reduce using rule 68 (varcte -> ctefloat .)
+    MORETHANEQUAL   reduce using rule 68 (varcte -> ctefloat .)
+    LESSTHANEQUAL   reduce using rule 68 (varcte -> ctefloat .)
+    AND             reduce using rule 68 (varcte -> ctefloat .)
+    OR              reduce using rule 68 (varcte -> ctefloat .)
+    RPAREN          reduce using rule 68 (varcte -> ctefloat .)
+    COMMA           reduce using rule 68 (varcte -> ctefloat .)
+    SEMICOLON       reduce using rule 68 (varcte -> ctefloat .)
+    RSQBRACKET      reduce using rule 68 (varcte -> ctefloat .)
+
+
+state 73
+
+    (71) varcte -> ctebool .
+
+    TIMES           reduce using rule 71 (varcte -> ctebool .)
+    DIVIDE          reduce using rule 71 (varcte -> ctebool .)
+    PLUS            reduce using rule 71 (varcte -> ctebool .)
+    MINUS           reduce using rule 71 (varcte -> ctebool .)
+    MORETHAN        reduce using rule 71 (varcte -> ctebool .)
+    LESSTHAN        reduce using rule 71 (varcte -> ctebool .)
+    NOTEQUAL        reduce using rule 71 (varcte -> ctebool .)
+    ISEQUALTO       reduce using rule 71 (varcte -> ctebool .)
+    MORETHANEQUAL   reduce using rule 71 (varcte -> ctebool .)
+    LESSTHANEQUAL   reduce using rule 71 (varcte -> ctebool .)
+    AND             reduce using rule 71 (varcte -> ctebool .)
+    OR              reduce using rule 71 (varcte -> ctebool .)
+    RPAREN          reduce using rule 71 (varcte -> ctebool .)
+    COMMA           reduce using rule 71 (varcte -> ctebool .)
+    SEMICOLON       reduce using rule 71 (varcte -> ctebool .)
+    RSQBRACKET      reduce using rule 71 (varcte -> ctebool .)
+
+
+state 74
+
+    (21) exp -> termino . masexp
+    (22) masexp -> . PLUS exp
+    (23) masexp -> . MINUS exp
+    (24) masexp -> . empty
+    (78) empty -> .
+
+    PLUS            reduce using rule 78 (empty -> .)
+    MINUS           reduce using rule 78 (empty -> .)
+    MORETHAN        reduce using rule 78 (empty -> .)
+    LESSTHAN        reduce using rule 78 (empty -> .)
+    NOTEQUAL        reduce using rule 78 (empty -> .)
+    ISEQUALTO       reduce using rule 78 (empty -> .)
+    MORETHANEQUAL   reduce using rule 78 (empty -> .)
+    LESSTHANEQUAL   reduce using rule 78 (empty -> .)
+    AND             reduce using rule 78 (empty -> .)
+    OR              reduce using rule 78 (empty -> .)
+    RPAREN          reduce using rule 78 (empty -> .)
+    COMMA           reduce using rule 78 (empty -> .)
+    SEMICOLON       reduce using rule 78 (empty -> .)
+    RSQBRACKET      reduce using rule 78 (empty -> .)
+
+  ! PLUS            [ shift and go to state 108 ]
+  ! MINUS           [ shift and go to state 106 ]
+
+    masexp                         shift and go to state 107
+    empty                          shift and go to state 105
+
+state 75
+
+    (74) ctechar -> CTECHAR .
+
+    TIMES           reduce using rule 74 (ctechar -> CTECHAR .)
+    DIVIDE          reduce using rule 74 (ctechar -> CTECHAR .)
+    PLUS            reduce using rule 74 (ctechar -> CTECHAR .)
+    MINUS           reduce using rule 74 (ctechar -> CTECHAR .)
+    MORETHAN        reduce using rule 74 (ctechar -> CTECHAR .)
+    LESSTHAN        reduce using rule 74 (ctechar -> CTECHAR .)
+    NOTEQUAL        reduce using rule 74 (ctechar -> CTECHAR .)
+    ISEQUALTO       reduce using rule 74 (ctechar -> CTECHAR .)
+    MORETHANEQUAL   reduce using rule 74 (ctechar -> CTECHAR .)
+    LESSTHANEQUAL   reduce using rule 74 (ctechar -> CTECHAR .)
+    AND             reduce using rule 74 (ctechar -> CTECHAR .)
+    OR              reduce using rule 74 (ctechar -> CTECHAR .)
+    RPAREN          reduce using rule 74 (ctechar -> CTECHAR .)
+    COMMA           reduce using rule 74 (ctechar -> CTECHAR .)
+    SEMICOLON       reduce using rule 74 (ctechar -> CTECHAR .)
+    RSQBRACKET      reduce using rule 74 (ctechar -> CTECHAR .)
+
+
+state 76
+
+    (77) ctebool -> FALSE .
+
+    TIMES           reduce using rule 77 (ctebool -> FALSE .)
+    DIVIDE          reduce using rule 77 (ctebool -> FALSE .)
+    PLUS            reduce using rule 77 (ctebool -> FALSE .)
+    MINUS           reduce using rule 77 (ctebool -> FALSE .)
+    MORETHAN        reduce using rule 77 (ctebool -> FALSE .)
+    LESSTHAN        reduce using rule 77 (ctebool -> FALSE .)
+    NOTEQUAL        reduce using rule 77 (ctebool -> FALSE .)
+    ISEQUALTO       reduce using rule 77 (ctebool -> FALSE .)
+    MORETHANEQUAL   reduce using rule 77 (ctebool -> FALSE .)
+    LESSTHANEQUAL   reduce using rule 77 (ctebool -> FALSE .)
+    AND             reduce using rule 77 (ctebool -> FALSE .)
+    OR              reduce using rule 77 (ctebool -> FALSE .)
+    RPAREN          reduce using rule 77 (ctebool -> FALSE .)
+    COMMA           reduce using rule 77 (ctebool -> FALSE .)
+    SEMICOLON       reduce using rule 77 (ctebool -> FALSE .)
+    RSQBRACKET      reduce using rule 77 (ctebool -> FALSE .)
 
 
 state 77
 
-    (66) varcte -> CTEINT .
+    (16) factor -> LPAREN . expresion RPAREN
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    TIMES           reduce using rule 66 (varcte -> CTEINT .)
-    DIVIDE          reduce using rule 66 (varcte -> CTEINT .)
-    PLUS            reduce using rule 66 (varcte -> CTEINT .)
-    MINUS           reduce using rule 66 (varcte -> CTEINT .)
-    AND             reduce using rule 66 (varcte -> CTEINT .)
-    OR              reduce using rule 66 (varcte -> CTEINT .)
-    COMMA           reduce using rule 66 (varcte -> CTEINT .)
-    RPAREN          reduce using rule 66 (varcte -> CTEINT .)
-    SEMICOLON       reduce using rule 66 (varcte -> CTEINT .)
-    RSQBRACKET      reduce using rule 66 (varcte -> CTEINT .)
-    MORETHAN        reduce using rule 66 (varcte -> CTEINT .)
-    LESSTHAN        reduce using rule 66 (varcte -> CTEINT .)
-    NOTEQUAL        reduce using rule 66 (varcte -> CTEINT .)
-    ISEQUALTO       reduce using rule 66 (varcte -> CTEINT .)
-    MORETHANEQUAL   reduce using rule 66 (varcte -> CTEINT .)
-    LESSTHANEQUAL   reduce using rule 66 (varcte -> CTEINT .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 109
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 78
 
-    (69) varcte -> CTESTRING .
+    (70) varcte -> ctestring .
 
-    TIMES           reduce using rule 69 (varcte -> CTESTRING .)
-    DIVIDE          reduce using rule 69 (varcte -> CTESTRING .)
-    PLUS            reduce using rule 69 (varcte -> CTESTRING .)
-    MINUS           reduce using rule 69 (varcte -> CTESTRING .)
-    AND             reduce using rule 69 (varcte -> CTESTRING .)
-    OR              reduce using rule 69 (varcte -> CTESTRING .)
-    COMMA           reduce using rule 69 (varcte -> CTESTRING .)
-    RPAREN          reduce using rule 69 (varcte -> CTESTRING .)
-    SEMICOLON       reduce using rule 69 (varcte -> CTESTRING .)
-    RSQBRACKET      reduce using rule 69 (varcte -> CTESTRING .)
-    MORETHAN        reduce using rule 69 (varcte -> CTESTRING .)
-    LESSTHAN        reduce using rule 69 (varcte -> CTESTRING .)
-    NOTEQUAL        reduce using rule 69 (varcte -> CTESTRING .)
-    ISEQUALTO       reduce using rule 69 (varcte -> CTESTRING .)
-    MORETHANEQUAL   reduce using rule 69 (varcte -> CTESTRING .)
-    LESSTHANEQUAL   reduce using rule 69 (varcte -> CTESTRING .)
+    TIMES           reduce using rule 70 (varcte -> ctestring .)
+    DIVIDE          reduce using rule 70 (varcte -> ctestring .)
+    PLUS            reduce using rule 70 (varcte -> ctestring .)
+    MINUS           reduce using rule 70 (varcte -> ctestring .)
+    MORETHAN        reduce using rule 70 (varcte -> ctestring .)
+    LESSTHAN        reduce using rule 70 (varcte -> ctestring .)
+    NOTEQUAL        reduce using rule 70 (varcte -> ctestring .)
+    ISEQUALTO       reduce using rule 70 (varcte -> ctestring .)
+    MORETHANEQUAL   reduce using rule 70 (varcte -> ctestring .)
+    LESSTHANEQUAL   reduce using rule 70 (varcte -> ctestring .)
+    AND             reduce using rule 70 (varcte -> ctestring .)
+    OR              reduce using rule 70 (varcte -> ctestring .)
+    RPAREN          reduce using rule 70 (varcte -> ctestring .)
+    COMMA           reduce using rule 70 (varcte -> ctestring .)
+    SEMICOLON       reduce using rule 70 (varcte -> ctestring .)
+    RSQBRACKET      reduce using rule 70 (varcte -> ctestring .)
 
 
 state 79
+
+    (31) termino -> factor . masterminos
+    (32) masterminos -> . TIMES exp
+    (33) masterminos -> . DIVIDE exp
+    (34) masterminos -> . empty
+    (78) empty -> .
+
+    TIMES           shift and go to state 110
+    DIVIDE          shift and go to state 112
+    PLUS            reduce using rule 78 (empty -> .)
+    MINUS           reduce using rule 78 (empty -> .)
+    MORETHAN        reduce using rule 78 (empty -> .)
+    LESSTHAN        reduce using rule 78 (empty -> .)
+    NOTEQUAL        reduce using rule 78 (empty -> .)
+    ISEQUALTO       reduce using rule 78 (empty -> .)
+    MORETHANEQUAL   reduce using rule 78 (empty -> .)
+    LESSTHANEQUAL   reduce using rule 78 (empty -> .)
+    AND             reduce using rule 78 (empty -> .)
+    OR              reduce using rule 78 (empty -> .)
+    RPAREN          reduce using rule 78 (empty -> .)
+    COMMA           reduce using rule 78 (empty -> .)
+    SEMICOLON       reduce using rule 78 (empty -> .)
+    RSQBRACKET      reduce using rule 78 (empty -> .)
+
+    empty                          shift and go to state 111
+    masterminos                    shift and go to state 113
+
+state 80
+
+    (69) varcte -> ctechar .
+
+    TIMES           reduce using rule 69 (varcte -> ctechar .)
+    DIVIDE          reduce using rule 69 (varcte -> ctechar .)
+    PLUS            reduce using rule 69 (varcte -> ctechar .)
+    MINUS           reduce using rule 69 (varcte -> ctechar .)
+    MORETHAN        reduce using rule 69 (varcte -> ctechar .)
+    LESSTHAN        reduce using rule 69 (varcte -> ctechar .)
+    NOTEQUAL        reduce using rule 69 (varcte -> ctechar .)
+    ISEQUALTO       reduce using rule 69 (varcte -> ctechar .)
+    MORETHANEQUAL   reduce using rule 69 (varcte -> ctechar .)
+    LESSTHANEQUAL   reduce using rule 69 (varcte -> ctechar .)
+    AND             reduce using rule 69 (varcte -> ctechar .)
+    OR              reduce using rule 69 (varcte -> ctechar .)
+    RPAREN          reduce using rule 69 (varcte -> ctechar .)
+    COMMA           reduce using rule 69 (varcte -> ctechar .)
+    SEMICOLON       reduce using rule 69 (varcte -> ctechar .)
+    RSQBRACKET      reduce using rule 69 (varcte -> ctechar .)
+
+
+state 81
 
     (4) condicion -> IF LPAREN expresion . RPAREN bloque masbloque
 
     RPAREN          shift and go to state 114
 
 
-state 80
-
-    (8) ciclo -> WHILE LPAREN expresion . RPAREN bloque
-
-    RPAREN          shift and go to state 115
-
-
-state 81
-
-    (15) asignacion -> ID LSQBRACKET RSQBRACKET . EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
-
-    EQUALS          shift and go to state 116
-
-
 state 82
 
-    (14) asignacion -> ID EQUALS expresion . SEMICOLON
+    (10) listaprint -> expresion . masprint
+    (12) masprint -> . COMMA listaprint
+    (13) masprint -> . empty
+    (78) empty -> .
 
-    SEMICOLON       shift and go to state 117
+    COMMA           shift and go to state 117
+    RPAREN          reduce using rule 78 (empty -> .)
 
+    masprint                       shift and go to state 115
+    empty                          shift and go to state 116
 
 state 83
 
-    (53) funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs .
+    (9) escritura -> PRINT LPAREN listaprint . RPAREN SEMICOLON
 
-    MAIN            reduce using rule 53 (funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs .)
+    RPAREN          shift and go to state 118
 
 
 state 84
 
-    (58) masargs -> COMMA args .
+    (11) listaprint -> ctestring . masprint
+    (70) varcte -> ctestring .
+    (12) masprint -> . COMMA listaprint
+    (13) masprint -> . empty
+    (78) empty -> .
 
-    RPAREN          reduce using rule 58 (masargs -> COMMA args .)
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RPAREN resolved using rule 70 (varcte -> ctestring .)
+    TIMES           reduce using rule 70 (varcte -> ctestring .)
+    DIVIDE          reduce using rule 70 (varcte -> ctestring .)
+    PLUS            reduce using rule 70 (varcte -> ctestring .)
+    MINUS           reduce using rule 70 (varcte -> ctestring .)
+    MORETHAN        reduce using rule 70 (varcte -> ctestring .)
+    LESSTHAN        reduce using rule 70 (varcte -> ctestring .)
+    NOTEQUAL        reduce using rule 70 (varcte -> ctestring .)
+    ISEQUALTO       reduce using rule 70 (varcte -> ctestring .)
+    MORETHANEQUAL   reduce using rule 70 (varcte -> ctestring .)
+    LESSTHANEQUAL   reduce using rule 70 (varcte -> ctestring .)
+    AND             reduce using rule 70 (varcte -> ctestring .)
+    OR              reduce using rule 70 (varcte -> ctestring .)
+    RPAREN          reduce using rule 70 (varcte -> ctestring .)
+    COMMA           shift and go to state 117
 
+  ! COMMA           [ reduce using rule 70 (varcte -> ctestring .) ]
+  ! RPAREN          [ reduce using rule 78 (empty -> .) ]
+
+    masprint                       shift and go to state 119
+    empty                          shift and go to state 116
 
 state 85
 
-    (34) expcompcontinuo -> MORETHAN . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (14) asignacion -> ID EQUALS expresion . SEMICOLON
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    SEMICOLON       shift and go to state 120
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 118
-    ctebool                        shift and go to state 62
 
 state 86
 
-    (37) expcompcontinuo -> ISEQUALTO . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (15) asignacion -> ID LSQBRACKET RSQBRACKET . EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    EQUALS          shift and go to state 121
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 119
-    ctebool                        shift and go to state 62
 
 state 87
 
-    (33) expcomp -> exp expcompcontinuo .
+    (55) funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs .
 
-    AND             reduce using rule 33 (expcomp -> exp expcompcontinuo .)
-    OR              reduce using rule 33 (expcomp -> exp expcompcontinuo .)
-    RPAREN          reduce using rule 33 (expcomp -> exp expcompcontinuo .)
-    COMMA           reduce using rule 33 (expcomp -> exp expcompcontinuo .)
-    SEMICOLON       reduce using rule 33 (expcomp -> exp expcompcontinuo .)
-    RSQBRACKET      reduce using rule 33 (expcomp -> exp expcompcontinuo .)
+    MAIN            reduce using rule 55 (funcs -> FUNCTION funcaux LPAREN args RPAREN bloque funcs .)
 
 
 state 88
 
-    (35) expcompcontinuo -> LESSTHAN . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (60) masargs -> COMMA args .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    RPAREN          reduce using rule 60 (masargs -> COMMA args .)
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 120
-    ctebool                        shift and go to state 62
 
 state 89
 
-    (38) expcompcontinuo -> MORETHANEQUAL . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (36) expcompcontinuo -> MORETHAN . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 121
-    ctebool                        shift and go to state 62
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 122
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 90
 
-    (36) expcompcontinuo -> NOTEQUAL . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (37) expcompcontinuo -> LESSTHAN . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 122
-    ctebool                        shift and go to state 62
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 123
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 91
 
-    (40) expcompcontinuo -> empty .
+    (38) expcompcontinuo -> NOTEQUAL . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    AND             reduce using rule 40 (expcompcontinuo -> empty .)
-    OR              reduce using rule 40 (expcompcontinuo -> empty .)
-    COMMA           reduce using rule 40 (expcompcontinuo -> empty .)
-    RPAREN          reduce using rule 40 (expcompcontinuo -> empty .)
-    SEMICOLON       reduce using rule 40 (expcompcontinuo -> empty .)
-    RSQBRACKET      reduce using rule 40 (expcompcontinuo -> empty .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 124
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 92
 
-    (39) expcompcontinuo -> LESSTHANEQUAL . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (39) expcompcontinuo -> ISEQUALTO . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 123
-    ctebool                        shift and go to state 62
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 125
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 93
 
-    (11) listaprint -> CTESTRING masprint .
+    (41) expcompcontinuo -> LESSTHANEQUAL . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    RPAREN          reduce using rule 11 (listaprint -> CTESTRING masprint .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 126
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 94
 
-    (13) masprint -> empty .
+    (40) expcompcontinuo -> MORETHANEQUAL . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    RPAREN          reduce using rule 13 (masprint -> empty .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 127
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 95
 
-    (12) masprint -> COMMA . listaprint
-    (10) listaprint -> . expresion masprint
-    (11) listaprint -> . CTESTRING masprint
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (42) expcompcontinuo -> empty .
 
-    CTESTRING       shift and go to state 64
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    AND             reduce using rule 42 (expcompcontinuo -> empty .)
+    OR              reduce using rule 42 (expcompcontinuo -> empty .)
+    RPAREN          reduce using rule 42 (expcompcontinuo -> empty .)
+    COMMA           reduce using rule 42 (expcompcontinuo -> empty .)
+    SEMICOLON       reduce using rule 42 (expcompcontinuo -> empty .)
+    RSQBRACKET      reduce using rule 42 (expcompcontinuo -> empty .)
 
-    ctebool                        shift and go to state 62
-    expcomp                        shift and go to state 70
-    varcte                         shift and go to state 76
-    factor                         shift and go to state 72
-    exp                            shift and go to state 63
-    listaprint                     shift and go to state 124
-    termino                        shift and go to state 65
-    expresion                      shift and go to state 68
 
 state 96
 
-    (20) masexp -> PLUS . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (35) expcomp -> exp expcompcontinuo .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    AND             reduce using rule 35 (expcomp -> exp expcompcontinuo .)
+    OR              reduce using rule 35 (expcomp -> exp expcompcontinuo .)
+    COMMA           reduce using rule 35 (expcomp -> exp expcompcontinuo .)
+    RPAREN          reduce using rule 35 (expcomp -> exp expcompcontinuo .)
+    SEMICOLON       reduce using rule 35 (expcomp -> exp expcompcontinuo .)
+    RSQBRACKET      reduce using rule 35 (expcomp -> exp expcompcontinuo .)
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 125
-    ctebool                        shift and go to state 62
 
 state 97
 
-    (21) masexp -> MINUS . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (28) masexpresion -> AND . expcomp
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 126
-    ctebool                        shift and go to state 62
+    ctebool                        shift and go to state 73
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 128
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 98
 
-    (22) masexp -> empty .
+    (29) masexpresion -> OR . expcomp
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    MORETHAN        reduce using rule 22 (masexp -> empty .)
-    LESSTHAN        reduce using rule 22 (masexp -> empty .)
-    NOTEQUAL        reduce using rule 22 (masexp -> empty .)
-    ISEQUALTO       reduce using rule 22 (masexp -> empty .)
-    MORETHANEQUAL   reduce using rule 22 (masexp -> empty .)
-    LESSTHANEQUAL   reduce using rule 22 (masexp -> empty .)
-    AND             reduce using rule 22 (masexp -> empty .)
-    OR              reduce using rule 22 (masexp -> empty .)
-    COMMA           reduce using rule 22 (masexp -> empty .)
-    RPAREN          reduce using rule 22 (masexp -> empty .)
-    SEMICOLON       reduce using rule 22 (masexp -> empty .)
-    RSQBRACKET      reduce using rule 22 (masexp -> empty .)
-    PLUS            reduce using rule 22 (masexp -> empty .)
-    MINUS           reduce using rule 22 (masexp -> empty .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctebool                        shift and go to state 73
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 129
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 99
 
-    (19) exp -> termino masexp .
+    (27) expresion -> expcomp masexpresion .
 
-    MORETHAN        reduce using rule 19 (exp -> termino masexp .)
-    LESSTHAN        reduce using rule 19 (exp -> termino masexp .)
-    NOTEQUAL        reduce using rule 19 (exp -> termino masexp .)
-    ISEQUALTO       reduce using rule 19 (exp -> termino masexp .)
-    MORETHANEQUAL   reduce using rule 19 (exp -> termino masexp .)
-    LESSTHANEQUAL   reduce using rule 19 (exp -> termino masexp .)
-    AND             reduce using rule 19 (exp -> termino masexp .)
-    OR              reduce using rule 19 (exp -> termino masexp .)
-    COMMA           reduce using rule 19 (exp -> termino masexp .)
-    RPAREN          reduce using rule 19 (exp -> termino masexp .)
-    SEMICOLON       reduce using rule 19 (exp -> termino masexp .)
-    RSQBRACKET      reduce using rule 19 (exp -> termino masexp .)
-    PLUS            reduce using rule 19 (exp -> termino masexp .)
-    MINUS           reduce using rule 19 (exp -> termino masexp .)
+    COMMA           reduce using rule 27 (expresion -> expcomp masexpresion .)
+    RSQBRACKET      reduce using rule 27 (expresion -> expcomp masexpresion .)
+    RPAREN          reduce using rule 27 (expresion -> expcomp masexpresion .)
+    SEMICOLON       reduce using rule 27 (expresion -> expcomp masexpresion .)
 
 
 state 100
 
-    (10) listaprint -> expresion masprint .
+    (30) masexpresion -> empty .
 
-    RPAREN          reduce using rule 10 (listaprint -> expresion masprint .)
+    RPAREN          reduce using rule 30 (masexpresion -> empty .)
+    COMMA           reduce using rule 30 (masexpresion -> empty .)
+    SEMICOLON       reduce using rule 30 (masexpresion -> empty .)
+    RSQBRACKET      reduce using rule 30 (masexpresion -> empty .)
 
 
 state 101
 
-    (65) varcte -> ID arr .
+    (19) arr -> LSQBRACKET . RSQBRACKET
 
-    TIMES           reduce using rule 65 (varcte -> ID arr .)
-    DIVIDE          reduce using rule 65 (varcte -> ID arr .)
-    PLUS            reduce using rule 65 (varcte -> ID arr .)
-    MINUS           reduce using rule 65 (varcte -> ID arr .)
-    AND             reduce using rule 65 (varcte -> ID arr .)
-    OR              reduce using rule 65 (varcte -> ID arr .)
-    COMMA           reduce using rule 65 (varcte -> ID arr .)
-    RPAREN          reduce using rule 65 (varcte -> ID arr .)
-    SEMICOLON       reduce using rule 65 (varcte -> ID arr .)
-    RSQBRACKET      reduce using rule 65 (varcte -> ID arr .)
-    MORETHAN        reduce using rule 65 (varcte -> ID arr .)
-    LESSTHAN        reduce using rule 65 (varcte -> ID arr .)
-    NOTEQUAL        reduce using rule 65 (varcte -> ID arr .)
-    ISEQUALTO       reduce using rule 65 (varcte -> ID arr .)
-    MORETHANEQUAL   reduce using rule 65 (varcte -> ID arr .)
-    LESSTHANEQUAL   reduce using rule 65 (varcte -> ID arr .)
+    RSQBRACKET      shift and go to state 130
 
 
 state 102
 
-    (74) arr -> empty .
+    (18) factor -> ID arr .
 
-    TIMES           reduce using rule 74 (arr -> empty .)
-    DIVIDE          reduce using rule 74 (arr -> empty .)
-    PLUS            reduce using rule 74 (arr -> empty .)
-    MINUS           reduce using rule 74 (arr -> empty .)
-    MORETHAN        reduce using rule 74 (arr -> empty .)
-    LESSTHAN        reduce using rule 74 (arr -> empty .)
-    NOTEQUAL        reduce using rule 74 (arr -> empty .)
-    ISEQUALTO       reduce using rule 74 (arr -> empty .)
-    MORETHANEQUAL   reduce using rule 74 (arr -> empty .)
-    LESSTHANEQUAL   reduce using rule 74 (arr -> empty .)
-    AND             reduce using rule 74 (arr -> empty .)
-    OR              reduce using rule 74 (arr -> empty .)
-    COMMA           reduce using rule 74 (arr -> empty .)
-    RPAREN          reduce using rule 74 (arr -> empty .)
-    SEMICOLON       reduce using rule 74 (arr -> empty .)
-    RSQBRACKET      reduce using rule 74 (arr -> empty .)
+    TIMES           reduce using rule 18 (factor -> ID arr .)
+    DIVIDE          reduce using rule 18 (factor -> ID arr .)
+    PLUS            reduce using rule 18 (factor -> ID arr .)
+    MINUS           reduce using rule 18 (factor -> ID arr .)
+    MORETHAN        reduce using rule 18 (factor -> ID arr .)
+    LESSTHAN        reduce using rule 18 (factor -> ID arr .)
+    NOTEQUAL        reduce using rule 18 (factor -> ID arr .)
+    ISEQUALTO       reduce using rule 18 (factor -> ID arr .)
+    MORETHANEQUAL   reduce using rule 18 (factor -> ID arr .)
+    LESSTHANEQUAL   reduce using rule 18 (factor -> ID arr .)
+    AND             reduce using rule 18 (factor -> ID arr .)
+    OR              reduce using rule 18 (factor -> ID arr .)
+    RPAREN          reduce using rule 18 (factor -> ID arr .)
+    COMMA           reduce using rule 18 (factor -> ID arr .)
+    SEMICOLON       reduce using rule 18 (factor -> ID arr .)
+    RSQBRACKET      reduce using rule 18 (factor -> ID arr .)
 
 
 state 103
 
-    (73) arr -> LSQBRACKET . RSQBRACKET
+    (20) arr -> empty .
 
-    RSQBRACKET      shift and go to state 127
+    TIMES           reduce using rule 20 (arr -> empty .)
+    DIVIDE          reduce using rule 20 (arr -> empty .)
+    PLUS            reduce using rule 20 (arr -> empty .)
+    MINUS           reduce using rule 20 (arr -> empty .)
+    MORETHAN        reduce using rule 20 (arr -> empty .)
+    LESSTHAN        reduce using rule 20 (arr -> empty .)
+    NOTEQUAL        reduce using rule 20 (arr -> empty .)
+    ISEQUALTO       reduce using rule 20 (arr -> empty .)
+    MORETHANEQUAL   reduce using rule 20 (arr -> empty .)
+    LESSTHANEQUAL   reduce using rule 20 (arr -> empty .)
+    AND             reduce using rule 20 (arr -> empty .)
+    OR              reduce using rule 20 (arr -> empty .)
+    RPAREN          reduce using rule 20 (arr -> empty .)
+    COMMA           reduce using rule 20 (arr -> empty .)
+    SEMICOLON       reduce using rule 20 (arr -> empty .)
+    RSQBRACKET      reduce using rule 20 (arr -> empty .)
 
 
 state 104
 
-    (28) masexpresion -> empty .
+    (8) ciclo -> WHILE LPAREN expresion RPAREN . bloque
+    (5) bloque -> . LBRACKET masestatuto RBRACKET
 
-    COMMA           reduce using rule 28 (masexpresion -> empty .)
-    RPAREN          reduce using rule 28 (masexpresion -> empty .)
-    SEMICOLON       reduce using rule 28 (masexpresion -> empty .)
-    RSQBRACKET      reduce using rule 28 (masexpresion -> empty .)
+    LBRACKET        shift and go to state 26
 
+    bloque                         shift and go to state 131
 
 state 105
 
-    (27) masexpresion -> OR . expcomp
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (24) masexp -> empty .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    PLUS            reduce using rule 24 (masexp -> empty .)
+    MINUS           reduce using rule 24 (masexp -> empty .)
+    MORETHAN        reduce using rule 24 (masexp -> empty .)
+    LESSTHAN        reduce using rule 24 (masexp -> empty .)
+    NOTEQUAL        reduce using rule 24 (masexp -> empty .)
+    ISEQUALTO       reduce using rule 24 (masexp -> empty .)
+    MORETHANEQUAL   reduce using rule 24 (masexp -> empty .)
+    LESSTHANEQUAL   reduce using rule 24 (masexp -> empty .)
+    AND             reduce using rule 24 (masexp -> empty .)
+    OR              reduce using rule 24 (masexp -> empty .)
+    RPAREN          reduce using rule 24 (masexp -> empty .)
+    COMMA           reduce using rule 24 (masexp -> empty .)
+    SEMICOLON       reduce using rule 24 (masexp -> empty .)
+    RSQBRACKET      reduce using rule 24 (masexp -> empty .)
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    expcomp                        shift and go to state 128
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
 
 state 106
 
-    (25) expresion -> expcomp masexpresion .
+    (23) masexp -> MINUS . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    RPAREN          reduce using rule 25 (expresion -> expcomp masexpresion .)
-    COMMA           reduce using rule 25 (expresion -> expcomp masexpresion .)
-    RSQBRACKET      reduce using rule 25 (expresion -> expcomp masexpresion .)
-    SEMICOLON       reduce using rule 25 (expresion -> expcomp masexpresion .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 132
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 107
 
-    (26) masexpresion -> AND . expcomp
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (21) exp -> termino masexp .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    MORETHAN        reduce using rule 21 (exp -> termino masexp .)
+    LESSTHAN        reduce using rule 21 (exp -> termino masexp .)
+    NOTEQUAL        reduce using rule 21 (exp -> termino masexp .)
+    ISEQUALTO       reduce using rule 21 (exp -> termino masexp .)
+    MORETHANEQUAL   reduce using rule 21 (exp -> termino masexp .)
+    LESSTHANEQUAL   reduce using rule 21 (exp -> termino masexp .)
+    AND             reduce using rule 21 (exp -> termino masexp .)
+    OR              reduce using rule 21 (exp -> termino masexp .)
+    COMMA           reduce using rule 21 (exp -> termino masexp .)
+    RPAREN          reduce using rule 21 (exp -> termino masexp .)
+    RSQBRACKET      reduce using rule 21 (exp -> termino masexp .)
+    SEMICOLON       reduce using rule 21 (exp -> termino masexp .)
+    PLUS            reduce using rule 21 (exp -> termino masexp .)
+    MINUS           reduce using rule 21 (exp -> termino masexp .)
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    expcomp                        shift and go to state 129
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
 
 state 108
 
-    (29) termino -> factor masterminos .
+    (22) masexp -> PLUS . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    PLUS            reduce using rule 29 (termino -> factor masterminos .)
-    MINUS           reduce using rule 29 (termino -> factor masterminos .)
-    AND             reduce using rule 29 (termino -> factor masterminos .)
-    OR              reduce using rule 29 (termino -> factor masterminos .)
-    COMMA           reduce using rule 29 (termino -> factor masterminos .)
-    RPAREN          reduce using rule 29 (termino -> factor masterminos .)
-    SEMICOLON       reduce using rule 29 (termino -> factor masterminos .)
-    RSQBRACKET      reduce using rule 29 (termino -> factor masterminos .)
-    MORETHAN        reduce using rule 29 (termino -> factor masterminos .)
-    LESSTHAN        reduce using rule 29 (termino -> factor masterminos .)
-    NOTEQUAL        reduce using rule 29 (termino -> factor masterminos .)
-    ISEQUALTO       reduce using rule 29 (termino -> factor masterminos .)
-    MORETHANEQUAL   reduce using rule 29 (termino -> factor masterminos .)
-    LESSTHANEQUAL   reduce using rule 29 (termino -> factor masterminos .)
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 133
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 109
 
-    (32) masterminos -> empty .
+    (16) factor -> LPAREN expresion . RPAREN
 
-    MORETHAN        reduce using rule 32 (masterminos -> empty .)
-    LESSTHAN        reduce using rule 32 (masterminos -> empty .)
-    NOTEQUAL        reduce using rule 32 (masterminos -> empty .)
-    ISEQUALTO       reduce using rule 32 (masterminos -> empty .)
-    MORETHANEQUAL   reduce using rule 32 (masterminos -> empty .)
-    LESSTHANEQUAL   reduce using rule 32 (masterminos -> empty .)
-    AND             reduce using rule 32 (masterminos -> empty .)
-    OR              reduce using rule 32 (masterminos -> empty .)
-    COMMA           reduce using rule 32 (masterminos -> empty .)
-    RPAREN          reduce using rule 32 (masterminos -> empty .)
-    SEMICOLON       reduce using rule 32 (masterminos -> empty .)
-    RSQBRACKET      reduce using rule 32 (masterminos -> empty .)
-    PLUS            reduce using rule 32 (masterminos -> empty .)
-    MINUS           reduce using rule 32 (masterminos -> empty .)
+    RPAREN          shift and go to state 134
 
 
 state 110
 
-    (31) masterminos -> DIVIDE . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (32) masterminos -> TIMES . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 130
-    ctebool                        shift and go to state 62
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 135
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 111
 
-    (30) masterminos -> TIMES . exp
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (34) masterminos -> empty .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    PLUS            reduce using rule 34 (masterminos -> empty .)
+    MINUS           reduce using rule 34 (masterminos -> empty .)
+    MORETHAN        reduce using rule 34 (masterminos -> empty .)
+    LESSTHAN        reduce using rule 34 (masterminos -> empty .)
+    NOTEQUAL        reduce using rule 34 (masterminos -> empty .)
+    ISEQUALTO       reduce using rule 34 (masterminos -> empty .)
+    MORETHANEQUAL   reduce using rule 34 (masterminos -> empty .)
+    LESSTHANEQUAL   reduce using rule 34 (masterminos -> empty .)
+    AND             reduce using rule 34 (masterminos -> empty .)
+    OR              reduce using rule 34 (masterminos -> empty .)
+    RPAREN          reduce using rule 34 (masterminos -> empty .)
+    COMMA           reduce using rule 34 (masterminos -> empty .)
+    SEMICOLON       reduce using rule 34 (masterminos -> empty .)
+    RSQBRACKET      reduce using rule 34 (masterminos -> empty .)
 
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    varcte                         shift and go to state 76
-    exp                            shift and go to state 131
-    ctebool                        shift and go to state 62
 
 state 112
 
-    (16) factor -> LPAREN expresion . RPAREN
+    (33) masterminos -> DIVIDE . exp
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    RPAREN          shift and go to state 132
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
+    ctefloat                       shift and go to state 72
+    varcte                         shift and go to state 66
+    ctebool                        shift and go to state 73
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    exp                            shift and go to state 136
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
 state 113
 
-    (9) escritura -> PRINT LPAREN listaprint RPAREN . SEMICOLON
+    (31) termino -> factor masterminos .
 
-    SEMICOLON       shift and go to state 133
+    PLUS            reduce using rule 31 (termino -> factor masterminos .)
+    MINUS           reduce using rule 31 (termino -> factor masterminos .)
+    MORETHAN        reduce using rule 31 (termino -> factor masterminos .)
+    LESSTHAN        reduce using rule 31 (termino -> factor masterminos .)
+    NOTEQUAL        reduce using rule 31 (termino -> factor masterminos .)
+    ISEQUALTO       reduce using rule 31 (termino -> factor masterminos .)
+    MORETHANEQUAL   reduce using rule 31 (termino -> factor masterminos .)
+    LESSTHANEQUAL   reduce using rule 31 (termino -> factor masterminos .)
+    AND             reduce using rule 31 (termino -> factor masterminos .)
+    OR              reduce using rule 31 (termino -> factor masterminos .)
+    RPAREN          reduce using rule 31 (termino -> factor masterminos .)
+    COMMA           reduce using rule 31 (termino -> factor masterminos .)
+    SEMICOLON       reduce using rule 31 (termino -> factor masterminos .)
+    RSQBRACKET      reduce using rule 31 (termino -> factor masterminos .)
 
 
 state 114
@@ -2086,27 +2208,85 @@ state 114
     (4) condicion -> IF LPAREN expresion RPAREN . bloque masbloque
     (5) bloque -> . LBRACKET masestatuto RBRACKET
 
-    LBRACKET        shift and go to state 31
+    LBRACKET        shift and go to state 26
 
-    bloque                         shift and go to state 134
+    bloque                         shift and go to state 137
 
 state 115
 
-    (8) ciclo -> WHILE LPAREN expresion RPAREN . bloque
-    (5) bloque -> . LBRACKET masestatuto RBRACKET
+    (10) listaprint -> expresion masprint .
 
-    LBRACKET        shift and go to state 31
+    RPAREN          reduce using rule 10 (listaprint -> expresion masprint .)
 
-    bloque                         shift and go to state 135
 
 state 116
 
-    (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS . LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+    (13) masprint -> empty .
 
-    LSQBRACKET      shift and go to state 136
+    RPAREN          reduce using rule 13 (masprint -> empty .)
 
 
 state 117
+
+    (12) masprint -> COMMA . listaprint
+    (10) listaprint -> . expresion masprint
+    (11) listaprint -> . ctestring masprint
+    (27) expresion -> . expcomp masexpresion
+    (75) ctestring -> . CTESTRING
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
+
+    CTESTRING       shift and go to state 69
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
+
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 82
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    listaprint                     shift and go to state 138
+    ctestring                      shift and go to state 84
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
+
+state 118
+
+    (9) escritura -> PRINT LPAREN listaprint RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 139
+
+
+state 119
+
+    (11) listaprint -> ctestring masprint .
+
+    RPAREN          reduce using rule 11 (listaprint -> ctestring masprint .)
+
+
+state 120
 
     (14) asignacion -> ID EQUALS expresion SEMICOLON .
 
@@ -2118,260 +2298,128 @@ state 117
     RBRACKET        reduce using rule 14 (asignacion -> ID EQUALS expresion SEMICOLON .)
 
 
-state 118
-
-    (34) expcompcontinuo -> MORETHAN exp .
-
-    AND             reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-    OR              reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-    COMMA           reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-    RPAREN          reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-    SEMICOLON       reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-    RSQBRACKET      reduce using rule 34 (expcompcontinuo -> MORETHAN exp .)
-
-
-state 119
-
-    (37) expcompcontinuo -> ISEQUALTO exp .
-
-    AND             reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-    OR              reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-    COMMA           reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-    RPAREN          reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-    SEMICOLON       reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-    RSQBRACKET      reduce using rule 37 (expcompcontinuo -> ISEQUALTO exp .)
-
-
-state 120
-
-    (35) expcompcontinuo -> LESSTHAN exp .
-
-    AND             reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-    OR              reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-    COMMA           reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-    RPAREN          reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-    SEMICOLON       reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-    RSQBRACKET      reduce using rule 35 (expcompcontinuo -> LESSTHAN exp .)
-
-
 state 121
 
-    (38) expcompcontinuo -> MORETHANEQUAL exp .
+    (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS . LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
 
-    AND             reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
-    OR              reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
-    COMMA           reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
-    RPAREN          reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
-    SEMICOLON       reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
-    RSQBRACKET      reduce using rule 38 (expcompcontinuo -> MORETHANEQUAL exp .)
+    LSQBRACKET      shift and go to state 140
 
 
 state 122
 
-    (36) expcompcontinuo -> NOTEQUAL exp .
+    (36) expcompcontinuo -> MORETHAN exp .
 
-    AND             reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
-    OR              reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
-    COMMA           reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
-    RPAREN          reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
-    SEMICOLON       reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
-    RSQBRACKET      reduce using rule 36 (expcompcontinuo -> NOTEQUAL exp .)
+    AND             reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
+    OR              reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
+    RPAREN          reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
+    COMMA           reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
+    SEMICOLON       reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
+    RSQBRACKET      reduce using rule 36 (expcompcontinuo -> MORETHAN exp .)
 
 
 state 123
 
-    (39) expcompcontinuo -> LESSTHANEQUAL exp .
+    (37) expcompcontinuo -> LESSTHAN exp .
 
-    AND             reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
-    OR              reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
-    COMMA           reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
-    RPAREN          reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
-    SEMICOLON       reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
-    RSQBRACKET      reduce using rule 39 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    AND             reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
+    OR              reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
+    RPAREN          reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
+    COMMA           reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
+    SEMICOLON       reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
+    RSQBRACKET      reduce using rule 37 (expcompcontinuo -> LESSTHAN exp .)
 
 
 state 124
 
-    (12) masprint -> COMMA listaprint .
+    (38) expcompcontinuo -> NOTEQUAL exp .
 
-    RPAREN          reduce using rule 12 (masprint -> COMMA listaprint .)
+    AND             reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
+    OR              reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
+    RPAREN          reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
+    COMMA           reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
+    SEMICOLON       reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
+    RSQBRACKET      reduce using rule 38 (expcompcontinuo -> NOTEQUAL exp .)
 
 
 state 125
 
-    (20) masexp -> PLUS exp .
+    (39) expcompcontinuo -> ISEQUALTO exp .
 
-    MORETHAN        reduce using rule 20 (masexp -> PLUS exp .)
-    LESSTHAN        reduce using rule 20 (masexp -> PLUS exp .)
-    NOTEQUAL        reduce using rule 20 (masexp -> PLUS exp .)
-    ISEQUALTO       reduce using rule 20 (masexp -> PLUS exp .)
-    MORETHANEQUAL   reduce using rule 20 (masexp -> PLUS exp .)
-    LESSTHANEQUAL   reduce using rule 20 (masexp -> PLUS exp .)
-    AND             reduce using rule 20 (masexp -> PLUS exp .)
-    OR              reduce using rule 20 (masexp -> PLUS exp .)
-    COMMA           reduce using rule 20 (masexp -> PLUS exp .)
-    RPAREN          reduce using rule 20 (masexp -> PLUS exp .)
-    SEMICOLON       reduce using rule 20 (masexp -> PLUS exp .)
-    RSQBRACKET      reduce using rule 20 (masexp -> PLUS exp .)
-    PLUS            reduce using rule 20 (masexp -> PLUS exp .)
-    MINUS           reduce using rule 20 (masexp -> PLUS exp .)
+    AND             reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
+    OR              reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
+    RPAREN          reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
+    COMMA           reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
+    SEMICOLON       reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
+    RSQBRACKET      reduce using rule 39 (expcompcontinuo -> ISEQUALTO exp .)
 
 
 state 126
 
-    (21) masexp -> MINUS exp .
+    (41) expcompcontinuo -> LESSTHANEQUAL exp .
 
-    MORETHAN        reduce using rule 21 (masexp -> MINUS exp .)
-    LESSTHAN        reduce using rule 21 (masexp -> MINUS exp .)
-    NOTEQUAL        reduce using rule 21 (masexp -> MINUS exp .)
-    ISEQUALTO       reduce using rule 21 (masexp -> MINUS exp .)
-    MORETHANEQUAL   reduce using rule 21 (masexp -> MINUS exp .)
-    LESSTHANEQUAL   reduce using rule 21 (masexp -> MINUS exp .)
-    AND             reduce using rule 21 (masexp -> MINUS exp .)
-    OR              reduce using rule 21 (masexp -> MINUS exp .)
-    COMMA           reduce using rule 21 (masexp -> MINUS exp .)
-    RPAREN          reduce using rule 21 (masexp -> MINUS exp .)
-    SEMICOLON       reduce using rule 21 (masexp -> MINUS exp .)
-    RSQBRACKET      reduce using rule 21 (masexp -> MINUS exp .)
-    PLUS            reduce using rule 21 (masexp -> MINUS exp .)
-    MINUS           reduce using rule 21 (masexp -> MINUS exp .)
+    AND             reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    OR              reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    RPAREN          reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    COMMA           reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    SEMICOLON       reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
+    RSQBRACKET      reduce using rule 41 (expcompcontinuo -> LESSTHANEQUAL exp .)
 
 
 state 127
 
-    (73) arr -> LSQBRACKET RSQBRACKET .
+    (40) expcompcontinuo -> MORETHANEQUAL exp .
 
-    TIMES           reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    DIVIDE          reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    PLUS            reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    MINUS           reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    MORETHAN        reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    LESSTHAN        reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    NOTEQUAL        reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    ISEQUALTO       reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    MORETHANEQUAL   reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    LESSTHANEQUAL   reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    AND             reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    OR              reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    COMMA           reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    RPAREN          reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    SEMICOLON       reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
-    RSQBRACKET      reduce using rule 73 (arr -> LSQBRACKET RSQBRACKET .)
+    AND             reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
+    OR              reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
+    RPAREN          reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
+    COMMA           reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
+    SEMICOLON       reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
+    RSQBRACKET      reduce using rule 40 (expcompcontinuo -> MORETHANEQUAL exp .)
 
 
 state 128
 
-    (27) masexpresion -> OR expcomp .
+    (28) masexpresion -> AND expcomp .
 
-    COMMA           reduce using rule 27 (masexpresion -> OR expcomp .)
-    RPAREN          reduce using rule 27 (masexpresion -> OR expcomp .)
-    SEMICOLON       reduce using rule 27 (masexpresion -> OR expcomp .)
-    RSQBRACKET      reduce using rule 27 (masexpresion -> OR expcomp .)
+    RPAREN          reduce using rule 28 (masexpresion -> AND expcomp .)
+    COMMA           reduce using rule 28 (masexpresion -> AND expcomp .)
+    SEMICOLON       reduce using rule 28 (masexpresion -> AND expcomp .)
+    RSQBRACKET      reduce using rule 28 (masexpresion -> AND expcomp .)
 
 
 state 129
 
-    (26) masexpresion -> AND expcomp .
+    (29) masexpresion -> OR expcomp .
 
-    COMMA           reduce using rule 26 (masexpresion -> AND expcomp .)
-    RPAREN          reduce using rule 26 (masexpresion -> AND expcomp .)
-    SEMICOLON       reduce using rule 26 (masexpresion -> AND expcomp .)
-    RSQBRACKET      reduce using rule 26 (masexpresion -> AND expcomp .)
+    RPAREN          reduce using rule 29 (masexpresion -> OR expcomp .)
+    COMMA           reduce using rule 29 (masexpresion -> OR expcomp .)
+    SEMICOLON       reduce using rule 29 (masexpresion -> OR expcomp .)
+    RSQBRACKET      reduce using rule 29 (masexpresion -> OR expcomp .)
 
 
 state 130
 
-    (31) masterminos -> DIVIDE exp .
+    (19) arr -> LSQBRACKET RSQBRACKET .
 
-    MORETHAN        reduce using rule 31 (masterminos -> DIVIDE exp .)
-    LESSTHAN        reduce using rule 31 (masterminos -> DIVIDE exp .)
-    NOTEQUAL        reduce using rule 31 (masterminos -> DIVIDE exp .)
-    ISEQUALTO       reduce using rule 31 (masterminos -> DIVIDE exp .)
-    MORETHANEQUAL   reduce using rule 31 (masterminos -> DIVIDE exp .)
-    LESSTHANEQUAL   reduce using rule 31 (masterminos -> DIVIDE exp .)
-    AND             reduce using rule 31 (masterminos -> DIVIDE exp .)
-    OR              reduce using rule 31 (masterminos -> DIVIDE exp .)
-    COMMA           reduce using rule 31 (masterminos -> DIVIDE exp .)
-    RPAREN          reduce using rule 31 (masterminos -> DIVIDE exp .)
-    SEMICOLON       reduce using rule 31 (masterminos -> DIVIDE exp .)
-    RSQBRACKET      reduce using rule 31 (masterminos -> DIVIDE exp .)
-    PLUS            reduce using rule 31 (masterminos -> DIVIDE exp .)
-    MINUS           reduce using rule 31 (masterminos -> DIVIDE exp .)
+    TIMES           reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    DIVIDE          reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    PLUS            reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    MINUS           reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    MORETHAN        reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    LESSTHAN        reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    NOTEQUAL        reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    ISEQUALTO       reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    MORETHANEQUAL   reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    LESSTHANEQUAL   reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    AND             reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    OR              reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    RPAREN          reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    COMMA           reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    SEMICOLON       reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
+    RSQBRACKET      reduce using rule 19 (arr -> LSQBRACKET RSQBRACKET .)
 
 
 state 131
-
-    (30) masterminos -> TIMES exp .
-
-    MORETHAN        reduce using rule 30 (masterminos -> TIMES exp .)
-    LESSTHAN        reduce using rule 30 (masterminos -> TIMES exp .)
-    NOTEQUAL        reduce using rule 30 (masterminos -> TIMES exp .)
-    ISEQUALTO       reduce using rule 30 (masterminos -> TIMES exp .)
-    MORETHANEQUAL   reduce using rule 30 (masterminos -> TIMES exp .)
-    LESSTHANEQUAL   reduce using rule 30 (masterminos -> TIMES exp .)
-    AND             reduce using rule 30 (masterminos -> TIMES exp .)
-    OR              reduce using rule 30 (masterminos -> TIMES exp .)
-    COMMA           reduce using rule 30 (masterminos -> TIMES exp .)
-    RPAREN          reduce using rule 30 (masterminos -> TIMES exp .)
-    SEMICOLON       reduce using rule 30 (masterminos -> TIMES exp .)
-    RSQBRACKET      reduce using rule 30 (masterminos -> TIMES exp .)
-    PLUS            reduce using rule 30 (masterminos -> TIMES exp .)
-    MINUS           reduce using rule 30 (masterminos -> TIMES exp .)
-
-
-state 132
-
-    (16) factor -> LPAREN expresion RPAREN .
-
-    TIMES           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    DIVIDE          reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    PLUS            reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    MINUS           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    AND             reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    OR              reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    COMMA           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    RPAREN          reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    SEMICOLON       reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    RSQBRACKET      reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    MORETHAN        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    LESSTHAN        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    NOTEQUAL        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    ISEQUALTO       reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    MORETHANEQUAL   reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-    LESSTHANEQUAL   reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
-
-
-state 133
-
-    (9) escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .
-
-    ID              reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-    IF              reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-    WHILE           reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-    PRINT           reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-    VAR             reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-    RBRACKET        reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
-
-
-state 134
-
-    (4) condicion -> IF LPAREN expresion RPAREN bloque . masbloque
-    (6) masbloque -> . ELSE bloque
-    (7) masbloque -> . empty
-    (75) empty -> .
-
-    ELSE            shift and go to state 139
-    ID              reduce using rule 75 (empty -> .)
-    IF              reduce using rule 75 (empty -> .)
-    WHILE           reduce using rule 75 (empty -> .)
-    PRINT           reduce using rule 75 (empty -> .)
-    VAR             reduce using rule 75 (empty -> .)
-    RBRACKET        reduce using rule 75 (empty -> .)
-
-    empty                          shift and go to state 137
-    masbloque                      shift and go to state 138
-
-state 135
 
     (8) ciclo -> WHILE LPAREN expresion RPAREN bloque .
 
@@ -2383,55 +2431,198 @@ state 135
     RBRACKET        reduce using rule 8 (ciclo -> WHILE LPAREN expresion RPAREN bloque .)
 
 
+state 132
+
+    (23) masexp -> MINUS exp .
+
+    PLUS            reduce using rule 23 (masexp -> MINUS exp .)
+    MINUS           reduce using rule 23 (masexp -> MINUS exp .)
+    MORETHAN        reduce using rule 23 (masexp -> MINUS exp .)
+    LESSTHAN        reduce using rule 23 (masexp -> MINUS exp .)
+    NOTEQUAL        reduce using rule 23 (masexp -> MINUS exp .)
+    ISEQUALTO       reduce using rule 23 (masexp -> MINUS exp .)
+    MORETHANEQUAL   reduce using rule 23 (masexp -> MINUS exp .)
+    LESSTHANEQUAL   reduce using rule 23 (masexp -> MINUS exp .)
+    AND             reduce using rule 23 (masexp -> MINUS exp .)
+    OR              reduce using rule 23 (masexp -> MINUS exp .)
+    RPAREN          reduce using rule 23 (masexp -> MINUS exp .)
+    COMMA           reduce using rule 23 (masexp -> MINUS exp .)
+    SEMICOLON       reduce using rule 23 (masexp -> MINUS exp .)
+    RSQBRACKET      reduce using rule 23 (masexp -> MINUS exp .)
+
+
+state 133
+
+    (22) masexp -> PLUS exp .
+
+    PLUS            reduce using rule 22 (masexp -> PLUS exp .)
+    MINUS           reduce using rule 22 (masexp -> PLUS exp .)
+    MORETHAN        reduce using rule 22 (masexp -> PLUS exp .)
+    LESSTHAN        reduce using rule 22 (masexp -> PLUS exp .)
+    NOTEQUAL        reduce using rule 22 (masexp -> PLUS exp .)
+    ISEQUALTO       reduce using rule 22 (masexp -> PLUS exp .)
+    MORETHANEQUAL   reduce using rule 22 (masexp -> PLUS exp .)
+    LESSTHANEQUAL   reduce using rule 22 (masexp -> PLUS exp .)
+    AND             reduce using rule 22 (masexp -> PLUS exp .)
+    OR              reduce using rule 22 (masexp -> PLUS exp .)
+    RPAREN          reduce using rule 22 (masexp -> PLUS exp .)
+    COMMA           reduce using rule 22 (masexp -> PLUS exp .)
+    SEMICOLON       reduce using rule 22 (masexp -> PLUS exp .)
+    RSQBRACKET      reduce using rule 22 (masexp -> PLUS exp .)
+
+
+state 134
+
+    (16) factor -> LPAREN expresion RPAREN .
+
+    TIMES           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    DIVIDE          reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    PLUS            reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    MINUS           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    MORETHAN        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    LESSTHAN        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    NOTEQUAL        reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    ISEQUALTO       reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    MORETHANEQUAL   reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    LESSTHANEQUAL   reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    AND             reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    OR              reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    RPAREN          reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    COMMA           reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    SEMICOLON       reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+    RSQBRACKET      reduce using rule 16 (factor -> LPAREN expresion RPAREN .)
+
+
+state 135
+
+    (32) masterminos -> TIMES exp .
+
+    PLUS            reduce using rule 32 (masterminos -> TIMES exp .)
+    MINUS           reduce using rule 32 (masterminos -> TIMES exp .)
+    MORETHAN        reduce using rule 32 (masterminos -> TIMES exp .)
+    LESSTHAN        reduce using rule 32 (masterminos -> TIMES exp .)
+    NOTEQUAL        reduce using rule 32 (masterminos -> TIMES exp .)
+    ISEQUALTO       reduce using rule 32 (masterminos -> TIMES exp .)
+    MORETHANEQUAL   reduce using rule 32 (masterminos -> TIMES exp .)
+    LESSTHANEQUAL   reduce using rule 32 (masterminos -> TIMES exp .)
+    AND             reduce using rule 32 (masterminos -> TIMES exp .)
+    OR              reduce using rule 32 (masterminos -> TIMES exp .)
+    RPAREN          reduce using rule 32 (masterminos -> TIMES exp .)
+    COMMA           reduce using rule 32 (masterminos -> TIMES exp .)
+    SEMICOLON       reduce using rule 32 (masterminos -> TIMES exp .)
+    RSQBRACKET      reduce using rule 32 (masterminos -> TIMES exp .)
+
+
 state 136
 
-    (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET . expresion comaexpresion RSQBRACKET SEMICOLON
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
-    (16) factor -> . LPAREN expresion RPAREN
-    (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (33) masterminos -> DIVIDE exp .
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    PLUS            reduce using rule 33 (masterminos -> DIVIDE exp .)
+    MINUS           reduce using rule 33 (masterminos -> DIVIDE exp .)
+    MORETHAN        reduce using rule 33 (masterminos -> DIVIDE exp .)
+    LESSTHAN        reduce using rule 33 (masterminos -> DIVIDE exp .)
+    NOTEQUAL        reduce using rule 33 (masterminos -> DIVIDE exp .)
+    ISEQUALTO       reduce using rule 33 (masterminos -> DIVIDE exp .)
+    MORETHANEQUAL   reduce using rule 33 (masterminos -> DIVIDE exp .)
+    LESSTHANEQUAL   reduce using rule 33 (masterminos -> DIVIDE exp .)
+    AND             reduce using rule 33 (masterminos -> DIVIDE exp .)
+    OR              reduce using rule 33 (masterminos -> DIVIDE exp .)
+    RPAREN          reduce using rule 33 (masterminos -> DIVIDE exp .)
+    COMMA           reduce using rule 33 (masterminos -> DIVIDE exp .)
+    SEMICOLON       reduce using rule 33 (masterminos -> DIVIDE exp .)
+    RSQBRACKET      reduce using rule 33 (masterminos -> DIVIDE exp .)
 
-    expcomp                        shift and go to state 70
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    expresion                      shift and go to state 140
-    varcte                         shift and go to state 76
 
 state 137
 
-    (7) masbloque -> empty .
+    (4) condicion -> IF LPAREN expresion RPAREN bloque . masbloque
+    (6) masbloque -> . ELSE bloque
+    (7) masbloque -> . empty
+    (78) empty -> .
 
-    ID              reduce using rule 7 (masbloque -> empty .)
-    IF              reduce using rule 7 (masbloque -> empty .)
-    WHILE           reduce using rule 7 (masbloque -> empty .)
-    PRINT           reduce using rule 7 (masbloque -> empty .)
-    VAR             reduce using rule 7 (masbloque -> empty .)
-    RBRACKET        reduce using rule 7 (masbloque -> empty .)
+    ELSE            shift and go to state 141
+    ID              reduce using rule 78 (empty -> .)
+    IF              reduce using rule 78 (empty -> .)
+    WHILE           reduce using rule 78 (empty -> .)
+    PRINT           reduce using rule 78 (empty -> .)
+    VAR             reduce using rule 78 (empty -> .)
+    RBRACKET        reduce using rule 78 (empty -> .)
 
+    masbloque                      shift and go to state 142
+    empty                          shift and go to state 143
 
 state 138
+
+    (12) masprint -> COMMA listaprint .
+
+    RPAREN          reduce using rule 12 (masprint -> COMMA listaprint .)
+
+
+state 139
+
+    (9) escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .
+
+    ID              reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+    IF              reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+    WHILE           reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+    PRINT           reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+    VAR             reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+    RBRACKET        reduce using rule 9 (escritura -> PRINT LPAREN listaprint RPAREN SEMICOLON .)
+
+
+state 140
+
+    (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET . expresion comaexpresion RSQBRACKET SEMICOLON
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
+    (16) factor -> . LPAREN expresion RPAREN
+    (17) factor -> . varcte
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
+
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
+
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 144
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
+
+state 141
+
+    (6) masbloque -> ELSE . bloque
+    (5) bloque -> . LBRACKET masestatuto RBRACKET
+
+    LBRACKET        shift and go to state 26
+
+    bloque                         shift and go to state 145
+
+state 142
 
     (4) condicion -> IF LPAREN expresion RPAREN bloque masbloque .
 
@@ -2443,29 +2634,32 @@ state 138
     RBRACKET        reduce using rule 4 (condicion -> IF LPAREN expresion RPAREN bloque masbloque .)
 
 
-state 139
+state 143
 
-    (6) masbloque -> ELSE . bloque
-    (5) bloque -> . LBRACKET masestatuto RBRACKET
+    (7) masbloque -> empty .
 
-    LBRACKET        shift and go to state 31
+    ID              reduce using rule 7 (masbloque -> empty .)
+    IF              reduce using rule 7 (masbloque -> empty .)
+    WHILE           reduce using rule 7 (masbloque -> empty .)
+    PRINT           reduce using rule 7 (masbloque -> empty .)
+    VAR             reduce using rule 7 (masbloque -> empty .)
+    RBRACKET        reduce using rule 7 (masbloque -> empty .)
 
-    bloque                         shift and go to state 141
 
-state 140
+state 144
 
     (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion . comaexpresion RSQBRACKET SEMICOLON
-    (23) comaexpresion -> . COMMA expresion comaexpresion
-    (24) comaexpresion -> . empty
-    (75) empty -> .
+    (25) comaexpresion -> . COMMA expresion comaexpresion
+    (26) comaexpresion -> . empty
+    (78) empty -> .
 
-    COMMA           shift and go to state 144
-    RSQBRACKET      reduce using rule 75 (empty -> .)
+    COMMA           shift and go to state 147
+    RSQBRACKET      reduce using rule 78 (empty -> .)
 
-    empty                          shift and go to state 143
-    comaexpresion                  shift and go to state 142
+    comaexpresion                  shift and go to state 146
+    empty                          shift and go to state 148
 
-state 141
+state 145
 
     (6) masbloque -> ELSE bloque .
 
@@ -2477,77 +2671,84 @@ state 141
     RBRACKET        reduce using rule 6 (masbloque -> ELSE bloque .)
 
 
-state 142
+state 146
 
     (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion . RSQBRACKET SEMICOLON
 
-    RSQBRACKET      shift and go to state 145
+    RSQBRACKET      shift and go to state 149
 
 
-state 143
+state 147
 
-    (24) comaexpresion -> empty .
-
-    RSQBRACKET      reduce using rule 24 (comaexpresion -> empty .)
-
-
-state 144
-
-    (23) comaexpresion -> COMMA . expresion comaexpresion
-    (25) expresion -> . expcomp masexpresion
-    (33) expcomp -> . exp expcompcontinuo
-    (19) exp -> . termino masexp
-    (29) termino -> . factor masterminos
+    (25) comaexpresion -> COMMA . expresion comaexpresion
+    (27) expresion -> . expcomp masexpresion
+    (35) expcomp -> . exp expcompcontinuo
+    (21) exp -> . termino masexp
+    (31) termino -> . factor masterminos
     (16) factor -> . LPAREN expresion RPAREN
     (17) factor -> . varcte
-    (18) factor -> . ID
-    (65) varcte -> . ID arr
-    (66) varcte -> . CTEINT
-    (67) varcte -> . CTEFLOAT
-    (68) varcte -> . CTECHAR
-    (69) varcte -> . CTESTRING
-    (70) varcte -> . ctebool
-    (71) ctebool -> . TRUE
-    (72) ctebool -> . FALSE
+    (18) factor -> . ID arr
+    (67) varcte -> . cteint
+    (68) varcte -> . ctefloat
+    (69) varcte -> . ctechar
+    (70) varcte -> . ctestring
+    (71) varcte -> . ctebool
+    (72) cteint -> . CTEINT
+    (73) ctefloat -> . CTEFLOAT
+    (74) ctechar -> . CTECHAR
+    (75) ctestring -> . CTESTRING
+    (76) ctebool -> . TRUE
+    (77) ctebool -> . FALSE
 
-    LPAREN          shift and go to state 73
-    ID              shift and go to state 69
-    CTEINT          shift and go to state 77
-    CTEFLOAT        shift and go to state 66
-    CTECHAR         shift and go to state 67
-    CTESTRING       shift and go to state 78
-    TRUE            shift and go to state 71
-    FALSE           shift and go to state 75
+    LPAREN          shift and go to state 77
+    ID              shift and go to state 70
+    CTEINT          shift and go to state 62
+    CTEFLOAT        shift and go to state 64
+    CTECHAR         shift and go to state 75
+    CTESTRING       shift and go to state 69
+    TRUE            shift and go to state 63
+    FALSE           shift and go to state 76
 
-    expcomp                        shift and go to state 70
-    exp                            shift and go to state 63
-    ctebool                        shift and go to state 62
-    factor                         shift and go to state 72
-    termino                        shift and go to state 65
-    expresion                      shift and go to state 146
-    varcte                         shift and go to state 76
+    ctebool                        shift and go to state 73
+    expresion                      shift and go to state 150
+    exp                            shift and go to state 65
+    varcte                         shift and go to state 66
+    expcomp                        shift and go to state 67
+    termino                        shift and go to state 74
+    ctestring                      shift and go to state 78
+    ctefloat                       shift and go to state 72
+    cteint                         shift and go to state 68
+    factor                         shift and go to state 79
+    ctechar                        shift and go to state 80
 
-state 145
+state 148
+
+    (26) comaexpresion -> empty .
+
+    RSQBRACKET      reduce using rule 26 (comaexpresion -> empty .)
+
+
+state 149
 
     (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET . SEMICOLON
 
-    SEMICOLON       shift and go to state 147
+    SEMICOLON       shift and go to state 151
 
 
-state 146
+state 150
 
-    (23) comaexpresion -> COMMA expresion . comaexpresion
-    (23) comaexpresion -> . COMMA expresion comaexpresion
-    (24) comaexpresion -> . empty
-    (75) empty -> .
+    (25) comaexpresion -> COMMA expresion . comaexpresion
+    (25) comaexpresion -> . COMMA expresion comaexpresion
+    (26) comaexpresion -> . empty
+    (78) empty -> .
 
-    COMMA           shift and go to state 144
-    RSQBRACKET      reduce using rule 75 (empty -> .)
+    COMMA           shift and go to state 147
+    RSQBRACKET      reduce using rule 78 (empty -> .)
 
-    empty                          shift and go to state 143
-    comaexpresion                  shift and go to state 148
+    comaexpresion                  shift and go to state 152
+    empty                          shift and go to state 148
 
-state 147
+state 151
 
     (15) asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON .
 
@@ -2559,9 +2760,9 @@ state 147
     RBRACKET        reduce using rule 15 (asignacion -> ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON .)
 
 
-state 148
+state 152
 
-    (23) comaexpresion -> COMMA expresion comaexpresion .
+    (25) comaexpresion -> COMMA expresion comaexpresion .
 
-    RSQBRACKET      reduce using rule 23 (comaexpresion -> COMMA expresion comaexpresion .)
+    RSQBRACKET      reduce using rule 25 (comaexpresion -> COMMA expresion comaexpresion .)
 

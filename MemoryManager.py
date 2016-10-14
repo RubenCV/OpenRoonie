@@ -55,14 +55,14 @@ class MemoryManager:
           return VirtualMemoryIndex
 
      def GetEntryValue(self, virDir):
-          if virDir in self.Dictionary[virDir].keys() :
+          if virDir in self.Dictionary.keys() :
                return self.Dictionary[virDir];
           else :
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
                return None
 
      def SetEntryValue(self, virDir, valor):
-          if virDir in self.Dictionary[virDir].keys() :
+          if virDir in self.Dictionary.keys() :
                self.Dictionary[virDir] = valor
                return True
           else :
@@ -70,7 +70,7 @@ class MemoryManager:
                return None
 
      def DeleteEntry(self, virDir):
-          if virDir in self.Dictionary[virDir].keys() :
+          if virDir in self.Dictionary.keys() :
                del self.Dictionary[virDir]
                return True
           else :

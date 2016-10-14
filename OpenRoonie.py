@@ -76,8 +76,8 @@ t_OR = r'\|'
 t_AND = r'\&'
 t_CTEINT = r'[0-9][0-9]*'
 t_CTEFLOAT = r'[0-9]+.[0-9]+'
-t_CTESTRING = r'\"[a-zA-Z_0-9]*\"'
-t_CTECHAR = r'\"[a-zA-Z_0-9]\"'
+t_CTESTRING = r'\"([^\\\n]|(\\.))*?\"'
+t_CTECHAR = r'(L)?\'([^\\\n]|(\\.))*?\''
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -92,7 +92,7 @@ def t_newline(t):
     t.lexer.lineno += t.value.count("\n")
     
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("ERROR LEXICO. Caracter illegal: '%s'" % t.value[0])
     t.lexer.skip(1)
     
 # Build the lexer
@@ -110,15 +110,8 @@ def p_programa(t):
 
 def p_prog(t):
     'prog : PROGRAM'
-    # Global Scope
-    FunctionDirectory.addFunction('global', None)
+    # Todo lo que se decalre afuera de las funciones es global.
     FunctionStack.push('global')
-    
-    # Temporal Scope
-    FunctionDirectory.addFunction('temp', None)
-    
-    # Constant Scope
-    FunctionDirectory.addFunction('const', None)
 
 def p_main(t):
     'main : MAIN'
@@ -143,7 +136,7 @@ def p_escritura(t):
 
 def p_listaprint(t):
     '''listaprint : expresion masprint
-                  | CTESTRING masprint'''
+                  | ctestring masprint'''
 
 def p_masprint(t):
     '''masprint : COMMA listaprint
@@ -156,8 +149,12 @@ def p_asignacion(t):
 def p_factor(t):
     '''factor : LPAREN expresion RPAREN
               | varcte
-              | ID'''
+              | ID arr'''
 
+def p_arr(t):
+    '''arr : LSQBRACKET RSQBRACKET
+           | empty'''
+    
 def p_exp(t):
     'exp : termino masexp'
 
@@ -249,22 +246,36 @@ def p_tipo(t):
             | STRING'''
     TypeStack.push(t[1])
 
+# Identifiar tipo de constantes y agregarlas a memoria.
 def p_varcte(t):
-    '''varcte : ID arr
-              | CTEINT
-              | CTEFLOAT
-              | CTECHAR
-              | CTESTRING
+    '''varcte : cteint
+              | ctefloat
+              | ctechar
+              | ctestring
               | ctebool'''
+
+def p_cteint(t):
+    '''cteint : CTEINT'''
+    FunctionDirectory.addConstant(t[1], "int")
+
+def p_ctefloat(t):
+    '''ctefloat : CTEFLOAT'''
+    FunctionDirectory.addConstant(t[1], "float")
+
+def p_ctechar(t):
+    '''ctechar : CTECHAR'''
+    FunctionDirectory.addConstant(t[1], "char")
+
+def p_ctestring(t):
+    '''ctestring : CTESTRING'''
+    FunctionDirectory.addConstant(t[1], "string")
 
 def p_ctebool(t):
     '''ctebool : TRUE
                | FALSE'''
-
-def p_arr(t):
-    '''arr : LSQBRACKET RSQBRACKET
-           | empty'''
-
+    FunctionDirectory.addConstant(t[1], "bool")
+# Termino de identificar tipo de constantes y agregarlas a memoria.
+    
 def p_error(t):
     print("\nERROR SINTAXIS. Token: '%s'" % t.value)
 

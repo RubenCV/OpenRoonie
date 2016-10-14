@@ -25,9 +25,15 @@ class FunctionDirectory:
 
      # Borra / Resetea todo el diccionario y directorio de funciones.
      def resetDirectory(self):
+          # Reinicializar la memoria.
           self.MemoryManager = MemoryManager.MemoryManager()
           self.functionRow = []
           self.functionDictionary = {}
+
+          # Scopes Declarados por Default: Global, Temporal, Constant.
+          self.addFunction('global', None)
+          self.addFunction('temp', None)
+          self.addFunction('const', None)
           return True
 
      # Cantidad de funciones almacenadas en el directorio (+ Scope Global).
@@ -88,7 +94,7 @@ class FunctionDirectory:
      #####---- Variables's Methods ----#####
 
      # Agregar una variable al renglon de la funcion correspondiente, de tal manera que quede una tupla:
-     # [nombreVar, tipo, valor, direccion virtual]    
+     # [nombreVar, tipo, direccion virtual]    
      def addVariable(self, function, nombre, tipo):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
@@ -206,6 +212,7 @@ class FunctionDirectory:
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
      def setVariableValue(self, function, nombre, valor):
+          valor = eval(valor)
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
                # Si existe en la variable en el scope de la funcion               
@@ -226,3 +233,27 @@ class FunctionDirectory:
           else :
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
+
+     #####---- Constants's Methods ----#####
+
+     # Agregar una constante al scope 'const' de tal manera que quede una tupla:
+     # [constante, tipo,  direccion virtual]    
+     def addConstant(self, constante, tipo):
+          index = self.functionDictionary['const']
+          if not constante in self.functionRow[index][2].keys() :
+               indexVar = len(self.functionRow[index][2])
+               self.functionRow[index][2][constante] = indexVar
+               self.functionRow[index][3].append([])
+               self.functionRow[index][3][indexVar].append(constante)
+               self.functionRow[index][3][indexVar].append(tipo)
+               self.functionRow[index][3][indexVar].append(self.MemoryManager.AddEntry(index, tipo, eval(constante)))
+               return self.functionRow[index][3][indexVar]
+          return self.getConstant(constante)
+
+     # Retorna la tupla: [constante, tipo,  direccion virtual]
+     def getConstant(self, constante):
+          return self.getVariable('const', constante)
+
+     # Retorna la direccion virtual en donde esta almacenada la constante.
+     def getConstantVirtualDirection(self, constante):
+          return self.getVariableVirtualDirection('const', constante)
