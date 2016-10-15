@@ -12,7 +12,7 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
-class SemanticCube:
+class SemanticCubeClass:
 
      def __init__(self):
              self.DataTypes  = ['int', 'float', 'char', 'bool', 'string']
@@ -80,3 +80,9 @@ class SemanticCube:
           else :
                print("\nERROR. Tipos de datos:", tipo1, ",", tipo2, "y/o operacion:", operacion, "desconocidos")
                return None
+
+class SemanticCube:
+     Instance = SemanticCubeClass()
+     
+     def __init__(self):
+          pass

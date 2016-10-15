@@ -12,18 +12,21 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
-class MemoryManager:
+import math
+
+class MemoryManagerClass:
      
      def __init__(self):
+          self.ResetMemory()
+
+     def ResetMemory(self):
           # Nombres de los diferentes scopes que existen en el mapa de memoria
           self.MemoryScopes = ['global','temp','const','local']
           # Nombres de tipos de datos validos
           self.DataTypes = ['int', 'float', 'char', 'bool', 'string']
           # Tamaño del buffer por cada tipo de variable, para cada contexto
           self.MaxVarsPerType = 1000
-          self.ResetMemory()
-
-     def ResetMemory(self):          
+          
           # Crear / Borrar contenido del diccionario de memoria.
           self.Dictionary = {}
           # Crear / Borrar contenido del array de los contadores.
@@ -54,6 +57,15 @@ class MemoryManager:
           self.Counters[Index] = VirtualMemoryIndex + 1
           return VirtualMemoryIndex
 
+     def GetEntryType (self, virDir) :
+          if virDir in self.Dictionary.keys() :
+               TypeIndex = ((math.floor(virDir / self.MaxVarsPerType)) % len(self.DataTypes)) - 1
+               return self.DataTypes[TypeIndex]
+          
+          else :
+               print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
+               return None
+
      def GetEntryValue(self, virDir):
           if virDir in self.Dictionary.keys() :
                return self.Dictionary[virDir];
@@ -76,3 +88,9 @@ class MemoryManager:
           else :
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
                return None
+
+class MemoryManager:
+     Instance = MemoryManagerClass()
+     
+     def __init__(self):
+          pass

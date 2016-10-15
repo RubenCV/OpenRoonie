@@ -15,10 +15,22 @@
 import os.path
 import Stack as Stack
 import FunctionDirectory as FunctionDirectory
+import QuadrupleManager as QuadrupleManager
 
 TypeStack = Stack.Stack()
 FunctionStack = Stack.Stack()
-FunctionDirectory = FunctionDirectory.FunctionDirectory();
+FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
+QuadrupleManager = QuadrupleManager.QuadrupleManager().Instance
+
+# Semantica y Generacion de Cuadruplos
+POper = Stack.Stack()
+PilaO = Stack.Stack()
+def AgregarPilasCtes(t, tipo):
+    PilaO.push(FunctionDirectory.addConstant(t, tipo))
+
+def AgregarPilasID(function, nombre):
+    DirVir = FunctionDirectory.getVariableVirtualDirection(function, nombre)
+    PilaO.push(DirVir)
 
 reserved = {
    'if' : 'IF',
@@ -147,21 +159,43 @@ def p_asignacion(t):
                   | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
 
 def p_factor(t):
-    '''factor : LPAREN expresion RPAREN
+    '''factor : leftparen expresion rightparen
               | varcte
-              | ID arr'''
+              | varid'''
 
+def p_leftparen(t):
+    'leftparen : LPAREN'
+    POper.push('Fake')
+
+def p_rightparen(t):
+    'rightparen : RPAREN'
+    POper.pop()
+
+def p_varid(t):
+    'varid : ID arr'
+    AgregarPilasID(FunctionStack.peek(), t[1])
+    
 def p_arr(t):
     '''arr : LSQBRACKET RSQBRACKET
            | empty'''
     
 def p_exp(t):
-    'exp : termino masexp'
+    'exp : termino masexp addquadrupleplusminus' # masexp <-> addquadrupleplusminus
 
+def p_addquadrupleplusminus(t):
+    'addquadrupleplusminus : empty'
+    if POper.peek() in ['+', '-']:
+        VirDir2 = PilaO.pop()
+        VirDir1 = PilaO.pop()
+        Operacion = POper.pop()
+        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
+        
 def p_masexp(t):
     '''masexp : PLUS exp
               | MINUS exp
               | empty'''
+    if len(t) > 2:
+        POper.push(t[1])
 
 def p_comaexpresion(t):
     '''comaexpresion : COMMA expresion comaexpresion
@@ -176,12 +210,22 @@ def p_masexpresion(t):
                     | empty'''
 
 def p_termino(t):
-    'termino : factor masterminos'
+    'termino : factor masterminos addquadrupletimesdivide' # masterminos <-> addquadrupletimesdivide
+
+def p_addquadrupletimesdivide(t):
+    'addquadrupletimesdivide : empty'
+    if POper.peek() in ['*', '/']:
+        VirDir2 = PilaO.pop()
+        VirDir1 = PilaO.pop()
+        Operacion = POper.pop()
+        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
 
 def p_masterminos(t):
-    '''masterminos : TIMES exp
-                   | DIVIDE exp
+    '''masterminos : TIMES termino
+                   | DIVIDE termino
                    | empty'''
+    if len(t) > 2:
+        POper.push(t[1])
 
 def p_expcomp(t):
     'expcomp : exp expcompcontinuo'
@@ -256,24 +300,24 @@ def p_varcte(t):
 
 def p_cteint(t):
     '''cteint : CTEINT'''
-    FunctionDirectory.addConstant(t[1], "int")
+    AgregarPilasCtes(t[1], "int")
 
 def p_ctefloat(t):
     '''ctefloat : CTEFLOAT'''
-    FunctionDirectory.addConstant(t[1], "float")
+    AgregarPilasCtes(t[1], "float")
 
 def p_ctechar(t):
     '''ctechar : CTECHAR'''
-    FunctionDirectory.addConstant(t[1], "char")
+    AgregarPilasCtes(t[1], "char")
 
 def p_ctestring(t):
     '''ctestring : CTESTRING'''
-    FunctionDirectory.addConstant(t[1], "string")
+    AgregarPilasCtes(t[1], "string")
 
 def p_ctebool(t):
     '''ctebool : TRUE
                | FALSE'''
-    FunctionDirectory.addConstant(t[1], "bool")
+    AgregarPilasCtes(t[1], "bool")
 # Termino de identificar tipo de constantes y agregarlas a memoria.
     
 def p_error(t):
@@ -297,8 +341,15 @@ while True:
         s = file.read()
         parser.parse(s)
         print("\nCompilacion terminada.")
-        FunctionDirectory.showDirectory();
-        FunctionDirectory.resetDirectory();
+
+        # Imprimir
+        FunctionDirectory.showDirectory()
+        QuadrupleManager.ShowQuadruples()
+
+        # Resetear para el siguiente archivo
+        FunctionDirectory.resetDirectory()
+        QuadrupleManager.ResetQuadruples()
+    
     except EOFError:
         break
     except IOError:

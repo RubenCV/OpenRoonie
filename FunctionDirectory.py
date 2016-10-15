@@ -15,18 +15,18 @@
 import MemoryManager as MemoryManager
 import pprint
 
-class FunctionDirectory:
-
+class FunctionDirectoryClass:
      #####---- Directory's Methods ----#####
 
      # Constructor del directorio de funciones.
      def __init__(self):
+          self.MemoryManager = MemoryManager.MemoryManager().Instance
           self.resetDirectory()
 
      # Borra / Resetea todo el diccionario y directorio de funciones.
      def resetDirectory(self):
           # Reinicializar la memoria.
-          self.MemoryManager = MemoryManager.MemoryManager()
+          self.MemoryManager.ResetMemory()
           self.functionRow = []
           self.functionDictionary = {}
 
@@ -212,7 +212,6 @@ class FunctionDirectory:
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
      def setVariableValue(self, function, nombre, valor):
-          valor = eval(valor)
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
                # Si existe en la variable en el scope de la funcion               
@@ -234,6 +233,26 @@ class FunctionDirectory:
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
+     #####---- Temporal Var's Methods ----#####
+     def addTemporalVariable(self, valor, tipo):
+          ScopeIndex = self.functionDictionary['temp']
+          VarTempName = 't' + str(len(self.functionRow[ScopeIndex][2]))
+          self.addVariable('temp', VarTempName, tipo)
+          self.setVariableValue('temp', VarTempName, valor)
+          return self.getTemporalVariableVirtualDirection(VarTempName)
+
+     def getTemporalVariable(self, nombre):
+          return self.getVariable('temp', nombre)
+
+     def getTemporalVariableVirtualDirection(self, nombre):
+          return self.getVariableVirtualDirection('temp', nombre)
+     
+     def getTemporalVariableValue(self, nombre):
+          return self.getVariableValue('temp', nombre)
+     
+     def getTemporalVariableType(self, nombre):
+          return self.getVariableType('temp', nombre)
+
      #####---- Constants's Methods ----#####
 
      # Agregar una constante al scope 'const' de tal manera que quede una tupla:
@@ -247,8 +266,8 @@ class FunctionDirectory:
                self.functionRow[index][3][indexVar].append(constante)
                self.functionRow[index][3][indexVar].append(tipo)
                self.functionRow[index][3][indexVar].append(self.MemoryManager.AddEntry(index, tipo, eval(constante)))
-               return self.functionRow[index][3][indexVar]
-          return self.getConstant(constante)
+               return self.getConstantVirtualDirection(constante)
+          return self.getConstantVirtualDirection(constante)
 
      # Retorna la tupla: [constante, tipo,  direccion virtual]
      def getConstant(self, constante):
@@ -257,3 +276,9 @@ class FunctionDirectory:
      # Retorna la direccion virtual en donde esta almacenada la constante.
      def getConstantVirtualDirection(self, constante):
           return self.getVariableVirtualDirection('const', constante)
+
+class FunctionDirectory:
+     Instance = FunctionDirectoryClass()
+     
+     def __init__(self):
+          pass
