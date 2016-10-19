@@ -25,5 +25,5 @@ main {
 	var bool myBool;
 	myBool = True;
 	
-	miint=5;
+	miint = 5 * 9;
 }

@@ -22,7 +22,7 @@ class QuadrupleManagerClass:
         self.SemanticCube = SemanticCube.SemanticCube().Instance
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-        self.Operations = self.SemanticCube.Operations + ['print', 'gotoT', 'gotoF', 'goto']
+        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'gotoT', 'gotoF', 'goto']
         self.ResetQuadruples()
 
     def ResetQuadruples(self):
@@ -45,6 +45,7 @@ class QuadrupleManagerClass:
         Type1 = self.MemoryManager.GetEntryType(VirDir1)
         Type2 = self.MemoryManager.GetEntryType(VirDir2)
 
+        # Operacion Artimetica / Logica
         if IndexOP < len(self.SemanticCube.Operations):
             ResultingType = self.SemanticCube.GetResultingType(Type1, Type2, Op)
 
@@ -52,9 +53,9 @@ class QuadrupleManagerClass:
                 ResultVirDir =  self.FunctionDirectory.addTemporalVariable(None, ResultingType)
                 self.QuadrupleList.append([IndexOP, VirDir1, VirDir2, ResultVirDir])
                 return ResultVirDir
-        
+
+        # Condicion / Ciclo / Saltos / Print / Read / etc
         else:
-            # hacer cuadruplos no artimeticos/logicas
             return None
 
 class QuadrupleManager:

@@ -29,8 +29,18 @@ def AgregarPilasCtes(t, tipo):
     PilaO.push(FunctionDirectory.addConstant(t, tipo))
 
 def AgregarPilasID(function, nombre):
-    DirVir = FunctionDirectory.getVariableVirtualDirection(function, nombre)
-    PilaO.push(DirVir)
+    PilaO.push(FunctionDirectory.getVariableVirtualDirection(function, nombre))
+
+def addQuadruple(ops):
+    if POper.peek() in ops:
+        VirDir2 = PilaO.pop()
+        VirDir1 = PilaO.pop()
+        Operacion = POper.pop()
+        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
+
+def addPOper(t):
+    if len(t) > 2:
+        POper.push(t[1])
 
 reserved = {
    'if' : 'IF',
@@ -157,6 +167,7 @@ def p_masprint(t):
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
                   | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
+    # Crear Aqui cuadruplo Asignacion
 
 def p_factor(t):
     '''factor : leftparen expresion rightparen
@@ -180,64 +191,64 @@ def p_arr(t):
            | empty'''
     
 def p_exp(t):
-    'exp : termino masexp addquadrupleplusminus' # masexp <-> addquadrupleplusminus
+    'exp : termino masexp addQPPM' # masexp <-> addquadrupleplusminus
 
-def p_addquadrupleplusminus(t):
-    'addquadrupleplusminus : empty'
-    if POper.peek() in ['+', '-']:
-        VirDir2 = PilaO.pop()
-        VirDir1 = PilaO.pop()
-        Operacion = POper.pop()
-        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
+def p_addQPPM(t):
+    'addQPPM : empty'
+    addQuadruple(['+', '-'])
         
 def p_masexp(t):
     '''masexp : PLUS exp
               | MINUS exp
               | empty'''
-    if len(t) > 2:
-        POper.push(t[1])
+    addPOper(t);
 
 def p_comaexpresion(t):
     '''comaexpresion : COMMA expresion comaexpresion
                      | empty'''
             
 def p_expresion(t):
-    'expresion : expcomp masexpresion'
+    'expresion : expcomp masexpresion addQPAO'
+
+def p_addQPAO(t):
+    'addQPAO : empty'
+    addQuadruple(['&', '|'])
 
 def p_masexpresion(t):
-    '''masexpresion : AND expcomp
-                    | OR expcomp
+    '''masexpresion : AND expresion
+                    | OR expresion
                     | empty'''
+    addPOper(t);
 
 def p_termino(t):
-    'termino : factor masterminos addquadrupletimesdivide' # masterminos <-> addquadrupletimesdivide
+    'termino : factor masterminos addQTD' # masterminos <-> addquadrupletimesdivide
 
-def p_addquadrupletimesdivide(t):
-    'addquadrupletimesdivide : empty'
-    if POper.peek() in ['*', '/']:
-        VirDir2 = PilaO.pop()
-        VirDir1 = PilaO.pop()
-        Operacion = POper.pop()
-        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
+def p_addQTD(t):
+    'addQTD : empty'
+    addQuadruple(['*', '/'])
 
 def p_masterminos(t):
     '''masterminos : TIMES termino
                    | DIVIDE termino
                    | empty'''
-    if len(t) > 2:
-        POper.push(t[1])
+    addPOper(t);
 
 def p_expcomp(t):
-    'expcomp : exp expcompcontinuo'
+    'expcomp : exp expcompcontinuo addQPComp'
+
+def p_addQPComp(t):
+    'addQPComp : empty'
+    addQuadruple(['<', '>', '<>', '==','<=', '>='])
 
 def p_expcompcontinuo(t):
-    '''expcompcontinuo : MORETHAN exp
-                       | LESSTHAN exp
-                       | NOTEQUAL exp
-                       | ISEQUALTO exp
-                       | MORETHANEQUAL exp
-                       | LESSTHANEQUAL exp
+    '''expcompcontinuo : MORETHAN expcomp
+                       | LESSTHAN expcomp
+                       | NOTEQUAL expcomp
+                       | ISEQUALTO expcomp
+                       | MORETHANEQUAL expcomp
+                       | LESSTHANEQUAL expcomp
                        | empty'''
+    addPOper(t);
 
 def p_estatuto(t):
     '''estatuto : asignacion
