@@ -32,15 +32,23 @@ def AgregarPilasID(function, nombre):
     PilaO.push(FunctionDirectory.getVariableVirtualDirection(function, nombre))
 
 def addQuadruple(ops):
+    NoneParemeterQuadrupleOps = ['goto']
+    OneParameterQuadrupleOps = NoneParemeterQuadrupleOps + ['print', 'read', 'gotoT', 'gotoF']
     if POper.peek() in ops:
-        VirDir2 = PilaO.pop()
-        VirDir1 = PilaO.pop()
+        VirDir2 = PilaO.pop() if ops[0] not in OneParameterQuadrupleOps else None
+        VirDir1 = PilaO.pop() if ops[0] not in NoneParemeterQuadrupleOps else None
         Operacion = POper.pop()
-        PilaO.push(QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2))
+        Result = QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2)
+        if Result != None :
+            if Result != True :
+                PilaO.push(Result)
 
 def addPOper(t):
     if len(t) > 2:
         POper.push(t[1])
+
+# Cuadruplos Saltos
+PSaltos = Stack.Stack()
 
 reserved = {
    'if' : 'IF',
@@ -141,20 +149,44 @@ def p_main(t):
     FunctionStack.push(t[1])
 
 def p_condicion(t):
-    'condicion : IF LPAREN expresion RPAREN bloque masbloque'
+    'condicion : IF LPAREN expresion RPAREN gotoF bloque masbloque'
+    QuadrupleManager.UpdateReturnReference(PSaltos.pop(), QuadrupleManager.GetQuadrupleLength())
+
+def p_gotoF(t):
+    'gotoF : empty'
+    POper.push('gotoF')
+    addQuadruple(['gotoF'])
+    PSaltos.push(QuadrupleManager.GetQuadrupleLength()-1)
+
 
 def p_bloque(t):
     'bloque : LBRACKET masestatuto RBRACKET'
 
 def p_masbloque(t):
-    '''masbloque : ELSE bloque
+    '''masbloque : ELSE goto bloque
                  | empty'''
+def p_goto(t):
+    'goto : empty'
+    POper.push('goto')
+    addQuadruple(['goto'])
+    QuadrupleManager.UpdateReturnReference(PSaltos.pop(), QuadrupleManager.GetQuadrupleLength())
+    PSaltos.push(QuadrupleManager.GetQuadrupleLength()-1)
 
 def p_ciclo(t):
-    'ciclo : WHILE LPAREN expresion RPAREN bloque'
+    'ciclo : while LPAREN expresion RPAREN gotoF bloque goto'
+    PSaltos.pop()
+    QuadrupleManager.UpdateReturnReference(QuadrupleManager.GetQuadrupleLength()-1, PSaltos.pop())
+
+def p_while(t):
+    'while : WHILE'
+    PSaltos.push(QuadrupleManager.GetQuadrupleLength())
 
 def p_escritura(t):
-    'escritura : PRINT LPAREN listaprint RPAREN SEMICOLON'
+    'escritura : print LPAREN listaprint RPAREN SEMICOLON'
+
+def p_print(t):
+    'print : PRINT'
+    POper.push('print')
 
 def p_listaprint(t):
     '''listaprint : expresion masprint
@@ -163,11 +195,17 @@ def p_listaprint(t):
 def p_masprint(t):
     '''masprint : COMMA listaprint
                 | empty'''
+    if len(t) > 1:
+        addQuadruple(['print'])
+        POper.push('print')
 
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
                   | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
     # Crear Aqui cuadruplo Asignacion
+    AgregarPilasID(FunctionStack.peek(), t[1])
+    POper.push('=')
+    addQuadruple(['='])
 
 def p_factor(t):
     '''factor : leftparen expresion rightparen
