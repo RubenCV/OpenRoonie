@@ -23,31 +23,31 @@ class QuadrupleManagerClass:
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
         self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto']
-        self.ResetQuadruples()
+        self.resetQuadruples()
 
-    def ResetQuadruples(self):
+    def resetQuadruples(self):
         self.QuadrupleList = []
         return True
 
-    def ShowQuadruples(self):
-        print("\nCuadruplos: ")
+    def showQuadruples(self):
+        print("\nQuadruples: ")
         for Quadruple in self.QuadrupleList:
             print(Quadruple)
         return True
 
-    def AddQuadruple(self, Op, VirDir1, VirDir2):
+    def addQuadruple(self, Op, VirDir1, VirDir2):
         try:
             IndexOP = self.Operations.index(Op)
         except ValueError:
-            print("\nERROR. Operacion no reconocida: ", Op)
+            print("\nERROR SINTAXIS / SEMANTICA. Operacion no reconocida: ", Op)
             return None
         
-        Type1 = self.MemoryManager.GetEntryType(VirDir1) if VirDir1 != None else None
-        Type2 = self.MemoryManager.GetEntryType(VirDir2) if VirDir2 != None else None
+        Type1 = self.MemoryManager.getEntryType(VirDir1) if VirDir1 != None else None
+        Type2 = self.MemoryManager.getEntryType(VirDir2) if VirDir2 != None else None
 
         # Operacion Artimetica / Logica
         if IndexOP < len(self.SemanticCube.Operations):
-            ResultingType = self.SemanticCube.GetResultingType(Type1, Type2, Op)
+            ResultingType = self.SemanticCube.getResultingType(Type1, Type2, Op)
 
             if ResultingType != None :
                 ResultVirDir =  self.FunctionDirectory.addTemporalVariable(None, ResultingType)
@@ -60,7 +60,7 @@ class QuadrupleManagerClass:
                 self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
                 return True
             else:
-                print("\nERROR. Tipo de dato:", Type1,'no puede ser asignado a una variable de tipo:', Type2)
+                print("\nERROR SEMANTICA. Tipo de dato:", Type1,'no puede ser asignado a una variable de tipo:', Type2)
                 return None
             
         # Print (print(A) -> [print , None, None, A])
@@ -77,13 +77,16 @@ class QuadrupleManagerClass:
             if (Type1 == 'bool'):
                 self.QuadrupleList.append([IndexOP, VirDir1, None, None])
                 return len(self.QuadrupleList)-1
+            else:
+                print("\nERROR SEMANTICA. La condicion en un if o un ciclo debe ser de tipo bool.")
+                return None
 
         # goto
         elif IndexOP == len(self.SemanticCube.Operations)+5:
             self.QuadrupleList.append([IndexOP, None, None, None])
             return len(self.QuadrupleList)-1
 
-    def UpdateReturnReference(self, index, quadIndex):
+    def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):
             if self.QuadrupleList[index][0] in [15, 16, 17]:
                  self.QuadrupleList[index][3] = quadIndex;
@@ -92,10 +95,10 @@ class QuadrupleManagerClass:
                 print("\nERROR. El cuadruplo que intentas modificar no es un gotoX.")
                 return None
         else:
-            print("\nERROR. Index out of bounds.")
+            print("\nERROR. Indice de Cuadruplo fuera de los limites.")
             return None
 
-    def GetQuadrupleLength(self):
+    def getQuadrupleListLength(self):
         return len(self.QuadrupleList)
 
 

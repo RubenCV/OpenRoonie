@@ -18,9 +18,9 @@ class SemanticCubeClass:
              self.DataTypes  = ['int', 'float', 'char', 'bool', 'string']
              self.Operations = ['+','-','*','/','>','<', '>=', '<=', '<>', '==', '|', '&']
              self.Cube = [[[]]]
-             self.InitCube()
+             self.initCube()
 
-     def InitCube(self):
+     def initCube(self):
                               # int
                               #  +   -   *   /   >   <  >=  <=  <>  ==   |   &  
              self.Cube =     [[[ 0,  0,  0,  0,  3,  3,  3,  3,  3,  3, -1, -1],     # int
@@ -58,7 +58,7 @@ class SemanticCubeClass:
                                [-1, -1, -1, -1, -1, -1, -1, -1,  3,  3, -1, -1]]]    # string
              return True
 	
-     def GetResultingType(self, tipo1, tipo2, operacion):
+     def getResultingType(self, tipo1, tipo2, operacion):
 
           try:
                IndexTipo1 = self.DataTypes.index(tipo1)

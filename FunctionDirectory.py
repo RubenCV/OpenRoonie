@@ -26,7 +26,7 @@ class FunctionDirectoryClass:
      # Borra / Resetea todo el diccionario y directorio de funciones.
      def resetDirectory(self):
           # Reinicializar la memoria.
-          self.MemoryManager.ResetMemory()
+          self.MemoryManager.resetMemory()
           self.functionRow = []
           self.functionDictionary = {}
 
@@ -46,8 +46,8 @@ class FunctionDirectoryClass:
           pprint.pprint(self.functionDictionary)
           print("\nFunction Directory: ")
           pprint.pprint(self.functionRow)
-          print("\nMemory: ")
-          pprint.pprint(self.MemoryManager.Dictionary)
+          # Memory:
+          self.MemoryManager.showMemory()
           return True
 
      #####---- Function's Methods ----#####
@@ -104,7 +104,7 @@ class FunctionDirectoryClass:
                     self.functionRow[index][3].append([])
                     self.functionRow[index][3][indexVar].append(nombre)
                     self.functionRow[index][3][indexVar].append(tipo)
-                    self.functionRow[index][3][indexVar].append(self.MemoryManager.AddEntry(index, tipo, None))
+                    self.functionRow[index][3][indexVar].append(self.MemoryManager.addEntry(index, tipo, None))
                     return self.functionRow[index][3][indexVar]
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "ya existe una variable con nombre:", nombre)
@@ -121,7 +121,7 @@ class FunctionDirectoryClass:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    self.MemoryManager.DeleteEntry(virDir)
+                    self.MemoryManager.deleteEntry(virDir)
                     self.functionRow[index][3][nombre].pop(indexVar)
                     del self.functionRow[index][2][nombre]
                     return True
@@ -178,12 +178,12 @@ class FunctionDirectoryClass:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    return self.MemoryManager.GetEntryValue(virDir)
+                    return self.MemoryManager.getEntryValue(virDir)
                # Si existe en la variable en el scope global
                elif nombre in self.functionRow[0][2].keys() :
                     indexVar = self.functionRow[0][2][nombre]
                     virDir = self.functionRow[0][3][indexVar][2]
-                    return self.MemoryManager.GetEntryValue(virDir)
+                    return self.MemoryManager.getEntryValue(virDir)
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
                     return None
@@ -218,13 +218,13 @@ class FunctionDirectoryClass:
                if nombre in self.functionRow[index][2].keys() :
                     indexVar = self.functionRow[index][2][nombre]
                     virDir = self.functionRow[index][3][indexVar][2]
-                    self.MemoryManager.SetEntryValue(virDir, valor)
+                    self.MemoryManager.setEntryValue(virDir, valor)
                     return True
                # Si existe en la variable en el scope global
                elif nombre in self.functionRow[0][2].keys() :
                     indexVar = self.functionRow[0][2][nombre]
                     virDir = self.functionRow[0][3][indexVar][2]
-                    self.MemoryManager.SetEntryValue(virDir, valor)
+                    self.MemoryManager.setEntryValue(virDir, valor)
                     return True
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "no existe una variable con nombre:", nombre)
@@ -265,7 +265,7 @@ class FunctionDirectoryClass:
                self.functionRow[index][3].append([])
                self.functionRow[index][3][indexVar].append(constante)
                self.functionRow[index][3][indexVar].append(tipo)
-               self.functionRow[index][3][indexVar].append(self.MemoryManager.AddEntry(index, tipo, eval(constante)))
+               self.functionRow[index][3][indexVar].append(self.MemoryManager.addEntry(index, tipo, eval(constante)))
                return self.getConstantVirtualDirection(constante)
           return self.getConstantVirtualDirection(constante)
 

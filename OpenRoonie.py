@@ -17,19 +17,31 @@ import Stack as Stack
 import FunctionDirectory as FunctionDirectory
 import QuadrupleManager as QuadrupleManager
 
-TypeStack = Stack.Stack()
-FunctionStack = Stack.Stack()
+# Directory de funciones y controlador de cuadruplos.
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-QuadrupleManager = QuadrupleManager.QuadrupleManager().Instance
+QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 
-# Semantica y Generacion de Cuadruplos
-POper = Stack.Stack()
-PilaO = Stack.Stack()
-def AgregarPilasCtes(t, tipo):
-    PilaO.push(FunctionDirectory.addConstant(t, tipo))
+# Sintaxis y Semantica basica
+TypeStack      = Stack.Stack()
+FunctionStack  = Stack.Stack()
 
-def AgregarPilasID(function, nombre):
-    PilaO.push(FunctionDirectory.getVariableVirtualDirection(function, nombre))
+# Generacion de Cuadruplos y Semantica
+PSaltos = Stack.Stack()
+POper   = Stack.Stack()
+PilaO   = Stack.Stack()
+
+# Funciones necesarias para la generacion de Cuadruplos
+def addCtePilaO(cte, tipo):
+    PilaO.push(FunctionDirectory.addConstant(cte, tipo))
+    return True
+
+def addIDPilaO(nombreFunc, nombreVar):
+    PilaO.push(FunctionDirectory.getVariableVirtualDirection(nombreFunc, nombreVar))
+    return True
+
+def addPOper(op):
+    POper.push(op)
+    return True
 
 def addQuadruple(ops):
     NoneParemeterQuadrupleOps = ['goto']
@@ -38,18 +50,25 @@ def addQuadruple(ops):
         VirDir2 = PilaO.pop() if ops[0] not in OneParameterQuadrupleOps else None
         VirDir1 = PilaO.pop() if ops[0] not in NoneParemeterQuadrupleOps else None
         Operacion = POper.pop()
-        Result = QuadrupleManager.AddQuadruple(Operacion, VirDir1, VirDir2)
+        Result = QuadrupleManager.addQuadruple(Operacion, VirDir1, VirDir2)
         if Result != None :
+            # Genere el cuadruplo existosamente, su resultado es almacenado en PilaO.
+            # (Un resultado temporal de alguna operacion aritmetica o logica)
             if Result != True :
                 PilaO.push(Result)
+                return True
+            # Genere el cuadruplo exitosamente, y su resultado no es necesario almacenarlo en PilaO.
+            else:
+                return True
+        # Algo sucedio que me impidio crear el cuadruplo, la clase 'QuadrupleManager' me dibio tirar un mensaje de error mas detallado.
+        else :
+            print("\nERROR. No se pudo generar el cuadruplo con operacion:", Operacion)
+            return None
+    # Aun no genero el cuadruplo porque sigo pendiente a mas ops.
+    else:
+        return False
 
-def addPOper(t):
-    if len(t) > 2:
-        POper.push(t[1])
-
-# Cuadruplos Saltos
-PSaltos = Stack.Stack()
-
+# Tokens: palabras reservadas.
 reserved = {
    'if' : 'IF',
    'else' : 'ELSE',
@@ -70,6 +89,7 @@ reserved = {
    'quit' : 'QUIT',
 }
 
+# Lista de Tokens.
 tokens = [
     'ID',
     'PLUS','MINUS','TIMES','DIVIDE','EQUALS',
@@ -81,8 +101,7 @@ tokens = [
     'OR', 'AND',
     ] + list(reserved.values())
 
-# Tokens
-
+# Definicion de Tokens con ERs.
 t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
@@ -150,13 +169,13 @@ def p_main(t):
 
 def p_condicion(t):
     'condicion : IF LPAREN expresion RPAREN gotoF bloque masbloque'
-    QuadrupleManager.UpdateReturnReference(PSaltos.pop(), QuadrupleManager.GetQuadrupleLength())
+    QuadrupleManager.updateReturnReference(PSaltos.pop(), QuadrupleManager.getQuadrupleListLength())
 
 def p_gotoF(t):
     'gotoF : empty'
-    POper.push('gotoF')
+    addPOper('gotoF')
     addQuadruple(['gotoF'])
-    PSaltos.push(QuadrupleManager.GetQuadrupleLength()-1)
+    PSaltos.push(QuadrupleManager.getQuadrupleListLength()-1)
 
 
 def p_bloque(t):
@@ -167,26 +186,26 @@ def p_masbloque(t):
                  | empty'''
 def p_goto(t):
     'goto : empty'
-    POper.push('goto')
+    addPOper('goto')
     addQuadruple(['goto'])
-    QuadrupleManager.UpdateReturnReference(PSaltos.pop(), QuadrupleManager.GetQuadrupleLength())
-    PSaltos.push(QuadrupleManager.GetQuadrupleLength()-1)
+    QuadrupleManager.updateReturnReference(PSaltos.pop(), QuadrupleManager.getQuadrupleListLength())
+    PSaltos.push(QuadrupleManager.getQuadrupleListLength()-1)
 
 def p_ciclo(t):
     'ciclo : while LPAREN expresion RPAREN gotoF bloque goto'
     PSaltos.pop()
-    QuadrupleManager.UpdateReturnReference(QuadrupleManager.GetQuadrupleLength()-1, PSaltos.pop())
+    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, PSaltos.pop())
 
 def p_while(t):
     'while : WHILE'
-    PSaltos.push(QuadrupleManager.GetQuadrupleLength())
+    PSaltos.push(QuadrupleManager.getQuadrupleListLength())
 
 def p_escritura(t):
     'escritura : print LPAREN listaprint RPAREN SEMICOLON'
 
 def p_print(t):
     'print : PRINT'
-    POper.push('print')
+    addPOper('print')
 
 def p_listaprint(t):
     '''listaprint : expresion masprint
@@ -195,16 +214,15 @@ def p_listaprint(t):
 def p_masprint(t):
     '''masprint : COMMA listaprint
                 | empty'''
-    if len(t) > 1:
+    if len(t) > 2:
         addQuadruple(['print'])
-        POper.push('print')
+        addPOper('print')
 
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
                   | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
-    # Crear Aqui cuadruplo Asignacion
-    AgregarPilasID(FunctionStack.peek(), t[1])
-    POper.push('=')
+    addIDPilaO(FunctionStack.peek(), t[1])
+    addPOper('=')
     addQuadruple(['='])
 
 def p_factor(t):
@@ -214,7 +232,7 @@ def p_factor(t):
 
 def p_leftparen(t):
     'leftparen : LPAREN'
-    POper.push('Fake')
+    addPOper('Fake')
 
 def p_rightparen(t):
     'rightparen : RPAREN'
@@ -222,7 +240,7 @@ def p_rightparen(t):
 
 def p_varid(t):
     'varid : ID arr'
-    AgregarPilasID(FunctionStack.peek(), t[1])
+    addIDPilaO(FunctionStack.peek(), t[1])
     
 def p_arr(t):
     '''arr : LSQBRACKET RSQBRACKET
@@ -239,7 +257,7 @@ def p_masexp(t):
     '''masexp : PLUS exp
               | MINUS exp
               | empty'''
-    addPOper(t);
+    if len(t) > 2 : addPOper(t[1])
 
 def p_comaexpresion(t):
     '''comaexpresion : COMMA expresion comaexpresion
@@ -256,7 +274,7 @@ def p_masexpresion(t):
     '''masexpresion : AND expresion
                     | OR expresion
                     | empty'''
-    addPOper(t);
+    if len(t) > 2 : addPOper(t[1])
 
 def p_termino(t):
     'termino : factor masterminos addQTD' # masterminos <-> addquadrupletimesdivide
@@ -269,7 +287,7 @@ def p_masterminos(t):
     '''masterminos : TIMES termino
                    | DIVIDE termino
                    | empty'''
-    addPOper(t);
+    if len(t) > 2 : addPOper(t[1])
 
 def p_expcomp(t):
     'expcomp : exp expcompcontinuo addQPComp'
@@ -286,7 +304,7 @@ def p_expcompcontinuo(t):
                        | MORETHANEQUAL expcomp
                        | LESSTHANEQUAL expcomp
                        | empty'''
-    addPOper(t);
+    if len(t) > 2 : addPOper(t[1])
 
 def p_estatuto(t):
     '''estatuto : asignacion
@@ -310,8 +328,7 @@ def p_listaid(t):
 def p_masid(t):
     '''masid : COMMA listaid
              | empty'''
-    if len(t) > 1 :
-        TypeStack.push(TypeStack.peek())
+    if len(t) > 2 : TypeStack.push(TypeStack.peek())
 
 def p_funcs(t):
     '''funcs : FUNCTION funcaux LPAREN args RPAREN bloque funcs
@@ -349,24 +366,24 @@ def p_varcte(t):
 
 def p_cteint(t):
     '''cteint : CTEINT'''
-    AgregarPilasCtes(t[1], "int")
+    addCtePilaO(t[1], "int")
 
 def p_ctefloat(t):
     '''ctefloat : CTEFLOAT'''
-    AgregarPilasCtes(t[1], "float")
+    addCtePilaO(t[1], "float")
 
 def p_ctechar(t):
     '''ctechar : CTECHAR'''
-    AgregarPilasCtes(t[1], "char")
+    addCtePilaO(t[1], "char")
 
 def p_ctestring(t):
     '''ctestring : CTESTRING'''
-    AgregarPilasCtes(t[1], "string")
+    addCtePilaO(t[1], "string")
 
 def p_ctebool(t):
     '''ctebool : TRUE
                | FALSE'''
-    AgregarPilasCtes(t[1], "bool")
+    addCtePilaO(t[1], "bool")
 # Termino de identificar tipo de constantes y agregarlas a memoria.
     
 def p_error(t):
@@ -393,11 +410,11 @@ while True:
 
         # Imprimir
         FunctionDirectory.showDirectory()
-        QuadrupleManager.ShowQuadruples()
+        QuadrupleManager.showQuadruples()
 
         # Resetear para el siguiente archivo
         FunctionDirectory.resetDirectory()
-        QuadrupleManager.ResetQuadruples()
+        QuadrupleManager.resetQuadruples()
     
     except EOFError:
         break
