@@ -234,6 +234,7 @@ class FunctionDirectoryClass:
                return None
 
      #####---- Temporal Var's Methods ----#####
+          
      def addTemporalVariable(self, valor, tipo):
           ScopeIndex = self.functionDictionary['temp']
           VarTempName = 't' + str(len(self.functionRow[ScopeIndex][2]))

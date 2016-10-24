@@ -55,7 +55,7 @@ class QuadrupleManagerClass:
                 return ResultVirDir
 
         # Asignacion (A = b -> [= , b, None, A])
-        elif IndexOP == len(self.SemanticCube.Operations):
+        elif Op == '=':
             if Type1 == Type2:
                 self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
                 return True
@@ -64,16 +64,16 @@ class QuadrupleManagerClass:
                 return None
             
         # Print (print(A) -> [print , None, None, A])
-        elif IndexOP == len(self.SemanticCube.Operations)+1:
+        elif Op == 'print':
             self.QuadrupleList.append([IndexOP, None, None, VirDir1])
             return True
             
         # Read
-        elif IndexOP == len(self.SemanticCube.Operations)+2:
+        elif Op == 'read':
             return None
             
-        # gotoT or gotoF
-        elif (IndexOP == len(self.SemanticCube.Operations)+3) or (IndexOP == len(self.SemanticCube.Operations)+4):
+        # gotoT or gotoF -> (gotoX, BoolVirDir, None, Pendiente)
+        elif Op in ['gotoT', 'gotoF']:
             if (Type1 == 'bool'):
                 self.QuadrupleList.append([IndexOP, VirDir1, None, None])
                 return len(self.QuadrupleList)-1
@@ -81,14 +81,15 @@ class QuadrupleManagerClass:
                 print("\nERROR SEMANTICA. La condicion en un if o un ciclo debe ser de tipo bool.")
                 return None
 
-        # goto
-        elif IndexOP == len(self.SemanticCube.Operations)+5:
+        # goto -> (goto, None, None, Pendiente)
+        elif Op == 'goto':
             self.QuadrupleList.append([IndexOP, None, None, None])
             return len(self.QuadrupleList)-1
 
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):
-            if self.QuadrupleList[index][0] in [15, 16, 17]:
+            Op = self.Operations[self.QuadrupleList[index][0]]
+            if Op in ['gotoT', 'gotoF', 'goto']:
                  self.QuadrupleList[index][3] = quadIndex;
                  return True
             else:

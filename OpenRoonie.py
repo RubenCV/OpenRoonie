@@ -14,6 +14,7 @@
 
 import os.path
 import Stack as Stack
+import StackedQueue as StackedQueue
 import FunctionDirectory as FunctionDirectory
 import QuadrupleManager as QuadrupleManager
 
@@ -30,6 +31,10 @@ PSaltos = Stack.Stack()
 POper   = Stack.Stack()
 PilaO   = Stack.Stack()
 
+# Stacked-Queues Patch [Aun no Usadas -- Patch]
+POper_SQ = StackedQueue.StackedQueue()
+Pilao_SQ = StackedQueue.StackedQueue()
+
 # Funciones necesarias para la generacion de Cuadruplos
 def addCtePilaO(cte, tipo):
     PilaO.push(FunctionDirectory.addConstant(cte, tipo))
@@ -42,8 +47,16 @@ def addIDPilaO(nombreFunc, nombreVar):
 def addPOper(op):
     POper.push(op)
     return True
+# [Aun no Usada -- Patch]
+def getFirstOp(ops):
+    for i in range(0, len(POper.items)):
+        if POper.items[i] in ops:
+            indexOp = i
+            break
+    return POper.items.pop(indexOp)
 
 def addQuadruple(ops):
+    # print(POper.items)
     NoneParemeterQuadrupleOps = ['goto']
     OneParameterQuadrupleOps = NoneParemeterQuadrupleOps + ['print', 'read', 'gotoT', 'gotoF']
     if POper.peek() in ops:
@@ -297,12 +310,12 @@ def p_addQPComp(t):
     addQuadruple(['<', '>', '<>', '==','<=', '>='])
 
 def p_expcompcontinuo(t):
-    '''expcompcontinuo : MORETHAN expcomp
-                       | LESSTHAN expcomp
-                       | NOTEQUAL expcomp
-                       | ISEQUALTO expcomp
-                       | MORETHANEQUAL expcomp
-                       | LESSTHANEQUAL expcomp
+    '''expcompcontinuo : MORETHAN exp
+                       | LESSTHAN exp
+                       | NOTEQUAL exp
+                       | ISEQUALTO exp
+                       | MORETHANEQUAL exp
+                       | LESSTHANEQUAL exp
                        | empty'''
     if len(t) > 2 : addPOper(t[1])
 
