@@ -22,7 +22,7 @@ class QuadrupleManagerClass:
         self.SemanticCube = SemanticCube.SemanticCube().Instance
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto']
+        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'params', 'return']
         self.resetQuadruples()
 
     def resetQuadruples(self):
@@ -85,6 +85,14 @@ class QuadrupleManagerClass:
         elif Op == 'goto':
             self.QuadrupleList.append([IndexOP, None, None, None])
             return len(self.QuadrupleList)-1
+
+        elif Op == 'params':
+            if Type1 == Type2:
+                self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
+                return True
+            else:
+                print("\nERROR SEMANTICA. Tipo de dato:", Type1,'no puede ser asignado a una variable de tipo:', Type2)
+                return None
 
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):

@@ -6,14 +6,14 @@ function void dos(int gg1, bool gg2, float gg3){
 }
 
 
-function int uno(int ol){
+function int uno(string str){
 
 
 }
 
 main {
 
-	dos(1, True, 2.0);
-	
-	uno(5);
+	dos(1 + 2, True, 2.0);
+	print(5 + 6);
+	uno(9);
 }

@@ -26,6 +26,7 @@ QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
 ParamTypeList  = []
+ParamsList  = []
 
 # Generacion de Cuadruplos y Semantica
 PSaltos = Stack.Stack()
@@ -57,7 +58,7 @@ def addQuadruple(ops):
         if Result != None :
             # Genere el cuadruplo existosamente, su resultado es almacenado en PilaO.
             # (Un resultado temporal de alguna operacion aritmetica o logica)
-            if Result != True :
+            if Result != True and ops[0] not in OneParameterQuadrupleOps:
                 PilaO.push(Result)
                 return True
             # Genere el cuadruplo exitosamente, y su resultado no es necesario almacenarlo en PilaO.
@@ -347,7 +348,10 @@ def p_llamafunc(t):
 
 def p_idfunc(t):
     'idfunc : ID'
-    ParamTypeList.append(deepcopy(FunctionDirectory.getParameterTypeList(t[1])))
+    ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
+    for i in range(0, len(FunctionDirectory.getParameterTypeList(t[1]))):
+        ParamsList.append(FunctionDirectory.getFunction(t[1])[3][i][2])
+
 
 def p_funcargs(t):
     '''funcargs : expresion listafuncargs checarparams
@@ -362,11 +366,7 @@ def p_checarparams(t):
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
-        indexTS  = TypeStack.size()   - (i + 1)
-        if funcParamType[indexFPT] == TypeStack.items[indexTS]:
-            print('MATCH:', funcParamType[indexFPT])
-        else:
-            print('ERROR:', funcParamType[indexFPT], TypeStack.items[indexTS])
+        QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT))
         
 def p_retorno(t):
     '''retorno : RETURN exp SEMICOLON
@@ -475,6 +475,9 @@ while True:
         # Imprimir
         FunctionDirectory.showDirectory()
         QuadrupleManager.showQuadruples()
+
+        print('PilaO',PilaO.items)
+        print('POper',POper.items)
 
         # Resetear para el siguiente archivo
         FunctionDirectory.resetDirectory()
