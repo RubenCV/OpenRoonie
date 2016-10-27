@@ -31,9 +31,9 @@ class FunctionDirectoryClass:
           self.functionDictionary = {}
 
           # Scopes Declarados por Default: Global, Temporal, Constant.
-          self.addFunction('global', None)
-          self.addFunction('temp', None)
-          self.addFunction('const', None)
+          self.addFunction('global', None, None)
+          self.addFunction('temp', None, None)
+          self.addFunction('const', None, None)
           return True
 
      # Cantidad de funciones almacenadas en el directorio (+ Scope Global).
@@ -53,8 +53,8 @@ class FunctionDirectoryClass:
      #####---- Function's Methods ----#####
 
      # Agrega una funcion a el directorio de funciones, se crean tuplas con esta forma:
-     # [{nombreFunc : id}[nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, valor, direccion virtual]]]]
-     def addFunction(self, nombre, tipo):
+     # [{nombreFunc : id}[nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, valor, direccion virtual]], primerCuadruplo, [tiposArgs]]]
+     def addFunction(self, nombre, tipo, indiceCuadruplo):
           if not nombre in self.functionDictionary.keys() :
                # Calculo mi futuro indice y lo asocio en mi diccionario.
                index = self.size()
@@ -65,7 +65,11 @@ class FunctionDirectoryClass:
                self.functionRow[index].append(tipo)
                # Lista de Variables
                self.functionRow[index].append({})
-               self.functionRow[index].append([])          
+               self.functionRow[index].append([])
+               # Numero de Cuaruplo primero de esa funcion
+               self.functionRow[index].append(indiceCuadruplo)
+               # Lista con tipos de datos de los parametros
+               self.functionRow[index].append([])
                return self.functionRow[index]
           else :
                print("\nERROR SEMANTICA. En este programa ya existe una funcion con nombre:", nombre)
@@ -76,6 +80,34 @@ class FunctionDirectoryClass:
           if nombre in self.functionDictionary.keys() :
                index = self.functionDictionary[nombre]
                return self.functionRow[index]
+          else :
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
+               return None
+
+     # 
+     def getFunctionStartQuadrupleIndex(self, nombre):
+          if nombre in self.functionDictionary.keys() :
+               index = self.functionDictionary[nombre]
+               return self.functionRow[index][4]
+          else :
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
+               return None
+     #
+     def getParameterTypeList(self, nombre):
+          if nombre in self.functionDictionary.keys() :
+               index = self.functionDictionary[nombre]
+               return self.functionRow[index][5]
+          else :
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
+               return None
+
+
+     # 
+     def addParameterType(self, nombre, tipo):
+          if nombre in self.functionDictionary.keys() :
+               index = self.functionDictionary[nombre]
+               self.functionRow[index][5].append(tipo)
+               return True
           else :
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None

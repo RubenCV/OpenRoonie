@@ -1,7 +1,12 @@
-program avance1; 
+program avance1;
+
+function void dos(int gg1, bool gg2, float gg3){
+
+
+}
+
 
 main {
-	var int myInt;
 
-	myInt = 10 + 5 - 8 - 6;
+	dos(1, True, 2.0);
 }

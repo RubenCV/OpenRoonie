@@ -14,9 +14,9 @@
 
 import os.path
 import Stack as Stack
-import StackedQueue as StackedQueue
 import FunctionDirectory as FunctionDirectory
 import QuadrupleManager as QuadrupleManager
+from copy import deepcopy
 
 # Directory de funciones y controlador de cuadruplos.
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
@@ -25,19 +25,17 @@ QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 # Sintaxis y Semantica basica
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
+ParamTypeList  = []
 
 # Generacion de Cuadruplos y Semantica
 PSaltos = Stack.Stack()
 POper   = Stack.Stack()
 PilaO   = Stack.Stack()
 
-# Stacked-Queues Patch [Aun no Usadas -- Patch]
-POper_SQ = StackedQueue.StackedQueue()
-Pilao_SQ = StackedQueue.StackedQueue()
-
 # Funciones necesarias para la generacion de Cuadruplos
 def addCtePilaO(cte, tipo):
     PilaO.push(FunctionDirectory.addConstant(cte, tipo))
+    TypeStack.push(tipo)
     return True
 
 def addIDPilaO(nombreFunc, nombreVar):
@@ -47,16 +45,8 @@ def addIDPilaO(nombreFunc, nombreVar):
 def addPOper(op):
     POper.push(op)
     return True
-# [Aun no Usada -- Patch]
-def getFirstOp(ops):
-    for i in range(0, len(POper.items)):
-        if POper.items[i] in ops:
-            indexOp = i
-            break
-    return POper.items.pop(indexOp)
 
 def addQuadruple(ops):
-    # print(POper.items)
     NoneParemeterQuadrupleOps = ['goto']
     OneParameterQuadrupleOps = NoneParemeterQuadrupleOps + ['print', 'read', 'gotoT', 'gotoF']
     if POper.peek() in ops:
@@ -81,12 +71,19 @@ def addQuadruple(ops):
     else:
         return False
 
+def checkVoid():
+    if TypeStack.peek() == 'void':
+        print("ERROR SEMANTICA. El tipo de dato 'void' solo se puede utilizar en declaracion de funciones.")
+        return False
+    return True
+
 # Tokens: palabras reservadas.
 reserved = {
    'if' : 'IF',
    'else' : 'ELSE',
    'var' : 'VAR',
    'program' : 'PROGRAM',
+   'void' : 'VOID',
    'int' : 'INT',
    'float' : 'FLOAT',
    'char' : 'CHAR',
@@ -100,6 +97,7 @@ reserved = {
    'while' : 'WHILE',
    'execute' : 'EXECUTE',
    'quit' : 'QUIT',
+   'return' : 'RETURN',
 }
 
 # Lista de Tokens.
@@ -174,11 +172,19 @@ def p_prog(t):
     'prog : PROGRAM'
     # Todo lo que se decalre afuera de las funciones es global.
     FunctionStack.push('global')
+    
+    # Generar cuadruplo goto main
+    addPOper('goto')
+    addQuadruple(['goto'])
+    PSaltos.push(0)
 
 def p_main(t):
     'main : MAIN'
-    FunctionDirectory.addFunction(t[1], None)
+    FunctionDirectory.addFunction(t[1], None, QuadrupleManager.getQuadrupleListLength())
     FunctionStack.push(t[1])
+
+    # Updatear cuadruplo 0 -> a CuadruploActual+1
+    QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(t[1]))
 
 def p_condicion(t):
     'condicion : IF LPAREN expresion RPAREN gotoF bloque masbloque'
@@ -223,17 +229,21 @@ def p_print(t):
 def p_listaprint(t):
     '''listaprint : expresion masprint
                   | ctestring masprint'''
+    addQuadruple(['print'])
 
 def p_masprint(t):
-    '''masprint : COMMA listaprint
+    '''masprint : addQPP listaprint
                 | empty'''
-    if len(t) > 2:
-        addQuadruple(['print'])
-        addPOper('print')
+
+def p_addQPP(t):
+    'addQPP : COMMA'
+    addQuadruple(['print'])
+    addPOper('print')
 
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
-                  | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
+                  | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
+                  | ID EQUALS llamafunc'''
     addIDPilaO(FunctionStack.peek(), t[1])
     addPOper('=')
     addQuadruple(['='])
@@ -260,71 +270,107 @@ def p_arr(t):
            | empty'''
     
 def p_exp(t):
-    'exp : termino masexp addQPPM' # masexp <-> addquadrupleplusminus
-
-def p_addQPPM(t):
-    'addQPPM : empty'
-    addQuadruple(['+', '-'])
+    'exp : termino masexp' # masexp <-> addquadrupleplusminus
         
 def p_masexp(t):
-    '''masexp : PLUS exp
-              | MINUS exp
+    '''masexp : addQPPM exp
               | empty'''
-    if len(t) > 2 : addPOper(t[1])
+    addQuadruple(['+', '-'])
 
+def p_addQPPM(t):
+    '''addQPPM : PLUS 
+               | MINUS '''
+    addQuadruple(['+', '-'])
+    addPOper(t[1])
+    
 def p_comaexpresion(t):
     '''comaexpresion : COMMA expresion comaexpresion
                      | empty'''
             
 def p_expresion(t):
-    'expresion : expcomp masexpresion addQPAO'
+    'expresion : expcomp masexpresion'
 
 def p_addQPAO(t):
-    'addQPAO : empty'
+    '''addQPAO : AND
+               | OR'''
     addQuadruple(['&', '|'])
+    addPOper(t[1])
 
 def p_masexpresion(t):
-    '''masexpresion : AND expresion
-                    | OR expresion
+    '''masexpresion : addQPAO expresion
                     | empty'''
-    if len(t) > 2 : addPOper(t[1])
+    addQuadruple(['&', '|'])
 
 def p_termino(t):
-    'termino : factor masterminos addQTD' # masterminos <-> addquadrupletimesdivide
+    'termino : factor masterminos' # masterminos <-> addquadrupletimesdivide
 
 def p_addQTD(t):
-    'addQTD : empty'
+    '''addQTD : TIMES 
+              | DIVIDE '''
     addQuadruple(['*', '/'])
+    addPOper(t[1])
 
 def p_masterminos(t):
-    '''masterminos : TIMES termino
-                   | DIVIDE termino
+    '''masterminos : addQTD termino
                    | empty'''
-    if len(t) > 2 : addPOper(t[1])
+    addQuadruple(['*', '/'])
 
 def p_expcomp(t):
-    'expcomp : exp expcompcontinuo addQPComp'
+    'expcomp : exp expcompcontinuo'
 
 def p_addQPComp(t):
-    'addQPComp : empty'
+    '''addQPComp : MORETHAN
+                 | LESSTHAN
+                 | NOTEQUAL
+                 | ISEQUALTO
+                 | MORETHANEQUAL
+                 | LESSTHANEQUAL'''
     addQuadruple(['<', '>', '<>', '==','<=', '>='])
+    addPOper(t[1])
 
 def p_expcompcontinuo(t):
-    '''expcompcontinuo : MORETHAN exp
-                       | LESSTHAN exp
-                       | NOTEQUAL exp
-                       | ISEQUALTO exp
-                       | MORETHANEQUAL exp
-                       | LESSTHANEQUAL exp
+    '''expcompcontinuo : addQPComp expcomp
                        | empty'''
-    if len(t) > 2 : addPOper(t[1])
+    addQuadruple(['<', '>', '<>', '==','<=', '>='])
 
 def p_estatuto(t):
     '''estatuto : asignacion
                 | condicion
                 | ciclo
                 | escritura
-                | vars'''
+                | vars
+                | retorno
+                | llamafunc'''
+
+def p_llamafunc(t):
+    'llamafunc : idfunc LPAREN funcargs RPAREN SEMICOLON'
+
+def p_idfunc(t):
+    'idfunc : ID'
+    ParamTypeList.append(deepcopy(FunctionDirectory.getParameterTypeList(t[1])))
+
+def p_funcargs(t):
+    '''funcargs : expresion listafuncargs
+                | empty'''
+
+def p_listafuncargs(t):
+    '''listafuncargs : COMMA expresion listafuncargs checarparams
+                     | empty'''
+
+def p_checarparams(t):
+    'checarparams : empty'
+    actualParamType = ParamTypeList[len(ParamTypeList)-1]
+    for x in range(0, len(actualParamType)):
+        recentType = TypeStack.pop()
+        if actualParamType[x] == recentType:
+            print('paso:', recentType)
+        else:
+            print('ERROR. Tipo de argumentos invalidos:', actualParamType[x], recentType)
+    
+        
+def p_retorno(t):
+    '''retorno : RETURN exp SEMICOLON
+               | RETURN SEMICOLON '''
 
 def p_masestatuto(t):
     '''masestatuto : estatuto masestatuto
@@ -336,26 +382,30 @@ def p_vars(t):
     
 def p_listaid(t):
     'listaid : ID masid'
-    FunctionDirectory.addVariable(FunctionStack.peek(),t[1],TypeStack.pop())
+    if checkVoid():
+        FunctionDirectory.addVariable(FunctionStack.peek(),t[1],TypeStack.peek())
+        TypeStack.peek()
 
 def p_masid(t):
     '''masid : COMMA listaid
              | empty'''
-    if len(t) > 2 : TypeStack.push(TypeStack.peek())
 
 def p_funcs(t):
     '''funcs : FUNCTION funcaux LPAREN args RPAREN bloque funcs
              | empty'''
 
+
 def p_funcaux(t):
     'funcaux : tipo ID'
-    FunctionDirectory.addFunction(t[2], TypeStack.pop())
+    FunctionDirectory.addFunction(t[2], TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
     FunctionStack.push(t[2])
 
 def p_args(t):
     '''args : tipo ID masargs
             | empty'''
-    FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.pop())
+    if checkVoid():
+        FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
+        FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.peek())
     
 def p_masargs(t):
     '''masargs : COMMA args
@@ -366,7 +416,8 @@ def p_tipo(t):
             | FLOAT
             | CHAR
             | BOOL
-            | STRING'''
+            | STRING
+            | VOID'''
     TypeStack.push(t[1])
 
 # Identifiar tipo de constantes y agregarlas a memoria.
