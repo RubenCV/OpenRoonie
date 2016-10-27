@@ -350,23 +350,23 @@ def p_idfunc(t):
     ParamTypeList.append(deepcopy(FunctionDirectory.getParameterTypeList(t[1])))
 
 def p_funcargs(t):
-    '''funcargs : expresion listafuncargs
+    '''funcargs : expresion listafuncargs checarparams
                 | empty'''
 
 def p_listafuncargs(t):
-    '''listafuncargs : COMMA expresion listafuncargs checarparams
+    '''listafuncargs : COMMA expresion listafuncargs
                      | empty'''
 
 def p_checarparams(t):
     'checarparams : empty'
-    actualParamType = ParamTypeList[len(ParamTypeList)-1]
-    for x in range(0, len(actualParamType)):
-        recentType = TypeStack.pop()
-        if actualParamType[x] == recentType:
-            print('paso:', recentType)
+    funcParamType = ParamTypeList[len(ParamTypeList)-1]
+    for i in range(0, len(funcParamType)):
+        indexFPT = len(funcParamType) - (i + 1)
+        indexTS  = TypeStack.size()   - (i + 1)
+        if funcParamType[indexFPT] == TypeStack.items[indexTS]:
+            print('MATCH:', funcParamType[indexFPT])
         else:
-            print('ERROR. Tipo de argumentos invalidos:', actualParamType[x], recentType)
-    
+            print('ERROR:', funcParamType[indexFPT], TypeStack.items[indexTS])
         
 def p_retorno(t):
     '''retorno : RETURN exp SEMICOLON
@@ -391,7 +391,7 @@ def p_masid(t):
              | empty'''
 
 def p_funcs(t):
-    '''funcs : FUNCTION funcaux LPAREN args RPAREN bloque funcs
+    '''funcs : FUNCTION funcaux LPAREN args masargs RPAREN bloque funcs
              | empty'''
 
 
@@ -401,14 +401,14 @@ def p_funcaux(t):
     FunctionStack.push(t[2])
 
 def p_args(t):
-    '''args : tipo ID masargs
+    '''args : tipo ID 
             | empty'''
     if checkVoid():
         FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
         FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.peek())
     
 def p_masargs(t):
-    '''masargs : COMMA args
+    '''masargs : COMMA args masargs
                | empty'''
 
 def p_tipo(t):
