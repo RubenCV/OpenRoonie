@@ -22,7 +22,7 @@ class QuadrupleManagerClass:
         self.SemanticCube = SemanticCube.SemanticCube().Instance
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'params', 'return']
+        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'goSub','params', 'return', 'era']
         self.resetQuadruples()
 
     def resetQuadruples(self):
@@ -31,8 +31,8 @@ class QuadrupleManagerClass:
 
     def showQuadruples(self):
         print("\nQuadruples: ")
-        for Quadruple in self.QuadrupleList:
-            print(Quadruple)
+        for i in range(0, len(self.QuadrupleList)):
+            print(i, self.QuadrupleList[i])
         return True
 
     def addQuadruple(self, Op, VirDir1, VirDir2):
@@ -86,6 +86,21 @@ class QuadrupleManagerClass:
             self.QuadrupleList.append([IndexOP, None, None, None])
             return len(self.QuadrupleList)-1
 
+        # goSub -> (goto, None, None, #CuadruploDeLaSubrutina)
+        elif Op == 'goSub':
+            self.QuadrupleList.append([IndexOP, None, None, None])
+            return len(self.QuadrupleList)-1
+
+        # era
+        elif Op == 'era':
+            self.QuadrupleList.append([IndexOP, None, None, None])
+            return True
+
+        # return
+        elif Op == 'return':
+            self.QuadrupleList.append([IndexOP, None, None, None])
+            return True
+
         elif Op == 'params':
             if Type1 == Type2:
                 self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
@@ -97,7 +112,7 @@ class QuadrupleManagerClass:
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):
             Op = self.Operations[self.QuadrupleList[index][0]]
-            if Op in ['gotoT', 'gotoF', 'goto']:
+            if Op in ['gotoT', 'gotoF', 'goto', 'goSub', 'era']:
                  self.QuadrupleList[index][3] = quadIndex;
                  return True
             else:
@@ -106,6 +121,7 @@ class QuadrupleManagerClass:
         else:
             print("\nERROR. Indice de Cuadruplo fuera de los limites.")
             return None
+
 
     def getQuadrupleListLength(self):
         return len(self.QuadrupleList)

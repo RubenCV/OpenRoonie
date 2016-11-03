@@ -70,10 +70,25 @@ class FunctionDirectoryClass:
                self.functionRow[index].append(indiceCuadruplo)
                # Lista con tipos de datos de los parametros
                self.functionRow[index].append([])
+               # Lista con cantidad de tipos de datos utilizados por la funcion
+               # ['int', 'float', 'char', 'bool', 'string']
+               self.functionRow[index].append([0, 0, 0, 0, 0])
                return self.functionRow[index]
           else :
                print("\nERROR SEMANTICA. En este programa ya existe una funcion con nombre:", nombre)
                return None
+          
+     def getFunctionIndex(self, nombre):
+          return self.functionDictionary[nombre]
+
+     def getFunctionType(self, nombre):
+          if nombre in self.functionDictionary.keys() :
+               index = self.functionDictionary[nombre]
+               return self.functionRow[index][1]
+          else :
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
+               return None
+
 
      # Retorna la tupla: [nombreFunc, tipo, {nombreVar : id}, [[nombreVar, tipo, direccion virtual]]]
      def getFunction(self, nombre):
@@ -89,6 +104,15 @@ class FunctionDirectoryClass:
           if nombre in self.functionDictionary.keys() :
                index = self.functionDictionary[nombre]
                return self.functionRow[index][4]
+          else :
+               print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
+               return None
+     #
+     def setFunctionStartQuadrupleIndex(self, nombre, num):
+          if nombre in self.functionDictionary.keys() :
+               index = self.functionDictionary[nombre]
+               self.functionRow[index][4] =  num
+               return True
           else :
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None
@@ -137,6 +161,7 @@ class FunctionDirectoryClass:
                     self.functionRow[index][3][indexVar].append(nombre)
                     self.functionRow[index][3][indexVar].append(tipo)
                     self.functionRow[index][3][indexVar].append(self.MemoryManager.addEntry(index, tipo, None))
+                    self.functionRow[index][6][self.getIdType(tipo)] += 1
                     return self.functionRow[index][3][indexVar]
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "ya existe una variable con nombre:", nombre)
@@ -309,6 +334,12 @@ class FunctionDirectoryClass:
      # Retorna la direccion virtual en donde esta almacenada la constante.
      def getConstantVirtualDirection(self, constante):
           return self.getVariableVirtualDirection('const', constante)
+
+     #####---- Utilidades ----#####
+
+     def getIdType(self, tipo):
+          dataTypes = ['int', 'float', 'char', 'bool', 'string']
+          return dataTypes.index(tipo)
 
 class FunctionDirectory:
      Instance = FunctionDirectoryClass()

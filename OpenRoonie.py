@@ -16,7 +16,6 @@ import os.path
 import Stack as Stack
 import FunctionDirectory as FunctionDirectory
 import QuadrupleManager as QuadrupleManager
-from copy import deepcopy
 
 # Directory de funciones y controlador de cuadruplos.
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
@@ -25,10 +24,10 @@ QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 # Sintaxis y Semantica basica
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
-ParamTypeList  = []
-ParamsList  = []
 
 # Generacion de Cuadruplos y Semantica
+ParamTypeList  = []
+ParamsList     = []
 PSaltos = Stack.Stack()
 POper   = Stack.Stack()
 PilaO   = Stack.Stack()
@@ -48,7 +47,7 @@ def addPOper(op):
     return True
 
 def addQuadruple(ops):
-    NoneParemeterQuadrupleOps = ['goto']
+    NoneParemeterQuadrupleOps = ['goto', 'goSub']
     OneParameterQuadrupleOps = NoneParemeterQuadrupleOps + ['print', 'read', 'gotoT', 'gotoF']
     if POper.peek() in ops:
         VirDir2 = PilaO.pop() if ops[0] not in OneParameterQuadrupleOps else None
@@ -173,18 +172,23 @@ def p_prog(t):
     'prog : PROGRAM'
     # Todo lo que se decalre afuera de las funciones es global.
     FunctionStack.push('global')
+
+    # Comienza 'era' de main
+    FunctionDirectory.addFunction('main', None, None)
+    QuadrupleManager.addQuadruple('era', None, None)
+    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex('main'))
     
     # Generar cuadruplo goto main
-    addPOper('goto')
-    addQuadruple(['goto'])
-    PSaltos.push(0)
-
+    addPOper('goSub')
+    addQuadruple(['goSub'])
+    PSaltos.push(QuadrupleManager.getQuadrupleListLength()-1)
+    
 def p_main(t):
     'main : MAIN'
-    FunctionDirectory.addFunction(t[1], None, QuadrupleManager.getQuadrupleListLength())
     FunctionStack.push(t[1])
 
     # Updatear cuadruplo 0 -> a CuadruploActual+1
+    FunctionDirectory.setFunctionStartQuadrupleIndex(t[1], QuadrupleManager.getQuadrupleListLength())
     QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(t[1]))
 
 def p_condicion(t):
@@ -340,14 +344,21 @@ def p_estatuto(t):
                 | ciclo
                 | escritura
                 | vars
-                | retorno
                 | llamafunc'''
 
 def p_llamafunc(t):
     'llamafunc : idfunc LPAREN funcargs RPAREN SEMICOLON'
-
+    QuadrupleManager.addQuadruple('goSub', None, None)
+    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
+    PSaltos.push(QuadrupleManager.getQuadrupleListLength())
+    
 def p_idfunc(t):
     'idfunc : ID'
+    # Comienza 'era' de esta funcion
+    FunctionStack.push(t[1])
+    QuadrupleManager.addQuadruple('era', None, None)
+    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
+    
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(t[1]))):
         ParamsList.append(FunctionDirectory.getFunction(t[1])[3][i][2])
@@ -368,10 +379,6 @@ def p_checarparams(t):
         indexFPT = len(funcParamType) - (i + 1)
         QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT))
         
-def p_retorno(t):
-    '''retorno : RETURN exp SEMICOLON
-               | RETURN SEMICOLON '''
-
 def p_masestatuto(t):
     '''masestatuto : estatuto masestatuto
                    | empty'''
@@ -391,10 +398,24 @@ def p_masid(t):
              | empty'''
 
 def p_funcs(t):
-    '''funcs : FUNCTION funcaux LPAREN args masargs RPAREN bloque funcs
+    '''funcs : FUNCTION funcaux LPAREN args masargs RPAREN bloquefunc funcs
+             | FUNCTION funcaux LPAREN RPAREN bloquefunc funcs
              | empty'''
 
+def p_bloquefunc(t):
+    'bloquefunc : LBRACKET masestatuto retorno RBRACKET'
 
+def p_retorno(t):
+    '''retorno : RETURN exp SEMICOLON
+               | RETURN SEMICOLON '''
+    if FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 3:
+        QuadrupleManager.addQuadruple('return', None, None)
+    elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
+        QuadrupleManager.addQuadruple('return', None, None)
+    else :
+        print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
+              FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion",FunctionStack.peek())
+    
 def p_funcaux(t):
     'funcaux : tipo ID'
     FunctionDirectory.addFunction(t[2], TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
@@ -403,9 +424,10 @@ def p_funcaux(t):
 def p_args(t):
     '''args : tipo ID 
             | empty'''
-    if checkVoid():
-        FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
-        FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.peek())
+    if len(t) > 2 :
+        if checkVoid():
+            FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
+            FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.peek())
     
 def p_masargs(t):
     '''masargs : COMMA args masargs
@@ -482,6 +504,8 @@ while True:
         # Resetear para el siguiente archivo
         FunctionDirectory.resetDirectory()
         QuadrupleManager.resetQuadruples()
+        PilaO = Stack.Stack()
+        POper = Stack.Stack()
     
     except EOFError:
         break
