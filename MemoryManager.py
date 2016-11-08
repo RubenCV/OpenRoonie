@@ -44,8 +44,19 @@ class MemoryManagerClass:
      def showMemory(self):
           print("\nMemory: ")
           pprint.pprint(self.Dictionary)
+          # print("\nCounters:")
+          # pprint.pprint(self.Counters)
           return True
-		
+
+     def resetLocalMemory(self):     
+          for i in range(0,  len(self.DataTypes)):
+               indexInicial = (len(self.DataTypes) * 2 * self.MaxVarsPerType) + (i * self.MaxVarsPerType) + self.MaxVarsPerType
+               indexFinal = self.translateToCounterIndex(2, self.DataTypes[i])
+               self.Counters[len(self.DataTypes) * 2 + i] = indexInicial
+               for j in range(0, indexFinal - indexInicial):
+                    self.deleteEntry(indexInicial + j)
+          return True
+
      def translateToCounterIndex(self, scope, tipo):
           try:
                IndexType = self.DataTypes.index(tipo)       
@@ -55,7 +66,6 @@ class MemoryManagerClass:
           IndexScope = 2 if scope > 1 else scope
           return len(self.DataTypes) * IndexScope + IndexType
    
-
      def addEntry(self, scope, tipo, valor):
           # Obtengo el indice del arreglo de contadores de vars/consts, segun el tipo de dato y su scope
           Index = self.translateToCounterIndex(scope, tipo)

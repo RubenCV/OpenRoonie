@@ -112,7 +112,7 @@ class QuadrupleManagerClass:
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):
             Op = self.Operations[self.QuadrupleList[index][0]]
-            if Op in ['gotoT', 'gotoF', 'goto', 'goSub', 'era']:
+            if Op in ['gotoT', 'gotoF', 'goto', 'goSub', 'era', 'return']:
                  self.QuadrupleList[index][3] = quadIndex;
                  return True
             else:

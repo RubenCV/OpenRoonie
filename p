@@ -1,11 +1,16 @@
 program avance1;
 
+var int myGlobal;
+
 function int uno (int x) {
+	x = 5 * 2;
 	return x;
 }
 
-main {
-	var int test;
+function int dos ( ) {
+	return 2;
+}
 
-	test = 5 + (uno(8));
+main {
+	var int x1;
 }

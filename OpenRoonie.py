@@ -167,6 +167,8 @@ precedence = (
 
 def p_programa(t):
     'programa : prog ID SEMICOLON vars funcs main bloque'
+    FunctionDirectory.resetLocalMemory()
+    # fin de programa
 
 def p_prog(t):
     'prog : PROGRAM'
@@ -412,8 +414,11 @@ def p_retorno(t):
                | RETURN SEMICOLON '''
     if FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 3:
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
+        FunctionDirectory.resetLocalMemory()
     elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
+        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, PilaO.pop())
+        FunctionDirectory.resetLocalMemory()
     else :
         print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
               FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion",FunctionStack.peek())

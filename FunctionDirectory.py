@@ -145,6 +145,10 @@ class FunctionDirectoryClass:
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None
 
+     def resetLocalMemory(self):
+          self.MemoryManager.resetLocalMemory()
+          return True
+
      #####---- Variables's Methods ----#####
 
      # Agregar una variable al renglon de la funcion correspondiente, de tal manera que quede una tupla:
