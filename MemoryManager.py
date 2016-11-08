@@ -22,16 +22,20 @@ class MemoryManagerClass:
 
      def resetMemory(self):
           # Nombres de los diferentes scopes que existen en el mapa de memoria
-          self.MemoryScopes = ['global','temp','const','local']
+          self.MemoryScopes = ['global','const','local']
+          
           # Nombres de tipos de datos validos
           self.DataTypes = ['int', 'float', 'char', 'bool', 'string']
+          
           # Tamaño del buffer por cada tipo de variable, para cada contexto
           self.MaxVarsPerType = 1000
           
           # Crear / Borrar contenido del diccionario de memoria.
           self.Dictionary = {}
+          
           # Crear / Borrar contenido del array de los contadores.
           self.Counters = []
+          
           # Asignar los valores iniciales a los contadores de memoria.
           for i in range(1,  ((len(self.DataTypes)) * len(self.MemoryScopes)) + 1):
                self.Counters.append(self.MaxVarsPerType * i)
@@ -48,7 +52,7 @@ class MemoryManagerClass:
           except ValueError:
                print("\nERROR DATA TYPE. No existe el tipo de dato: ", tipo)
                return None
-          IndexScope = 3 if scope > 2 else scope
+          IndexScope = 2 if scope > 1 else scope
           return len(self.DataTypes) * IndexScope + IndexType
    
 

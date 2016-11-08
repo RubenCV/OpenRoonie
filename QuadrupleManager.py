@@ -22,7 +22,7 @@ class QuadrupleManagerClass:
         self.SemanticCube = SemanticCube.SemanticCube().Instance
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'goSub','params', 'return', 'era']
+        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'goSub', 'params', 'return', 'era']
         self.resetQuadruples()
 
     def resetQuadruples(self):
@@ -35,7 +35,7 @@ class QuadrupleManagerClass:
             print(i, self.QuadrupleList[i])
         return True
 
-    def addQuadruple(self, Op, VirDir1, VirDir2):
+    def addQuadruple(self, Op, VirDir1, VirDir2, FuncName):
         try:
             IndexOP = self.Operations.index(Op)
         except ValueError:
@@ -50,7 +50,7 @@ class QuadrupleManagerClass:
             ResultingType = self.SemanticCube.getResultingType(Type1, Type2, Op)
 
             if ResultingType != None :
-                ResultVirDir =  self.FunctionDirectory.addTemporalVariable(None, ResultingType)
+                ResultVirDir =  self.FunctionDirectory.addTemporalVariable(FuncName, None, ResultingType)
                 self.QuadrupleList.append([IndexOP, VirDir1, VirDir2, ResultVirDir])
                 return ResultVirDir
 

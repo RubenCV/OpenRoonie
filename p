@@ -1,10 +1,11 @@
 program avance1;
 
-function int uno ( ) {
-	return 1.5;
+function int uno (int x) {
+	return x;
 }
 
 main {
 	var int test;
-	test = uno ( ) ;
+
+	test = 5 + (uno(8));
 }

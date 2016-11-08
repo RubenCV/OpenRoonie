@@ -53,7 +53,7 @@ def addQuadruple(ops):
         VirDir2 = PilaO.pop() if ops[0] not in OneParameterQuadrupleOps else None
         VirDir1 = PilaO.pop() if ops[0] not in NoneParemeterQuadrupleOps else None
         Operacion = POper.pop()
-        Result = QuadrupleManager.addQuadruple(Operacion, VirDir1, VirDir2)
+        Result = QuadrupleManager.addQuadruple(Operacion, VirDir1, VirDir2, FunctionStack.peek())
         if Result != None :
             # Genere el cuadruplo existosamente, su resultado es almacenado en PilaO.
             # (Un resultado temporal de alguna operacion aritmetica o logica)
@@ -175,7 +175,7 @@ def p_prog(t):
 
     # Comienza 'era' de main
     FunctionDirectory.addFunction('main', None, None)
-    QuadrupleManager.addQuadruple('era', None, None)
+    QuadrupleManager.addQuadruple('era', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex('main'))
     
     # Generar cuadruplo goto main
@@ -247,8 +247,7 @@ def p_addQPP(t):
 
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
-                  | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON
-                  | ID EQUALS llamafunc'''
+                  | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
     addIDPilaO(FunctionStack.peek(), t[1])
     addPOper('=')
     addQuadruple(['='])
@@ -256,7 +255,8 @@ def p_asignacion(t):
 def p_factor(t):
     '''factor : leftparen expresion rightparen
               | varcte
-              | varid'''
+              | varid
+              | llamafunc'''
 
 def p_leftparen(t):
     'leftparen : LPAREN'
@@ -275,7 +275,7 @@ def p_arr(t):
            | empty'''
     
 def p_exp(t):
-    'exp : termino masexp' # masexp <-> addquadrupleplusminus
+    'exp : termino masexp'
         
 def p_masexp(t):
     '''masexp : addQPPM exp
@@ -307,7 +307,7 @@ def p_masexpresion(t):
     addQuadruple(['&', '|'])
 
 def p_termino(t):
-    'termino : factor masterminos' # masterminos <-> addquadrupletimesdivide
+    'termino : factor masterminos'
 
 def p_addQTD(t):
     '''addQTD : TIMES 
@@ -344,19 +344,21 @@ def p_estatuto(t):
                 | ciclo
                 | escritura
                 | vars
-                | llamafunc'''
+                | llamafunc SEMICOLON'''
 
 def p_llamafunc(t):
-    'llamafunc : idfunc LPAREN funcargs RPAREN SEMICOLON'
-    QuadrupleManager.addQuadruple('goSub', None, None)
+    'llamafunc : idfunc LPAREN funcargs RPAREN'
+    QuadrupleManager.addQuadruple('goSub', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
-    PSaltos.push(QuadrupleManager.getQuadrupleListLength())
+    # Es necesario meter a la pila de saltos donde estoy???
+    # -> no conviene mas hacerlo en ejecucion con el pointer al cuadruplo actual???
+    #PSaltos.push(QuadrupleManager.getQuadrupleListLength())
     
 def p_idfunc(t):
     'idfunc : ID'
     # Comienza 'era' de esta funcion
     FunctionStack.push(t[1])
-    QuadrupleManager.addQuadruple('era', None, None)
+    QuadrupleManager.addQuadruple('era', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
     
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
@@ -377,7 +379,7 @@ def p_checarparams(t):
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
-        QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT))
+        QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT), FunctionStack.peek())
         
 def p_masestatuto(t):
     '''masestatuto : estatuto masestatuto
@@ -409,9 +411,9 @@ def p_retorno(t):
     '''retorno : RETURN exp SEMICOLON
                | RETURN SEMICOLON '''
     if FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 3:
-        QuadrupleManager.addQuadruple('return', None, None)
+        QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
     elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
-        QuadrupleManager.addQuadruple('return', None, None)
+        QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
     else :
         print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
               FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion",FunctionStack.peek())
