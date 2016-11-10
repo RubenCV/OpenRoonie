@@ -86,6 +86,28 @@ class MemoryManagerClass:
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
                return None
 
+     def getEntryTypeId (self, virDir) :
+          if virDir in self.Dictionary.keys() :
+               TypeIndex = ((math.floor(virDir / self.MaxVarsPerType)) % len(self.DataTypes)) - 1
+               return TypeIndex
+          
+          else :
+               print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
+               return None
+
+     def getInitialIndexType(self, typeId):
+          indexInicial = (len(self.DataTypes) * 2 * self.MaxVarsPerType) + (typeId * self.MaxVarsPerType) + self.MaxVarsPerType
+          return indexInicial
+
+     def getLocalStart(self):
+          return (len(self.DataTypes) * 2 * self.MaxVarsPerType) + self.MaxVarsPerType
+
+     def getLocalIndexList(self):
+          indexInicialList = []
+          for i in range(0,  len(self.DataTypes)):
+               indexInicialList.append(self.Counters[(len(self.DataTypes) * 2) + i])
+          return indexInicialList
+          
      def getEntryValue(self, virDir):
           if virDir in self.Dictionary.keys() :
                return self.Dictionary[virDir];
@@ -100,6 +122,13 @@ class MemoryManagerClass:
           else :
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
                return None
+
+     def deleteVarsByBounds(self, oldCounters, newCounters):
+          for i in range(0,  len(self.DataTypes)):
+               for j in range(0, newCounters[i] - oldCounters[i]):
+                    self.deleteEntry(oldCounters[i]+j)
+               self.Counters[len(self.DataTypes) * 2 + i] = oldCounters[i]
+          return True
 
      def deleteEntry(self, virDir):
           if virDir in self.Dictionary.keys() :

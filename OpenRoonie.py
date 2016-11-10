@@ -13,13 +13,16 @@
 # ----------------------------------------------------------- #
 
 import os.path
-import Stack as Stack
+import Stack             as Stack
 import FunctionDirectory as FunctionDirectory
-import QuadrupleManager as QuadrupleManager
+import QuadrupleManager  as QuadrupleManager
+import VirtualMachine    as VirtualMachine
 
 # Directory de funciones y controlador de cuadruplos.
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
 QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
+
+VirtualMachine  = VirtualMachine.VirtualMachine().Instance
 
 # Sintaxis y Semantica basica
 TypeStack      = Stack.Stack()
@@ -169,6 +172,7 @@ def p_programa(t):
     'programa : prog ID SEMICOLON vars funcs main bloque'
     FunctionDirectory.resetLocalMemory()
     # fin de programa
+    QuadrupleManager.addQuadruple('end', None, None, FunctionStack.peek())
 
 def p_prog(t):
     'prog : PROGRAM'
@@ -500,6 +504,8 @@ while True:
         s = file.read()
         parser.parse(s)
         print("\nCompilacion terminada.")
+
+        VirtualMachine.run()
 
         # Imprimir
         FunctionDirectory.showDirectory()

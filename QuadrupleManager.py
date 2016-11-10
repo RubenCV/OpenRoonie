@@ -12,8 +12,8 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
-import SemanticCube as SemanticCube
-import MemoryManager as MemoryManager
+import SemanticCube      as SemanticCube
+import MemoryManager     as MemoryManager
 import FunctionDirectory as FunctionDirectory
 
 class QuadrupleManagerClass:
@@ -22,7 +22,7 @@ class QuadrupleManagerClass:
         self.SemanticCube = SemanticCube.SemanticCube().Instance
         self.MemoryManager = MemoryManager.MemoryManager().Instance
         self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'goSub', 'params', 'return', 'era']
+        self.Operations = self.SemanticCube.Operations + ['=', 'print', 'read','gotoT', 'gotoF', 'goto', 'goSub', 'params', 'return', 'era', 'end']
         self.resetQuadruples()
 
     def resetQuadruples(self):
@@ -93,6 +93,11 @@ class QuadrupleManagerClass:
 
         # era
         elif Op == 'era':
+            self.QuadrupleList.append([IndexOP, None, None, None])
+            return True
+        
+        # end
+        elif Op == 'end':
             self.QuadrupleList.append([IndexOP, None, None, None])
             return True
 
