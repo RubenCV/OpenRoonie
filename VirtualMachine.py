@@ -30,16 +30,16 @@ class VirtualMachineClass:
           self.SemanticCube      = SemanticCube.SemanticCube().Instance
 
           self.Operations = self.QuadrupleManager.Operations
+          self.resetVirtualMachine()
 
+
+     def resetVirtualMachine(self):
           self.actualQuadruple = []
-
           self.instructionPointer = 0
           self.iPS = Stack.Stack()
-
           self.contextStack      = Stack.Stack()
           self.localTypeCounters = Stack.Stack()
-
-          
+          return True
 
      def updateActualQuadruple(self):
           self.actualQuadruple = self.QuadrupleManager.QuadrupleList[self.instructionPointer]
@@ -59,17 +59,10 @@ class VirtualMachineClass:
           return virDir
 
      def translateVirtualToAbsolutePast(self, virDir):
-          if virDir >= self.MemoryManager.getLocalStart():
-               presenteCters = self.localTypeCounters.pop()
-               
-               actualCounters = self.localTypeCounters.peek()
-               virDirType = self.MemoryManager.getEntryTypeId(virDir)
-               offSet = virDir - self.MemoryManager.getInitialIndexType(virDirType)
-               dirAbs = actualCounters[virDirType] + offSet
-
-               self.localTypeCounters.push(presenteCters)
-               return dirAbs
-          return virDir
+          actual = self.localTypeCounters.pop()
+          absDir = self.translateVirtualToAbsolute(virDir)
+          self.localTypeCounters.push(actual)
+          return absDir
 
      def addToCountersStack(self):
           countersList = self.MemoryManager.getLocalIndexList()
@@ -195,9 +188,10 @@ class VirtualMachineClass:
                self.instructionPointer += 1
                self.updateActualQuadruple()
 
-          #self.deleteLocalVars()
-          # deleteAllMemory <- Falta liberar toda la memoria
+          self.deleteLocalVars()
+          self.MemoryManager.resetMemory()
           self.MemoryManager.showMemory()
+          self.resetVirtualMachine()
 
 
 class VirtualMachine:

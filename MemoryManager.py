@@ -44,8 +44,6 @@ class MemoryManagerClass:
      def showMemory(self):
           print("\nMemory: ")
           pprint.pprint(self.Dictionary)
-          # print("\nCounters:")
-          # pprint.pprint(self.Counters)
           return True
 
      def resetLocalMemory(self):     

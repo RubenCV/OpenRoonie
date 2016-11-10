@@ -21,16 +21,17 @@ import VirtualMachine    as VirtualMachine
 # Directory de funciones y controlador de cuadruplos.
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
 QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
-
-VirtualMachine  = VirtualMachine.VirtualMachine().Instance
+VirtualMachine    = VirtualMachine.VirtualMachine().Instance
 
 # Sintaxis y Semantica basica
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
+FCStack        = Stack.Stack()
 
 # Generacion de Cuadruplos y Semantica
 ParamTypeList  = []
 ParamsList     = []
+
 PSaltos = Stack.Stack()
 POper   = Stack.Stack()
 PilaO   = Stack.Stack()
@@ -354,6 +355,7 @@ def p_estatuto(t):
 
 def p_llamafunc(t):
     'llamafunc : idfunc LPAREN funcargs RPAREN'
+    FunctionStack.push(FCStack.peek())
     QuadrupleManager.addQuadruple('goSub', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
     # Es necesario meter a la pila de saltos donde estoy???
@@ -363,8 +365,8 @@ def p_llamafunc(t):
 def p_idfunc(t):
     'idfunc : ID'
     # Comienza 'era' de esta funcion
-    FunctionStack.push(t[1])
-    QuadrupleManager.addQuadruple('era', None, None, FunctionStack.peek())
+    FCStack.push(t[1])
+    QuadrupleManager.addQuadruple('era', None, None, FCStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
 
     addIDPilaO('global', '_'+t[1])
@@ -387,7 +389,6 @@ def p_checarparams(t):
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
-        print(PilaO.peek(), ParamsList[indexFPT], FunctionStack.peek())
         QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT), FunctionStack.peek())
         
 def p_masestatuto(t):
