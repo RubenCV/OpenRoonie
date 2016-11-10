@@ -45,7 +45,9 @@ class FunctionDirectoryClass:
           pprint.pprint(self.functionDictionary)
           print("\nFunction Directory: ")
           pprint.pprint(self.functionRow)
-          # Memory:
+          return True
+
+     def showMemory(self):
           self.MemoryManager.showMemory()
           return True
 

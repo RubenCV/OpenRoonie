@@ -32,7 +32,7 @@ class QuadrupleManagerClass:
     def showQuadruples(self):
         print("\nQuadruples: ")
         for i in range(0, len(self.QuadrupleList)):
-            print(i, self.QuadrupleList[i])
+            print(i, self.Operations[self.QuadrupleList[i][0]], self.QuadrupleList[i])
         return True
 
     def addQuadruple(self, Op, VirDir1, VirDir2, FuncName):

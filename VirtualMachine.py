@@ -39,7 +39,6 @@ class VirtualMachineClass:
           self.contextStack      = Stack.Stack()
           self.localTypeCounters = Stack.Stack()
 
-          self.returnValues      = Stack.Stack()
           
 
      def updateActualQuadruple(self):
@@ -56,6 +55,19 @@ class VirtualMachineClass:
                virDirType = self.MemoryManager.getEntryTypeId(virDir)
                offSet = virDir - self.MemoryManager.getInitialIndexType(virDirType)
                dirAbs = actualCounters[virDirType] + offSet
+               return dirAbs
+          return virDir
+
+     def translateVirtualToAbsolutePast(self, virDir):
+          if virDir >= self.MemoryManager.getLocalStart():
+               presenteCters = self.localTypeCounters.pop()
+               
+               actualCounters = self.localTypeCounters.peek()
+               virDirType = self.MemoryManager.getEntryTypeId(virDir)
+               offSet = virDir - self.MemoryManager.getInitialIndexType(virDirType)
+               dirAbs = actualCounters[virDirType] + offSet
+
+               self.localTypeCounters.push(presenteCters)
                return dirAbs
           return virDir
 
@@ -129,7 +141,7 @@ class VirtualMachineClass:
                elif self.Op == 'print':
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
                     result = self.MemoryManager.getEntryValue(R_ABS)
-                    print(result)
+                    print(result, end="", flush=True)
 
                # Read
                elif self.Op == 'read':
@@ -137,18 +149,17 @@ class VirtualMachineClass:
 
                # dieferente contexto
                elif self.Op == 'params':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
+                    V1_ABS = self.translateVirtualToAbsolutePast(self.V1)
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
                     
                     result = self.MemoryManager.getEntryValue(V1_ABS)
                     self.MemoryManager.setEntryValue(R_ABS, result)
 
-               # return <- tengo el valor en la pila, pero que hago con el?
+               # return
                elif self.Op == 'return':
                     if self.R != None:
                          R_ABS  = self.translateVirtualToAbsolute(self.R)
                          result = self.MemoryManager.getEntryValue(R_ABS)
-                         self.returnValues.push(result) # <- Deep???
                     self.deleteLocalVars()
                     self.instructionPointer = self.iPS.pop()
                     self.contextStack.pop()
@@ -185,6 +196,8 @@ class VirtualMachineClass:
                self.updateActualQuadruple()
 
           #self.deleteLocalVars()
+          # deleteAllMemory <- Falta liberar toda la memoria
+          self.MemoryManager.showMemory()
 
 
 class VirtualMachine:

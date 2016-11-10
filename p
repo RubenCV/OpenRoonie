@@ -1,16 +1,18 @@
-program avance1;
+program openRoon;
+
+function int sum0toX (int input){
+	var int ret;
+	ret = input + 1;
+	return ret;
+}
+
 
 main {
+
 	var int x1;
-	var int i;
 	
-	x1 = 0;
-	i = 0;
-	
-	while (i < 10){
-		x1 = x1 + i;
-		i = i + 1;
-	}
-	
-	print(x1);
+	x1 = 10;
+	x1 = sum0toX(x1);
+
+	print("X1: ", x1,"\n");
 }

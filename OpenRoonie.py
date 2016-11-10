@@ -299,7 +299,7 @@ def p_comaexpresion(t):
                      | empty'''
             
 def p_expresion(t):
-    'expresion : expcomp masexpresion'
+    '''expresion : expcomp masexpresion'''
 
 def p_addQPAO(t):
     '''addQPAO : AND
@@ -366,6 +366,8 @@ def p_idfunc(t):
     FunctionStack.push(t[1])
     QuadrupleManager.addQuadruple('era', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
+
+    addIDPilaO('global', '_'+t[1])
     
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(t[1]))):
@@ -385,6 +387,7 @@ def p_checarparams(t):
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
+        print(PilaO.peek(), ParamsList[indexFPT], FunctionStack.peek())
         QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT), FunctionStack.peek())
         
 def p_masestatuto(t):
@@ -399,7 +402,6 @@ def p_listaid(t):
     'listaid : ID masid'
     if checkVoid():
         FunctionDirectory.addVariable(FunctionStack.peek(),t[1],TypeStack.peek())
-        TypeStack.peek()
 
 def p_masid(t):
     '''masid : COMMA listaid
@@ -414,14 +416,19 @@ def p_bloquefunc(t):
     'bloquefunc : LBRACKET masestatuto retorno RBRACKET'
 
 def p_retorno(t):
-    '''retorno : RETURN exp SEMICOLON
+    '''retorno : RETURN expresion SEMICOLON
                | RETURN SEMICOLON '''
     if FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 3:
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
         FunctionDirectory.resetLocalMemory()
     elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
+
+        returnDir = FunctionDirectory.getVariableVirtualDirection('global', '_'+FunctionStack.peek())
+        QuadrupleManager.addQuadruple('=', PilaO.pop(), returnDir, FunctionStack.peek())
+        
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
-        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, PilaO.pop())
+        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, returnDir)
+        
         FunctionDirectory.resetLocalMemory()
     else :
         print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
@@ -431,6 +438,7 @@ def p_funcaux(t):
     'funcaux : tipo ID'
     FunctionDirectory.addFunction(t[2], TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
     FunctionStack.push(t[2])
+    FunctionDirectory.addVariable('global', '_'+t[2], TypeStack.peek())
 
 def p_args(t):
     '''args : tipo ID 
@@ -504,15 +512,19 @@ while True:
         s = file.read()
         parser.parse(s)
         print("\nCompilacion terminada.")
-
-        VirtualMachine.run()
-
+        
         # Imprimir
         FunctionDirectory.showDirectory()
         QuadrupleManager.showQuadruples()
 
+        print('\nPilas:')
         print('PilaO',PilaO.items)
         print('POper',POper.items)
+
+        # Run
+        print('\nRuntime:')
+        VirtualMachine.run()
+
 
         # Resetear para el siguiente archivo
         FunctionDirectory.resetDirectory()
