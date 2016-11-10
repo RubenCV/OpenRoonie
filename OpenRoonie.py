@@ -113,7 +113,7 @@ tokens = [
     'SEMICOLON', 'COMMA', 'MORETHAN', 'LESSTHAN', 'NOTEQUAL',
     'CTEINT', 'CTEFLOAT', 'CTESTRING', 'CTECHAR',
     'MORETHANEQUAL', 'LESSTHANEQUAL', 'ISEQUALTO',
-    'OR', 'AND',
+    'OR', 'AND', 'COMMENT', 'CPPCOMMENT'
     ] + list(reserved.values())
 
 # Definicion de Tokens con ERs.
@@ -142,6 +142,18 @@ t_CTEINT = r'[0-9][0-9]*'
 t_CTEFLOAT = r'[0-9]+.[0-9]+'
 t_CTESTRING = r'\"([^\\\n]|(\\.))*?\"'
 t_CTECHAR = r'(L)?\'([^\\\n]|(\\.))*?\''
+
+# Comment (C-Style)
+def t_COMMENT(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    return t
+
+# Comment (C++-Style)
+def t_CPPCOMMENT(t):
+    r'//.*\n'
+    t.lexer.lineno += 1
+    return t
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -351,7 +363,9 @@ def p_estatuto(t):
                 | ciclo
                 | escritura
                 | vars
-                | llamafunc SEMICOLON'''
+                | llamafunc SEMICOLON
+                | COMMENT
+                | CPPCOMMENT'''
 
 def p_llamafunc(t):
     'llamafunc : idfunc LPAREN funcargs RPAREN'

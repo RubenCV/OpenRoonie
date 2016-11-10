@@ -188,9 +188,16 @@ class VirtualMachineClass:
                self.instructionPointer += 1
                self.updateActualQuadruple()
 
+          # Borrar variables locales de Main
           self.deleteLocalVars()
+
+          # Borrar variables globales y constantes (Limpiar completamente la memoria para el siguiente programa)
           self.MemoryManager.resetMemory()
+
+          # Enseñar que efectivamente ya se limpio la memoria y esta vacia
           self.MemoryManager.showMemory()
+
+          # Resetear variables de la VM
           self.resetVirtualMachine()
 
 

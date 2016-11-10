@@ -6,11 +6,10 @@ function int fibbo(int n0, int n1, int n2){
 	var int ret;
 	
 	cont = cont + 1;
-	
-	if (n0 <= 0){
+ 
+	if (n0 <= 0) {
 		ret = n2;
-	}
-	else{
+	} else {
 		var int nn0, nn1, nn2;
 		
 		nn0 = n0 - 1;
@@ -20,6 +19,12 @@ function int fibbo(int n0, int n1, int n2){
 		ret = fibbo(nn0, nn1, nn2);
 	}
 
+	/*
+		Multi
+		Line
+		Comment
+	*/
+	
 	return ret;
 }
 
@@ -31,7 +36,8 @@ main {
 	cont = 0;
 
 	var int x1;
-	x1 = fibbot(55);
-
+	x1 = fibbot(50);
+	
+	// Impresion
 	print("X1: ", x1, "\nCont: ", cont,"\n");
 }
