@@ -18,25 +18,126 @@ import FunctionDirectory as FunctionDirectory
 import QuadrupleManager  as QuadrupleManager
 import VirtualMachine    as VirtualMachine
 
-# Directory de funciones y controlador de cuadruplos.
+# Directory de funciones, controlador de cuadruplos y maquina virtual
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
 QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 VirtualMachine    = VirtualMachine.VirtualMachine().Instance
 
-# Sintaxis y Semantica basica
+# Sintaxis y Semantica
+ParamsList     = []
+ParamTypeList  = []
+FCStack        = Stack.Stack()
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
-FCStack        = Stack.Stack()
 
-# Generacion de Cuadruplos y Semantica
-ParamTypeList  = []
-ParamsList     = []
-
-PSaltos = Stack.Stack()
+# Generacion de Cuadruplos
 POper   = Stack.Stack()
 PilaO   = Stack.Stack()
+PSaltos = Stack.Stack()
 
-# Funciones necesarias para la generacion de Cuadruplos
+# Tokens: palabras reservadas.
+reserved = {
+   'if'       :  'IF',
+   'else'     :  'ELSE',
+   'var'      :  'VAR',
+   'program'  :  'PROGRAM',
+   'void'     :  'VOID',
+   'int'      :  'INT',
+   'float'    :  'FLOAT',
+   'char'     :  'CHAR',
+   'bool'     :  'BOOL',
+   'True'     :  'TRUE',
+   'False'    :  'FALSE',
+   'string'   :  'STRING',
+   'print'    :  'PRINT',
+   'function' :  'FUNCTION',
+   'main'     :  'MAIN',
+   'while'    :  'WHILE',
+   'return'   :  'RETURN'
+}
+
+# Lista de Tokens.
+tokens = [
+           'CTEINT',    'CTEFLOAT',   'CTESTRING',     'CTECHAR',
+           'ID',        'EQUALS',     'ISEQUALTO',     'NOTEQUAL',
+           'MORETHAN',  'LESSTHAN',   'MORETHANEQUAL', 'LESSTHANEQUAL',
+           'SEMICOLON', 'COMMA',      'OR',            'AND',
+           'PLUS',      'MINUS',      'TIMES',         'DIVIDE',
+           'LPAREN',    'RPAREN',     'LBRACKET',      'RBRACKET',
+           'LSQBRACKET','RSQBRACKET', 'COMMENT',       'CPPCOMMENT'
+         ] + list(reserved.values())
+
+# Definicion de Tokens con ERs.
+t_PLUS          = r'\+'
+t_MINUS         = r'-'
+t_TIMES         = r'\*'
+t_DIVIDE        = r'/'
+t_EQUALS        = r'='
+t_LPAREN        = r'\('
+t_RPAREN        = r'\)'
+t_LBRACKET      = r'\{'
+t_RBRACKET      = r'\}'
+t_LSQBRACKET    = r'\['
+t_RSQBRACKET    = r'\]'
+t_SEMICOLON     = r';'
+t_COMMA         = r','
+t_MORETHAN      = r'>'
+t_LESSTHAN      = r'<'
+t_NOTEQUAL      = r'<>'
+t_MORETHANEQUAL = r'>='
+t_LESSTHANEQUAL = r'<='
+t_ISEQUALTO     = r'=='
+t_OR            = r'\|'
+t_AND           = r'\&'
+t_CTEINT        = r'-?[0-9][0-9]*'
+t_CTEFLOAT      = r'-?[0-9]+.[0-9]+'
+t_CTESTRING     = r'\"([^\\\n]|(\\.))*?\"'
+t_CTECHAR       = r'(L)?\'([^\\\n]|(\\.))*?\''
+
+# Comment (C-Style)
+def t_COMMENT(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    return t
+
+# Comment (C++-Style)
+def t_CPPCOMMENT(t):
+    r'//.*\n'
+    t.lexer.lineno += 1
+    return t
+
+# IDs, con verificacion de que no sea una palabra reservada
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value,'ID')
+    return t
+
+# Caracteres ignorados
+t_ignore = " \t"
+
+# Salto de linea
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += t.value.count("\n")
+
+# Error lexico    
+def t_error(t):
+    print("ERROR LEXICO. Caracter illegal: '%s'" % t.value[0])
+    t.lexer.skip(1)
+
+# Funciones utilizadas a lo largo de la compilacion
+def resetRoonie():
+    ParamsList     = []
+    ParamTypeList  = []
+    POper          = Stack.Stack()
+    PilaO          = Stack.Stack()
+    PSaltos        = Stack.Stack()
+    FCStack        = Stack.Stack()
+    TypeStack      = Stack.Stack()
+    FunctionStack  = Stack.Stack()
+    FunctionDirectory.resetDirectory()
+    QuadrupleManager.resetQuadruples()
+
 def addCtePilaO(cte, tipo):
     PilaO.push(FunctionDirectory.addConstant(cte, tipo))
     TypeStack.push(tipo)
@@ -80,110 +181,14 @@ def checkVoid():
         print("ERROR SEMANTICA. El tipo de dato 'void' solo se puede utilizar en declaracion de funciones.")
         return False
     return True
-
-# Tokens: palabras reservadas.
-reserved = {
-   'if' : 'IF',
-   'else' : 'ELSE',
-   'var' : 'VAR',
-   'program' : 'PROGRAM',
-   'void' : 'VOID',
-   'int' : 'INT',
-   'float' : 'FLOAT',
-   'char' : 'CHAR',
-   'bool' : 'BOOL',
-   'True' : 'TRUE',
-   'False' : 'FALSE',
-   'string' : 'STRING',
-   'print' : 'PRINT',
-   'function' : 'FUNCTION',
-   'main' : 'MAIN',
-   'while' : 'WHILE',
-   'execute' : 'EXECUTE',
-   'quit' : 'QUIT',
-   'return' : 'RETURN',
-}
-
-# Lista de Tokens.
-tokens = [
-    'ID',
-    'PLUS','MINUS','TIMES','DIVIDE','EQUALS',
-    'LPAREN','RPAREN', 'LBRACKET', 'RBRACKET',
-    'LSQBRACKET','RSQBRACKET',
-    'SEMICOLON', 'COMMA', 'MORETHAN', 'LESSTHAN', 'NOTEQUAL',
-    'CTEINT', 'CTEFLOAT', 'CTESTRING', 'CTECHAR',
-    'MORETHANEQUAL', 'LESSTHANEQUAL', 'ISEQUALTO',
-    'OR', 'AND', 'COMMENT', 'CPPCOMMENT'
-    ] + list(reserved.values())
-
-# Definicion de Tokens con ERs.
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_EQUALS  = r'='
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
-t_LBRACKET  = r'\{'
-t_RBRACKET  = r'\}'
-t_LSQBRACKET  = r'\['
-t_RSQBRACKET  = r'\]'
-t_SEMICOLON  = r';'
-t_COMMA  = r','
-t_MORETHAN  = r'>'
-t_LESSTHAN  = r'<'
-t_NOTEQUAL  = r'<>'
-t_MORETHANEQUAL  = r'>='
-t_LESSTHANEQUAL  = r'<='
-t_ISEQUALTO  = r'=='
-t_OR = r'\|'
-t_AND = r'\&'
-t_CTEINT = r'-?[0-9][0-9]*'
-t_CTEFLOAT = r'-?[0-9]+.[0-9]+'
-t_CTESTRING = r'\"([^\\\n]|(\\.))*?\"'
-t_CTECHAR = r'(L)?\'([^\\\n]|(\\.))*?\''
-
-# Comment (C-Style)
-def t_COMMENT(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
-    return t
-
-# Comment (C++-Style)
-def t_CPPCOMMENT(t):
-    r'//.*\n'
-    t.lexer.lineno += 1
-    return t
-
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'ID')    # Check for reserved words
-    return t
-
-# Ignored characters
-t_ignore = " \t"
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
-    
-def t_error(t):
-    print("ERROR LEXICO. Caracter illegal: '%s'" % t.value[0])
-    t.lexer.skip(1)
     
 # Build the lexer
 import ply.lex as lex
 lexer = lex.lex()
 
-# Parsing rules
-precedence = (
-    ('left','PLUS','MINUS'),
-    ('left','TIMES','DIVIDE'),
-    )
-
 def p_programa(t):
     'programa : prog ID SEMICOLON vars funcs main bloque'
-    # FunctionDirectory.resetLocalMemory()
+    FunctionDirectory.resetLocalMemory()
     # fin de programa
     QuadrupleManager.addQuadruple('end', None, None, FunctionStack.peek())
 
@@ -205,8 +210,6 @@ def p_prog(t):
 def p_main(t):
     'main : MAIN'
     FunctionStack.push(t[1])
-
-    # Updatear cuadruplo 0 -> a CuadruploActual+1
     FunctionDirectory.setFunctionStartQuadrupleIndex(t[1], QuadrupleManager.getQuadrupleListLength())
     QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(t[1]))
 
@@ -219,7 +222,6 @@ def p_gotoF(t):
     addPOper('gotoF')
     addQuadruple(['gotoF'])
     PSaltos.push(QuadrupleManager.getQuadrupleListLength()-1)
-
 
 def p_bloque(t):
     'bloque : LBRACKET masestatuto RBRACKET'
@@ -379,13 +381,10 @@ def p_idfunc(t):
     FCStack.push(t[1])
     QuadrupleManager.addQuadruple('era', None, None, FCStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
-
     addIDPilaO('global', '_'+t[1])
-    
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(t[1]))):
         ParamsList.append(FunctionDirectory.getFunction(t[1])[3][i][2])
-
 
 def p_funcargs(t):
     '''funcargs : expresion listafuncargs checarparams
@@ -435,13 +434,10 @@ def p_retorno(t):
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
         FunctionDirectory.resetLocalMemory()
     elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
-
         returnDir = FunctionDirectory.getVariableVirtualDirection('global', '_'+FunctionStack.peek())
         QuadrupleManager.addQuadruple('=', PilaO.pop(), returnDir, FunctionStack.peek())
-        
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
-        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, returnDir)
-        
+        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, returnDir)      
         FunctionDirectory.resetLocalMemory()
     else :
         print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
@@ -526,24 +522,17 @@ while True:
         parser.parse(s)
         print("\nCompilacion terminada.")
         
-        # Imprimir
+        # Prints
         FunctionDirectory.showDirectory()
         QuadrupleManager.showQuadruples()
 
-        print('\nPilas:')
-        print('PilaO',PilaO.items)
-        print('POper',POper.items)
-
-        # Run
-        print('\nRuntime Prints:')
+        # Execution
+        print('\n---Start-Execution---\n')
         VirtualMachine.run()
-
+        print('\n----End-Execution----')
 
         # Resetear para el siguiente archivo
-        FunctionDirectory.resetDirectory()
-        QuadrupleManager.resetQuadruples()
-        PilaO = Stack.Stack()
-        POper = Stack.Stack()
+        resetRoonie()
     
     except EOFError:
         break
