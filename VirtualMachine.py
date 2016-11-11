@@ -28,18 +28,18 @@ class VirtualMachineClass:
           self.QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
           self.MemoryManager     = MemoryManager.MemoryManager().Instance
           self.SemanticCube      = SemanticCube.SemanticCube().Instance
-
-          self.Operations = self.QuadrupleManager.Operations
+          self.Operations        = self.QuadrupleManager.Operations
           self.resetVirtualMachine()
 
 
      def resetVirtualMachine(self):
-          self.actualQuadruple = []
-          self.instructionPointer = 0
           self.iPS = Stack.Stack()
-          self.contextStack      = Stack.Stack()
-          self.localTypeCounters = Stack.Stack()
-          self.asigningParams = False
+          self.asigningParams     = False
+          self.actualQuadruple    = []
+          self.instructionPointer = 0
+          self.contextStack       = Stack.Stack()
+          self.localTypeCounters  = Stack.Stack()
+          
           return True
 
      def updateActualQuadruple(self):

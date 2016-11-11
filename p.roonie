@@ -2,7 +2,13 @@ program fibboRecursivo;
 
 var int iter;
 
-function int fibbo(int n0, int n1, int n2){
+function int tailFibonacci(int n0, int n1, int n2){
+	/*
+		In tail recursion, you perform your calculations first, and then you
+		execute the recursive call, passing the results of your current step to
+		the next recursive step. Basically, the return value of any given recursive
+		step is the same as the return value of the next recursive call.
+	*/
 	var int ret;
 	
 	// Aumentamos en 1 la cantidad de iteraciones
@@ -13,28 +19,52 @@ function int fibbo(int n0, int n1, int n2){
 	}
 	
 	else {
-		ret = fibbo(n0 - 1, n1 + n2, n1);
+		ret = tailFibonacci(n0 - 1, n1 + n2, n1);
 	}
 
 	return ret;
 }
 
-function int fibbot (int n){
-	return fibbo(n, 1, 0);
+function int fibonacci(int n){
+	return tailFibonacci(n, 1, 0);
+}
+
+function int factorial (int n) {
+	var int ret;
+
+	ret = 1;
+	
+	if(n > 1) {
+		ret = factorial(n - 1) * n; // <- Aqui tenemos un problema, la funcion esta al mismo nivel que la n.
+	}
+	
+	return ret;
 }
 
 main {
-	var int fib, num;
+	var int fib, num, num2,fact, numNeg;
 	
 	// Asignacion de la variable global
 	iter = 0;
 	
-	// Numero de la serie fibbonacci que queremos
+	// Llamada a func fibo
 	num = 15;
+	fib = fibonacci(num);
 	
-	// Llamada a fib
-	fib = fibbot(num);
+	// Llamada a func fact
+	num2 = 5;
+	fact = factorial(num2);
 	
-	// Impresion del resultado, cantidad de iteraciones que fueron necesarias
-	print("Fib(",num,") = ", fib, "\nIteraciones: ", iter,"\n");
+	// Prueba con numero negativo
+	numNeg = -5 * 2;
+	
+	// Pretty clever huh ?!?
+	var string endl;
+	endl = "\n";
+	
+	// Impresion de los resultados
+	print("Fib(", num, ") = ", fib, endl);
+	print("Iteraciones fib: ", iter, endl);
+	print(num2, "! = ", fact, endl);
+	print("Numero negativo: ", numNeg, endl);
 }

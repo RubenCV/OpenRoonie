@@ -25,7 +25,7 @@ class MemoryManagerClass:
           self.MemoryScopes = ['global','const','local']
           
           # Nombres de tipos de datos validos
-          self.DataTypes = ['int', 'float', 'char', 'bool', 'string']
+          self.DataTypes = ['int', 'float', 'char', 'bool', 'string', 'void']
           
           # Tamaño del buffer por cada tipo de variable, para cada contexto
           self.MaxVarsPerType = 1000
@@ -48,7 +48,7 @@ class MemoryManagerClass:
 
      def resetLocalMemory(self):     
           for i in range(0,  len(self.DataTypes)):
-               indexInicial = (len(self.DataTypes) * 2 * self.MaxVarsPerType) + (i * self.MaxVarsPerType) + self.MaxVarsPerType
+               indexInicial = self.getInitialIndexType(i)
                indexFinal = self.translateToCounterIndex(2, self.DataTypes[i])
                self.Counters[len(self.DataTypes) * 2 + i] = indexInicial
                for j in range(0, indexFinal - indexInicial):
