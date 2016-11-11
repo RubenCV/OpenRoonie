@@ -183,7 +183,7 @@ precedence = (
 
 def p_programa(t):
     'programa : prog ID SEMICOLON vars funcs main bloque'
-    FunctionDirectory.resetLocalMemory()
+    # FunctionDirectory.resetLocalMemory()
     # fin de programa
     QuadrupleManager.addQuadruple('end', None, None, FunctionStack.peek())
 
@@ -372,9 +372,6 @@ def p_llamafunc(t):
     FunctionStack.push(FCStack.peek())
     QuadrupleManager.addQuadruple('goSub', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
-    # Es necesario meter a la pila de saltos donde estoy???
-    # -> no conviene mas hacerlo en ejecucion con el pointer al cuadruplo actual???
-    #PSaltos.push(QuadrupleManager.getQuadrupleListLength())
     
 def p_idfunc(t):
     'idfunc : ID'
@@ -400,6 +397,7 @@ def p_listafuncargs(t):
 
 def p_checarparams(t):
     'checarparams : empty'
+    
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
@@ -523,7 +521,7 @@ while True:
         fn = input('OpenRoonie > ')
         if fn == 'exit' :
             break
-        file = open(fn, 'r')
+        file = open(fn+'.roonie', 'r')
         s = file.read()
         parser.parse(s)
         print("\nCompilacion terminada.")
@@ -537,7 +535,7 @@ while True:
         print('POper',POper.items)
 
         # Run
-        print('\nRuntime:')
+        print('\nRuntime Prints:')
         VirtualMachine.run()
 
 

@@ -39,6 +39,7 @@ class VirtualMachineClass:
           self.iPS = Stack.Stack()
           self.contextStack      = Stack.Stack()
           self.localTypeCounters = Stack.Stack()
+          self.asigningParams = False
           return True
 
      def updateActualQuadruple(self):
@@ -50,13 +51,21 @@ class VirtualMachineClass:
           return True
 
      def translateVirtualToAbsolute(self, virDir):
+          absDir = virDir;
+
+          if self.asigningParams == True:
+               actual = self.localTypeCounters.pop()
+               
           if virDir >= self.MemoryManager.getLocalStart():
                actualCounters = self.localTypeCounters.peek()
                virDirType = self.MemoryManager.getEntryTypeId(virDir)
                offSet = virDir - self.MemoryManager.getInitialIndexType(virDirType)
-               dirAbs = actualCounters[virDirType] + offSet
-               return dirAbs
-          return virDir
+               absDir = actualCounters[virDirType] + offSet
+
+          if self.asigningParams == True:
+               self.localTypeCounters.push(actual)
+
+          return absDir
 
      def translateVirtualToAbsolutePast(self, virDir):
           actual = self.localTypeCounters.pop()
@@ -134,16 +143,18 @@ class VirtualMachineClass:
                elif self.Op == 'print':
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
                     result = self.MemoryManager.getEntryValue(R_ABS)
-                    print(result, end="", flush=True)
+                    print(result, end = "", flush = True)
 
                # Read
                elif self.Op == 'read':
                     pass
 
-               # dieferente contexto
                elif self.Op == 'params':
-                    V1_ABS = self.translateVirtualToAbsolutePast(self.V1)
+                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
+                    self.asigningParams = False
+                    
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
+                    self.asigningParams = True
                     
                     result = self.MemoryManager.getEntryValue(V1_ABS)
                     self.MemoryManager.setEntryValue(R_ABS, result)
@@ -162,9 +173,11 @@ class VirtualMachineClass:
                     self.addToContextStack(self.R)
                     self.addToCountersStack()
                     self.loadFunction()
+                    self.asigningParams = True
 
                # gosub
                elif self.Op == 'goSub':
+                    self.asigningParams = False
                     self.iPS.push(self.instructionPointer)
                     self.instructionPointer = self.R - 1
 

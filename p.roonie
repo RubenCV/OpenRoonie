@@ -1,0 +1,40 @@
+program fibboRecursivo;
+
+var int iter;
+
+function int fibbo(int n0, int n1, int n2){
+	var int ret;
+	
+	// Aumentamos en 1 la cantidad de iteraciones
+	iter = iter + 1;
+ 
+	if (n0 <= 0) {
+		ret = n2;
+	}
+	
+	else {
+		ret = fibbo(n0 - 1, n1 + n2, n1);
+	}
+
+	return ret;
+}
+
+function int fibbot (int n){
+	return fibbo(n, 1, 0);
+}
+
+main {
+	var int fib, num;
+	
+	// Asignacion de la variable global
+	iter = 0;
+	
+	// Numero de la serie fibbonacci que queremos
+	num = 15;
+	
+	// Llamada a fib
+	fib = fibbot(num);
+	
+	// Impresion del resultado, cantidad de iteraciones que fueron necesarias
+	print("Fib(",num,") = ", fib, "\nIteraciones: ", iter,"\n");
+}
