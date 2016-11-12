@@ -45,8 +45,8 @@ class QuadrupleManagerClass:
         Type1 = self.MemoryManager.getEntryType(VirDir1) if VirDir1 != None else None
         Type2 = self.MemoryManager.getEntryType(VirDir2) if VirDir2 != None else None
 
-        # Operacion Artimetica / Logica
-        if IndexOP < len(self.SemanticCube.Operations):
+        # Operacion Artimetica / Logica (El -1 es porque agrege al final al '=')
+        if IndexOP < len(self.SemanticCube.Operations)-1:
             ResultingType = self.SemanticCube.getResultingType(Type1, Type2, Op)
 
             if ResultingType != None :
@@ -55,8 +55,10 @@ class QuadrupleManagerClass:
                 return ResultVirDir
 
         # Asignacion (A = b -> [= , b, None, A])
-        elif Op == '=':
-            if Type1 == Type2:
+        elif Op == '=' or  Op == 'params':
+            ResultingType = self.SemanticCube.getResultingType(Type1, Type2, '=')
+            
+            if ResultingType != None :
                 self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
                 return True
             else:
@@ -105,14 +107,6 @@ class QuadrupleManagerClass:
         elif Op == 'return':
             self.QuadrupleList.append([IndexOP, None, None, None])
             return True
-
-        elif Op == 'params':
-            if Type1 == Type2:
-                self.QuadrupleList.append([IndexOP, VirDir1, None, VirDir2])
-                return True
-            else:
-                print("\nERROR SEMANTICA. Tipo de dato:", Type1,'no puede ser asignado a una variable de tipo:', Type2)
-                return None
 
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):

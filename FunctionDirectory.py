@@ -296,7 +296,7 @@ class FunctionDirectoryClass:
      #####---- Utilidades ----#####
 
      def getIdType(self, tipo):
-          dataTypes = ['int', 'float', 'char', 'bool', 'string']
+          dataTypes = ['int', 'float', 'char', 'bool', 'string', 'void']
           return dataTypes.index(tipo)
 
 class FunctionDirectory:

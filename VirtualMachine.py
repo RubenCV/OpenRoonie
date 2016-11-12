@@ -108,17 +108,17 @@ class VirtualMachineClass:
                     result = self.MemoryManager.getEntryValue(V1_ABS) or self.MemoryManager.getEntryValue(V2_ABS)
                     self.MemoryManager.setEntryValue(R_ABS, result)
 
+               elif self.Op == '=':
+                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
+                    R_ABS  = self.translateVirtualToAbsolute(self.R) 
+                    result = self.MemoryManager.getEntryValue(V1_ABS)
+                    self.MemoryManager.setEntryValue(R_ABS, result)
+
                elif self.actualQuadruple[0] < len(self.SemanticCube.Operations):
                     V1_ABS = self.translateVirtualToAbsolute(self.V1)
                     V2_ABS = self.translateVirtualToAbsolute(self.V2)
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
                     result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + self.Op + str(self.MemoryManager.getEntryValue(V2_ABS)))
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == '=':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R) 
-                    result = self.MemoryManager.getEntryValue(V1_ABS)
                     self.MemoryManager.setEntryValue(R_ABS, result)
 
                elif self.Op == 'print':

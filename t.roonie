@@ -1,0 +1,16 @@
+program multiplica;
+ 
+function float mult(float a, float b){
+	print("A: ", a, "\n");
+    return a * b;
+}
+ 
+function int mult2(int a, int b){
+    var bool fact;
+    return a * b;
+}
+ 
+main {
+    print(mult(5, 10),"\n");
+    print(mult2(3, 9),"\n");
+}

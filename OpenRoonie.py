@@ -374,7 +374,11 @@ def p_llamafunc(t):
     FunctionStack.push(FCStack.peek())
     QuadrupleManager.addQuadruple('goSub', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
-    QuadrupleManager.addQuadruple('=', FunctionDirectory.getVariableVirtualDirection('global', '_'+FCStack.peek()), PilaO.peek(), FunctionStack.peek())
+    
+    # Si la funcion llamada no es Void, igualar la variable temporal que la representa con el valor almacenado en el quad return 
+    if FunctionDirectory.getFunctionType(FCStack.peek()) != 'void':
+        QuadrupleManager.addQuadruple('=', FunctionDirectory.getVariableVirtualDirection('global', '_'+FCStack.peek()), PilaO.peek(), FunctionStack.peek())
+
     POper.pop()
     
 def p_idfunc(t):
@@ -383,7 +387,11 @@ def p_idfunc(t):
     FCStack.push(t[1])
     QuadrupleManager.addQuadruple('era', None, None, FCStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(FCStack.peek()))
-    PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek())))
+
+    # Si la funcion llamada no es Void, agrego una temporal al contexto actual para almacenar su valor de retorno
+    if FunctionDirectory.getFunctionType(FCStack.peek()) != 'void':
+        PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek())))
+
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(FCStack.peek()))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(FCStack.peek()))):
         ParamsList.append(FunctionDirectory.getFunction(FCStack.peek())[3][i][2])
@@ -438,23 +446,29 @@ def p_retorno(t):
         FunctionDirectory.resetLocalMemory()
         
     # Funcion que si retorna un valor
-    elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
+    elif FunctionDirectory.getFunctionType(FunctionStack.peek()) != 'void' and len(t) == 4:
         returnDir = FunctionDirectory.getVariableVirtualDirection('global', '_'+FunctionStack.peek())
         QuadrupleManager.addQuadruple('=', PilaO.pop(), returnDir, FunctionStack.peek())
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
         QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, returnDir)      
         FunctionDirectory.resetLocalMemory()
 
-    # No es igual el tipo de retorno con el tipo de func o void quiere retornar valor.
-    else :
-        print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
-              FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion", FunctionStack.peek())
+    # Si es Void y me estan retornado un valor
+    elif FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 4:
+        print("ERROR SEMANTICA. Las funciones de tipo void no deben retornar ningun valor")
+
+    # Si no es Void y no me dan valor de retorno
+    elif FunctionDirectory.getFunctionType(FunctionStack.peek()) != 'void' and len(t) == 3:
+        print("ERROR SEMANTICA. Las funciones de tipo", FunctionDirectory.getFunctionType(FunctionStack.peek()), "deben retornar un valor")
     
 def p_funcaux(t):
     'funcaux : tipo ID'
     FunctionStack.push(t[2])
     FunctionDirectory.addFunction(FunctionStack.peek(), TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
-    FunctionDirectory.addVariable('global', '_'+FunctionStack.peek(), TypeStack.peek())
+
+    # Si la funcion no es Void, creo una variable global que me sirve como avail para el retorno de la funcion
+    if FunctionDirectory.getFunctionType(FunctionStack.peek()) != 'void':
+        FunctionDirectory.addVariable('global', '_'+FunctionStack.peek(), TypeStack.peek())
 
 def p_args(t):
     '''args : tipo ID 
