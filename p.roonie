@@ -35,7 +35,7 @@ function int factorial (int n) {
 	ret = 1;
 	
 	if(n > 1) {
-		ret = factorial(n - 1) * n; // <- Aqui tenemos un problema, la funcion esta al mismo nivel que la n.
+		ret = n * factorial(n - 1);
 	}
 	
 	return ret;

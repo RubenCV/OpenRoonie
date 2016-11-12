@@ -211,7 +211,7 @@ def p_main(t):
     'main : MAIN'
     FunctionStack.push(t[1])
     FunctionDirectory.setFunctionStartQuadrupleIndex(t[1], QuadrupleManager.getQuadrupleListLength())
-    QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(t[1]))
+    QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.peek()))
 
 def p_condicion(t):
     'condicion : IF LPAREN expresion RPAREN gotoF bloque masbloque'
@@ -374,17 +374,20 @@ def p_llamafunc(t):
     FunctionStack.push(FCStack.peek())
     QuadrupleManager.addQuadruple('goSub', None, None, FunctionStack.peek())
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.pop()))
+    QuadrupleManager.addQuadruple('=', FunctionDirectory.getVariableVirtualDirection('global', '_'+FCStack.peek()), PilaO.peek(), FunctionStack.peek())
+    POper.pop()
     
 def p_idfunc(t):
     'idfunc : ID'
     # Comienza 'era' de esta funcion
     FCStack.push(t[1])
     QuadrupleManager.addQuadruple('era', None, None, FCStack.peek())
-    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(t[1]))
-    addIDPilaO('global', '_'+t[1])
-    ParamTypeList.append(FunctionDirectory.getParameterTypeList(t[1]))
-    for i in range(0, len(FunctionDirectory.getParameterTypeList(t[1]))):
-        ParamsList.append(FunctionDirectory.getFunction(t[1])[3][i][2])
+    QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, FunctionDirectory.getFunctionIndex(FCStack.peek()))
+    PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek())))
+    ParamTypeList.append(FunctionDirectory.getParameterTypeList(FCStack.peek()))
+    for i in range(0, len(FunctionDirectory.getParameterTypeList(FCStack.peek()))):
+        ParamsList.append(FunctionDirectory.getFunction(FCStack.peek())[3][i][2])
+    addPOper('Fake')
 
 def p_funcargs(t):
     '''funcargs : expresion listafuncargs checarparams
@@ -396,7 +399,6 @@ def p_listafuncargs(t):
 
 def p_checarparams(t):
     'checarparams : empty'
-    
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
@@ -413,7 +415,7 @@ def p_vars(t):
 def p_listaid(t):
     'listaid : ID masid'
     if checkVoid():
-        FunctionDirectory.addVariable(FunctionStack.peek(),t[1],TypeStack.peek())
+        FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.peek())
 
 def p_masid(t):
     '''masid : COMMA listaid
@@ -430,24 +432,29 @@ def p_bloquefunc(t):
 def p_retorno(t):
     '''retorno : RETURN expresion SEMICOLON
                | RETURN SEMICOLON '''
+    # Funcion Void
     if FunctionDirectory.getFunctionType(FunctionStack.peek()) == 'void' and len(t) == 3:
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
         FunctionDirectory.resetLocalMemory()
+        
+    # Funcion que si retorna un valor
     elif TypeStack.peek() == FunctionDirectory.getFunctionType(FunctionStack.peek()) and len(t) == 4:
         returnDir = FunctionDirectory.getVariableVirtualDirection('global', '_'+FunctionStack.peek())
         QuadrupleManager.addQuadruple('=', PilaO.pop(), returnDir, FunctionStack.peek())
         QuadrupleManager.addQuadruple('return', None, None, FunctionStack.peek())
         QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, returnDir)      
         FunctionDirectory.resetLocalMemory()
+
+    # No es igual el tipo de retorno con el tipo de func o void quiere retornar valor.
     else :
         print("ERROR SEMANTICA. El tipo de retorno", TypeStack.peek(), "no coincide con el tipo",
-              FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion",FunctionStack.peek())
+              FunctionDirectory.getFunctionType(FunctionStack.peek()), "de la funcion", FunctionStack.peek())
     
 def p_funcaux(t):
     'funcaux : tipo ID'
-    FunctionDirectory.addFunction(t[2], TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
     FunctionStack.push(t[2])
-    FunctionDirectory.addVariable('global', '_'+t[2], TypeStack.peek())
+    FunctionDirectory.addFunction(FunctionStack.peek(), TypeStack.peek(), QuadrupleManager.getQuadrupleListLength())
+    FunctionDirectory.addVariable('global', '_'+FunctionStack.peek(), TypeStack.peek())
 
 def p_args(t):
     '''args : tipo ID 
@@ -455,7 +462,7 @@ def p_args(t):
     if len(t) > 2 :
         if checkVoid():
             FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
-            FunctionDirectory.addVariable(FunctionStack.peek(),t[2],TypeStack.peek())
+            FunctionDirectory.addVariable(FunctionStack.peek(), t[2], TypeStack.peek())
     
 def p_masargs(t):
     '''masargs : COMMA args masargs
