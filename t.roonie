@@ -1,16 +1,70 @@
-program multiplica;
+program HollowLife;
  
-function float mult(float a, float b){
-	print("A: ", a, "\n");
-    return a * b;
+var string endl;
+
+function int InitGame(){
+	print("==========HollowLife==========", endl);
+	print("========== The Game ==========", endl);
+
+	var int i;
+	i = 0;
+
+	while(i <= 100.5) {
+		print("Loading...", i, "%", endl);
+		i = i + 10;
+	}
+	
+	return 0;
 }
- 
-function int mult2(int a, int b){
-    var bool fact;
-    return a * b;
+
+function int RunGame(int n){
+	if(n > 0){
+		print("Game stage: ", n, endl);
+		//RunGame(n - 1);
+	}else{
+		print("Game finished", endl);
+	}
+	return 0;
 }
- 
+
+function void loquesea(){
+	if( 5 > 2 & 14 * 5 > 10 | False){
+		print("pase", endl);
+	}
+	return;
+}
+
+function void EndGame(){
+	print("========== The End ==========", endl);
+	var float iScore;
+	iScore = 7.0 / 5 * 90 * 33 / 0.5;
+	print("Your score: ", iScore, endl);
+	return;
+}
+
+function void HollowLife( ){
+	InitGame();
+	//RunGame(5);
+	EndGame();
+	return;
+}
+
+function int uno(){
+	return 1;
+}
+
+function void multParam(int i, float f, bool b, string s){
+	print(i, endl);
+	print(f, endl);
+	print(b, endl);
+	print(s, endl);
+	return;
+}
+
 main {
-    print(mult(5, 10),"\n");
-    print(mult2(3, 9),"\n");
+	endl = "\n";
+	//loquesea();
+
+	multParam(1, 20 / 5.0, True, "Hola");
+	//HollowLife();
 }

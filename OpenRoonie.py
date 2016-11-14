@@ -18,10 +18,14 @@ import FunctionDirectory as FunctionDirectory
 import QuadrupleManager  as QuadrupleManager
 import VirtualMachine    as VirtualMachine
 
+import MemoryManager     as MemoryManager
+
 # Directory de funciones, controlador de cuadruplos y maquina virtual
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
 QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 VirtualMachine    = VirtualMachine.VirtualMachine().Instance
+
+MemoryManager = MemoryManager.MemoryManager().Instance
 
 # Sintaxis y Semantica
 ParamsList     = []
@@ -90,7 +94,7 @@ t_ISEQUALTO     = r'=='
 t_OR            = r'\|'
 t_AND           = r'\&'
 t_CTEINT        = r'-?[0-9][0-9]*'
-t_CTEFLOAT      = r'-?[0-9]+.[0-9]+'
+t_CTEFLOAT      = r'-?[0-9]+\.[0-9]+'
 t_CTESTRING     = r'\"([^\\\n]|(\\.))*?\"'
 t_CTECHAR       = r'(L)?\'([^\\\n]|(\\.))*?\''
 
@@ -410,6 +414,7 @@ def p_checarparams(t):
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
     for i in range(0, len(funcParamType)):
         indexFPT = len(funcParamType) - (i + 1)
+        print('type: ', MemoryManager.getEntryType(PilaO.peek()), 'type2: ', MemoryManager.getEntryType(ParamsList[indexFPT]))
         QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT), FunctionStack.peek())
         
 def p_masestatuto(t):
