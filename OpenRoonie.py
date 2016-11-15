@@ -234,6 +234,7 @@ def p_bloque(t):
 def p_masbloque(t):
     '''masbloque : ELSE goto estatutobloque
                  | empty'''
+    
 def p_goto(t):
     'goto : empty'
     addPOper('goto')

@@ -12,12 +12,12 @@
 <Keywords name="Operators">( ) , : ; [ ] < = > . ? + - * / % & | ^ ! ~</Keywords>
 <Keywords name="Comment">1/* 1/** 2*/ 0// 0///</Keywords>
 <Keywords name="Words1">
-var function return if else switch case default for while do break continue try catch finally throw print
+var function return if else while do print read program
 </Keywords>
 <Keywords name="Words2">new delete typeof instanceof in</Keywords>
-<Keywords name="Words3">void String Number Boolean Date Array Math RegExp</Keywords>
+<Keywords name="Words3">void bool int float char string</Keywords>
 <Keywords name="Words4">
-true false null undefined this prototype alert document
+True False None 
 </Keywords>
 </KeywordLists>
 <Styles>
