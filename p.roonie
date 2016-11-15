@@ -48,7 +48,7 @@ main {
 	iter = 0;
 	
 	// Llamada a func fibo
-	num = 15;
+	read(num);
 	fib = fibonacci(num);
 	
 	// Llamada a func fact

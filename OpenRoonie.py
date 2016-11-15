@@ -188,7 +188,7 @@ import ply.lex as lex
 lexer = lex.lex()
 
 def p_programa(t):
-    'programa : prog ID SEMICOLON vars funcs main bloque'
+    'programa : prog ID SEMICOLON vars eramain funcs main bloque'
     FunctionDirectory.resetLocalMemory()
     # fin de programa
     QuadrupleManager.addQuadruple('end', None, None, FunctionStack.peek())
@@ -198,6 +198,8 @@ def p_prog(t):
     # Todo lo que se decalre afuera de las funciones es global.
     FunctionStack.push('global')
 
+def p_eramain(t):
+    'eramain : empty'
     # Comienza 'era' de main
     FunctionDirectory.addFunction('main', None, None)
     QuadrupleManager.addQuadruple('era', None, None, FunctionStack.peek())
@@ -438,9 +440,15 @@ def p_vars(t):
             | empty'''
     
 def p_listaid(t):
-    'listaid : ID masid'
+    'listaid : initvar masid'
+
+def p_initvar(t):
+    '''initvar : ID EQUALS expresion 
+               | ID empty'''
     if checkVoid():
         FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.peek())
+        if len(t) > 3 :
+            QuadrupleManager.addQuadruple('=', PilaO.pop(), FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), t[1]), FunctionStack.peek())
 
 def p_masid(t):
     '''masid : COMMA listaid
