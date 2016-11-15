@@ -215,8 +215,12 @@ def p_main(t):
     QuadrupleManager.updateReturnReference(PSaltos.pop(), FunctionDirectory.getFunctionStartQuadrupleIndex(FunctionStack.peek()))
 
 def p_condicion(t):
-    'condicion : IF LPAREN expresion RPAREN gotoF bloque masbloque'
+    'condicion : IF LPAREN expresion RPAREN gotoF estatutobloque masbloque'
     QuadrupleManager.updateReturnReference(PSaltos.pop(), QuadrupleManager.getQuadrupleListLength())
+
+def p_estatutobloque(t):
+    '''estatutobloque : estatuto
+                      | bloque'''
 
 def p_gotoF(t):
     'gotoF : empty'
@@ -228,7 +232,7 @@ def p_bloque(t):
     'bloque : LBRACKET masestatuto RBRACKET'
 
 def p_masbloque(t):
-    '''masbloque : ELSE goto bloque
+    '''masbloque : ELSE goto estatutobloque
                  | empty'''
 def p_goto(t):
     'goto : empty'
@@ -238,7 +242,7 @@ def p_goto(t):
     PSaltos.push(QuadrupleManager.getQuadrupleListLength()-1)
 
 def p_ciclo(t):
-    'ciclo : while LPAREN expresion RPAREN gotoF bloque goto'
+    'ciclo : while LPAREN expresion RPAREN gotoF estatutobloque goto'
     PSaltos.pop()
     QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, PSaltos.pop())
 

@@ -18,5 +18,15 @@ main {
 	var int x;
 	read(x);
 	
+	if (x > 10){
+		print("Mayor que 10", endl);
+	}
+	else if (x > 5){
+		print("Menor que 10, pero mayor que 5", endl);
+	}
+	else{
+		print("Menor que 5", endl);
+	}
+	
 	tablas(x, 10);
 }
