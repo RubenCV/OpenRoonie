@@ -72,7 +72,8 @@ class QuadrupleManagerClass:
             
         # Read
         elif Op == 'read':
-            return None
+            self.QuadrupleList.append([IndexOP, None, None, VirDir1])
+            return True
             
         # gotoT or gotoF -> (gotoX, BoolVirDir, None, Pendiente)
         elif Op in ['gotoT', 'gotoF']:

@@ -109,6 +109,10 @@ class FunctionDirectoryClass:
           return self.functionDictionary[nombre]
 
      # Retorna el id del primer cuadruplo de la funcion
+     def getFunctionVariables(self, nombre):
+          return self.getFunction(nombre)[3]
+
+     # Retorna el id del primer cuadruplo de la funcion
      def getFunctionStartQuadrupleIndex(self, nombre):
           return self.getFunction(nombre)[4]
 
@@ -223,6 +227,13 @@ class FunctionDirectoryClass:
      # Retorna la direccion virtual donde esta contenida la variable de la funcion dada como argumento.
      def getVariableVirtualDirection(self, function, nombre):
           return self.getVariable(function, nombre)[2]
+
+     def getVariableByVirtualDirection(self, function, virDir):
+          vars = self.getFunctionVariables(function)
+          for i in range(0, len(vars)):
+               if vars[i][2] == virDir:
+                    return vars[i][0]
+          return None
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
      def setVariableValue(self, function, nombre, valor):

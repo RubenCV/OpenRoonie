@@ -120,7 +120,7 @@ class VirtualMachineClass:
                     R_ABS  = self.translateVirtualToAbsolute(self.R)
                     
                     resultType = self.MemoryManager.getEntryType(R_ABS)
-                    if resultType == 'int' : division = '//'
+                    if resultType == 'int'   : division = '//'
                     if resultType == 'float' : division = '/'
 
                     result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + division + str(self.MemoryManager.getEntryValue(V2_ABS)))
@@ -139,7 +139,10 @@ class VirtualMachineClass:
                     print(result, end = "", flush = True)
 
                elif self.Op == 'read':
-                    pass
+                    R_ABS  = self.translateVirtualToAbsolute(self.R)
+                    varName = self.FunctionDirectory.getVariableByVirtualDirection(self.contextStack.peek()[0], self.R)
+                    result = input(varName + " = ")
+                    self.MemoryManager.setEntryValue(R_ABS, result)
 
                elif self.Op == 'params':
                     V1_ABS = self.translateVirtualToAbsolute(self.V1)

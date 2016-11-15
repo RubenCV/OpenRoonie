@@ -18,14 +18,10 @@ import FunctionDirectory as FunctionDirectory
 import QuadrupleManager  as QuadrupleManager
 import VirtualMachine    as VirtualMachine
 
-import MemoryManager     as MemoryManager
-
 # Directory de funciones, controlador de cuadruplos y maquina virtual
 FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
 QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 VirtualMachine    = VirtualMachine.VirtualMachine().Instance
-
-MemoryManager = MemoryManager.MemoryManager().Instance
 
 # Sintaxis y Semantica
 ParamsList     = []
@@ -53,6 +49,7 @@ reserved = {
    'True'     :  'TRUE',
    'False'    :  'FALSE',
    'string'   :  'STRING',
+   'read'     :  'READ',
    'print'    :  'PRINT',
    'function' :  'FUNCTION',
    'main'     :  'MAIN',
@@ -368,10 +365,16 @@ def p_estatuto(t):
                 | condicion
                 | ciclo
                 | escritura
+                | lectura
                 | vars
                 | llamafunc SEMICOLON
                 | COMMENT
                 | CPPCOMMENT'''
+
+def p_lectura(t):
+    'lectura : READ LPAREN ID RPAREN SEMICOLON'
+    QuadrupleManager.addQuadruple('read', FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), t[3]), None, FunctionStack.peek())
+
 
 def p_llamafunc(t):
     'llamafunc : idfunc LPAREN funcargs RPAREN'
@@ -383,6 +386,7 @@ def p_llamafunc(t):
     if FunctionDirectory.getFunctionType(FCStack.peek()) != 'void':
         QuadrupleManager.addQuadruple('=', FunctionDirectory.getVariableVirtualDirection('global', '_'+FCStack.peek()), PilaO.peek(), FunctionStack.peek())
 
+    FCStack.pop()
     POper.pop()
     
 def p_idfunc(t):
@@ -395,7 +399,7 @@ def p_idfunc(t):
     # Si la funcion llamada no es Void, agrego una temporal al contexto actual para almacenar su valor de retorno
     if FunctionDirectory.getFunctionType(FCStack.peek()) != 'void':
         PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek())))
-
+    
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(FCStack.peek()))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(FCStack.peek()))):
         ParamsList.append(FunctionDirectory.getFunction(FCStack.peek())[3][i][2])
@@ -404,6 +408,7 @@ def p_idfunc(t):
 def p_funcargs(t):
     '''funcargs : expresion listafuncargs checarparams
                 | empty'''
+    funcParamType = ParamTypeList.pop()
 
 def p_listafuncargs(t):
     '''listafuncargs : COMMA expresion listafuncargs
@@ -412,17 +417,19 @@ def p_listafuncargs(t):
 def p_checarparams(t):
     'checarparams : empty'
     funcParamType = ParamTypeList[len(ParamTypeList)-1]
-    for i in range(0, len(funcParamType)):
-        indexFPT = len(funcParamType) - (i + 1)
-        print('type: ', MemoryManager.getEntryType(PilaO.peek()), 'type2: ', MemoryManager.getEntryType(ParamsList[indexFPT]))
-        QuadrupleManager.addQuadruple('params', PilaO.pop(), ParamsList.pop(indexFPT), FunctionStack.peek())
-        
+    for i in range(len(funcParamType)-1, -1, -1):
+        if len(ParamsList) > 0 and PilaO.size() > 0:
+            PilaO_Index      = PilaO.size()       - (i + 1)
+            ParamsList_Index = len(funcParamType) - (i + 1)
+            QuadrupleManager.addQuadruple('params', PilaO.items.pop(PilaO_Index), ParamsList[ParamsList_Index], FCStack.peek())
+    del ParamsList[:]
+ 
 def p_masestatuto(t):
     '''masestatuto : estatuto masestatuto
                    | empty'''
 
 def p_vars(t):
-    '''vars : VAR tipo listaid SEMICOLON vars
+    '''vars : VAR tipo listaid SEMICOLON vars 
             | empty'''
     
 def p_listaid(t):
