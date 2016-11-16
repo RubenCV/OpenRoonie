@@ -12,13 +12,15 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
+import Enums as Enums
+
 class SemanticCubeClass:
 
      def __init__(self):
-             self.DataTypes  = ['int', 'float', 'char', 'bool', 'string', 'void']
-             self.Operations = ['+','-','*','/','>','<', '>=', '<=', '<>', '==', '|', '&', '=']
-             self.Cube = [[[]]]
-             self.initCube()
+          self.Enums       =  Enums.Enums().Instance
+          self.DataTypes   =  self.Enums.DataTypes
+          self.Operations  =  self.Enums.Operations
+          self.initCube()
 
      def initCube(self):
                               # int
@@ -72,24 +74,23 @@ class SemanticCubeClass:
              return True
 	
      def getResultingType(self, tipo1, tipo2, operacion):
-
           try:
-               IndexTipo1 = self.DataTypes.index(tipo1)
-               IndexTipo2 = self.DataTypes.index(tipo2)
-               IndexOperacion = self.Operations.index(operacion)
+               IndexTipo1 = self.DataTypes[tipo1]
+               IndexTipo2 = self.DataTypes[tipo2]
+               IndexOperacion = self.Operations[operacion]
 
           except ValueError:
                IndexTipo1 = -1
                IndexTipo2 = -1
                IndexOperacion = -1
           
-          if IndexTipo1 > -1 and IndexTipo2 > -1 and IndexOperacion > -1 :
+          if IndexTipo1 > -1 and IndexTipo2 > -1 and IndexOperacion > -1 and IndexOperacion <= len(self.Cube[0][0]):
                ResType = self.Cube[IndexTipo1][IndexTipo2][IndexOperacion]
                if ResType < 0 :
                     print("\nERROR TYPE MISMATCH. Los tipos:", tipo1, "y", tipo2, "no son compatibles con la operacion:", operacion)
                     return None
                else :
-                    return self.DataTypes[ResType]
+                    return list(self.DataTypes.keys())[list(self.DataTypes.values()).index(ResType)]
           else :
                print("\nERROR. Tipos de datos:", tipo1, ",", tipo2, "y/o operacion:", operacion, "desconocidos")
                return None

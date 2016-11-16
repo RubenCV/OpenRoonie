@@ -1,6 +1,6 @@
 program fibboRecursivo;
 
-var int iter;
+var int iter = 0;
 
 function int tailFibonacci(int n0, int n1, int n2){
 	/*
@@ -30,10 +30,8 @@ function int fibonacci(int n){
 }
 
 function int factorial (int n) {
-	var int ret;
+	var int ret = 1;
 
-	ret = 1;
-	
 	if(n > 1) {
 		ret = n * factorial(n - 1);
 	}
@@ -42,10 +40,8 @@ function int factorial (int n) {
 }
 
 main {
+	var string endl = "\n";
 	var int fib, num, num2,fact, numNeg;
-	
-	// Asignacion de la variable global
-	iter = 0;
 	
 	// Llamada a func fibo
 	read(num);
@@ -57,10 +53,6 @@ main {
 	
 	// Prueba con numero negativo
 	numNeg = -5 * 2;
-	
-	// Pretty clever huh ?!?
-	var string endl;
-	endl = "\n";
 	
 	// Impresion de los resultados
 	print("Fib(", num, ") = ", fib, endl);

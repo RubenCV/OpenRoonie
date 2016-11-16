@@ -3,8 +3,8 @@ program test;
 var string endl = "\n";
  
 function void tablas (int num, int times){
-	var int i;
-	i = 0;
+	var int i = 0;
+	
 	while (i <= times){
 		print(num, " * ", i, " = ", num * i, endl);
 		i = i + 1;
@@ -12,8 +12,12 @@ function void tablas (int num, int times){
 	return;
 }
 
+function int masDos (int n){
+	return n + 2;
+}
+
 main {	
-	var int x, y = 25;
+	var int x, y = 25, z = 10;
 	
 	read(x);
 	
@@ -26,6 +30,8 @@ main {
 	else{
 		print("Menor que 5", endl);
 	}
+
+	print("14 pls: ", masDos(z) + 2 , endl);
 	
 	tablas(y, 10);
 }

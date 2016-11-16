@@ -12,6 +12,7 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
+import Enums         as Enums
 import MemoryManager as MemoryManager
 import pprint
 
@@ -20,7 +21,9 @@ class FunctionDirectoryClass:
 
      # Constructor del directorio de funciones.
      def __init__(self):
+          self.Enums         = Enums.Enums().Instance
           self.MemoryManager = MemoryManager.MemoryManager().Instance
+          self.dataTypes     = self.Enums.DataTypes
           self.resetDirectory()
 
      # Borra / Resetea todo el diccionario y directorio de funciones.
@@ -169,7 +172,7 @@ class FunctionDirectoryClass:
                     self.functionRow[index][3][indexVar].append(nombre)
                     self.functionRow[index][3][indexVar].append(tipo)
                     self.functionRow[index][3][indexVar].append(self.MemoryManager.addEntry(index, tipo, None))
-                    self.functionRow[index][6][self.getIdType(tipo)] += 1
+                    self.functionRow[index][6][self.dataTypes[tipo]] += 1
                     return self.functionRow[index][3][indexVar]
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "ya existe una variable con nombre:", nombre)
@@ -303,12 +306,6 @@ class FunctionDirectoryClass:
      # Retorna la direccion virtual en donde esta almacenada la constante.
      def getConstantVirtualDirection(self, constante):
           return self.getVariableVirtualDirection('const', constante)
-
-     #####---- Utilidades ----#####
-
-     def getIdType(self, tipo):
-          dataTypes = ['int', 'float', 'char', 'bool', 'string', 'void']
-          return dataTypes.index(tipo)
 
 class FunctionDirectory:
      Instance = FunctionDirectoryClass()

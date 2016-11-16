@@ -12,22 +12,25 @@
 #       Rubén Eugenio Cantu Vota              A00814298       #
 # ----------------------------------------------------------- #
 
+import Enums             as Enums
 import Stack             as Stack
 import MemoryManager     as MemoryManager
 import FunctionDirectory as FunctionDirectory
 import QuadrupleManager  as QuadrupleManager
-import SemanticCube      as SemanticCube
 
 from copy import deepcopy
 
 class VirtualMachineClass:
 
      def __init__(self):
-          self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
-          self.QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
+          self.Enums             = Enums.Enums().Instance
           self.MemoryManager     = MemoryManager.MemoryManager().Instance
-          self.SemanticCube      = SemanticCube.SemanticCube().Instance
-          self.Operations        = self.QuadrupleManager.Operations
+          self.QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
+          self.FunctionDirectory = FunctionDirectory.FunctionDirectory().Instance
+          
+          self.Operations        = self.Enums.Operations
+          self.Functions         = self.Enums.FunctionsVirtualMachine
+          
           self.resetVirtualMachine()
 
      def resetVirtualMachine(self):
@@ -41,7 +44,7 @@ class VirtualMachineClass:
 
      def updateActualQuadruple(self):
           self.actualQuadruple = self.QuadrupleManager.QuadrupleList[self.instructionPointer]
-          self.Op = self.Operations[self.actualQuadruple[0]]
+          self.Op = list(self.Operations.keys())[list(self.Operations.values()).index(self.actualQuadruple[0])]
           self.V1 = self.actualQuadruple[1]
           self.V2 = self.actualQuadruple[2]
           self.R  = self.actualQuadruple[3]
@@ -87,114 +90,120 @@ class VirtualMachineClass:
      def run(self):
           self.updateActualQuadruple()
           while (self.Op != 'end'):
-               if self.Op == '<>':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    V2_ABS = self.translateVirtualToAbsolute(self.V2)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    result = self.MemoryManager.getEntryValue(V1_ABS) != self.MemoryManager.getEntryValue(V2_ABS)
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == '&':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    V2_ABS = self.translateVirtualToAbsolute(self.V2)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    result = self.MemoryManager.getEntryValue(V1_ABS) and self.MemoryManager.getEntryValue(V2_ABS)
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == '|':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    V2_ABS = self.translateVirtualToAbsolute(self.V2)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    result = self.MemoryManager.getEntryValue(V1_ABS) or self.MemoryManager.getEntryValue(V2_ABS)
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == '=':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R) 
-                    result = self.MemoryManager.getEntryValue(V1_ABS)
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == '/':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    V2_ABS = self.translateVirtualToAbsolute(self.V2)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    
-                    resultType = self.MemoryManager.getEntryType(R_ABS)
-                    if resultType == 'int'   : division = '//'
-                    if resultType == 'float' : division = '/'
-
-                    result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + division + str(self.MemoryManager.getEntryValue(V2_ABS)))
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.actualQuadruple[0] < len(self.SemanticCube.Operations):
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    V2_ABS = self.translateVirtualToAbsolute(self.V2)
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + self.Op + str(self.MemoryManager.getEntryValue(V2_ABS)))
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == 'print':
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    result = self.MemoryManager.getEntryValue(R_ABS)
-                    print(result, end = "", flush = True)
-
-               elif self.Op == 'read':
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    varName = self.FunctionDirectory.getVariableByVirtualDirection(self.contextStack.peek()[0], self.R)
-                    result = input(varName + " = ")
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == 'params':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    self.asigningParams = False                    
-                    R_ABS  = self.translateVirtualToAbsolute(self.R)
-                    self.asigningParams = True
-                    result = self.MemoryManager.getEntryValue(V1_ABS)
-                    self.MemoryManager.setEntryValue(R_ABS, result)
-
-               elif self.Op == 'return':
-                    if self.R != None:
-                         R_ABS  = self.translateVirtualToAbsolute(self.R)
-                         result = self.MemoryManager.getEntryValue(R_ABS)
-                    self.deleteLocalVars()
-                    self.instructionPointer = self.iPS.pop()
-                    self.contextStack.pop()
-                    
-               elif self.Op == 'era':
-                    self.addToContextStack(self.R)
-                    self.addToCountersStack()
-                    self.loadFunction()
-                    self.asigningParams = True
-
-               elif self.Op == 'goSub':
-                    self.asigningParams = False
-                    self.iPS.push(self.instructionPointer)
-                    self.instructionPointer = self.R - 1
-
-               elif self.Op == 'goto':
-                    self.instructionPointer = self.R - 1
-
-               elif self.Op == 'gotoT':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    condition = self.MemoryManager.getEntryValue(V1_ABS)                  
-                    if condition:
-                         self.instructionPointer = self.R - 1
-                         
-               elif self.Op == 'gotoF':
-                    V1_ABS = self.translateVirtualToAbsolute(self.V1)
-                    condition = self.MemoryManager.getEntryValue(V1_ABS)
-                    if not condition:
-                         self.instructionPointer = self.R - 1
+               
+               IndexOP = self.Operations[self.Op]
+               eval("self."+self.Functions[IndexOP])()
                
                self.instructionPointer += 1
                self.updateActualQuadruple()
           
+          self.endOp()
+          return True
+
+     def literalOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + self.Op + str(self.MemoryManager.getEntryValue(V2_ABS)))
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def divisionOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          
+          resultType = self.MemoryManager.getEntryType(R_ABS)
+          if resultType == 'int'   : division = '//'
+          if resultType == 'float' : division = '/'
+
+          result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + division + str(self.MemoryManager.getEntryValue(V2_ABS)))
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def notEqualsOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          result = self.MemoryManager.getEntryValue(V1_ABS) != self.MemoryManager.getEntryValue(V2_ABS)
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def orOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          result = self.MemoryManager.getEntryValue(V1_ABS) or self.MemoryManager.getEntryValue(V2_ABS)
+          self.MemoryManager.setEntryValue(R_ABS, result)
+          
+     def andOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          result = self.MemoryManager.getEntryValue(V1_ABS) and self.MemoryManager.getEntryValue(V2_ABS)
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def assignOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          R_ABS  = self.translateVirtualToAbsolute(self.R) 
+          result = self.MemoryManager.getEntryValue(V1_ABS)
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def printOp(self):
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          result = self.MemoryManager.getEntryValue(R_ABS)
+          print(result, end = "", flush = True)
+
+     def readOp(self):
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          varName = self.FunctionDirectory.getVariableByVirtualDirection(self.contextStack.peek()[0], self.R)
+          result = input(varName + " = ")
+          self.MemoryManager.setEntryValue(R_ABS, result)
+          
+     def gotoTOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          condition = self.MemoryManager.getEntryValue(V1_ABS)                  
+          if condition:
+               self.instructionPointer = self.R - 1
+               
+     def gotoFOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          condition = self.MemoryManager.getEntryValue(V1_ABS)
+          if not condition:
+               self.instructionPointer = self.R - 1
+
+     def gotoOp(self):
+          self.instructionPointer = self.R - 1
+
+     def goSubOp(self):
+          self.asigningParams = False
+          self.iPS.push(self.instructionPointer)
+          self.instructionPointer = self.R - 1
+
+     def paramsOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          self.asigningParams = False                    
+          R_ABS  = self.translateVirtualToAbsolute(self.R)
+          self.asigningParams = True
+          result = self.MemoryManager.getEntryValue(V1_ABS)
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def returnOp(self):
+          if self.R != None:
+               R_ABS  = self.translateVirtualToAbsolute(self.R)
+               result = self.MemoryManager.getEntryValue(R_ABS)
+          self.deleteLocalVars()
+          self.instructionPointer = self.iPS.pop()
+          self.contextStack.pop()
+          
+     def eraOp(self):
+          self.addToContextStack(self.R)
+          self.addToCountersStack()
+          self.loadFunction()
+          self.asigningParams = True
+
+     def endOp(self):
           # Borrar variables globales y constantes (Limpiar completamente la memoria para el siguiente programa)
           self.MemoryManager.resetMemory()
-
           # Resetear variables de la VM
           self.resetVirtualMachine()
-          return True
 
 class VirtualMachine:
      Instance = VirtualMachineClass()
