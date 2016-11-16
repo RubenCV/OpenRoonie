@@ -14,19 +14,21 @@
 
 import math
 import pprint
+import Enums as Enums
 
 class MemoryManagerClass:
      
      def __init__(self):
+          self.Enums = Enums.Enums().Instance
+
+          # Nombres de tipos de datos validos
+          self.DataTypes    = self.Enums.DataTypes
+          
+          # Nombres de los diferentes scopes que existen en el mapa de memoria
+          self.MemoryScopes = self.Enums.MemoryScopes
           self.resetMemory()
 
-     def resetMemory(self):
-          # Nombres de los diferentes scopes que existen en el mapa de memoria
-          self.MemoryScopes = ['global','const','local']
-          
-          # Nombres de tipos de datos validos
-          self.DataTypes = ['int', 'float', 'char', 'bool', 'string', 'void']
-          
+     def resetMemory(self):          
           # Tamaño del buffer por cada tipo de variable, para cada contexto
           self.MaxVarsPerType = 1000
           
@@ -49,7 +51,7 @@ class MemoryManagerClass:
      def resetLocalMemory(self):     
           for i in range(0,  len(self.DataTypes)):
                indexInicial = self.getInitialIndexType(i)
-               indexFinal = self.translateToCounterIndex(2, self.DataTypes[i])
+               indexFinal   = self.translateToCounterIndex(2, list(self.DataTypes.keys())[list(self.DataTypes.values()).index(i)])
                self.Counters[len(self.DataTypes) * 2 + i] = indexInicial
                for j in range(0, indexFinal - indexInicial):
                     self.deleteEntry(indexInicial + j)
@@ -57,7 +59,7 @@ class MemoryManagerClass:
 
      def translateToCounterIndex(self, scope, tipo):
           try:
-               IndexType = self.DataTypes.index(tipo)       
+               IndexType = self.DataTypes[tipo]       
           except ValueError:
                print("\nERROR DATA TYPE. No existe el tipo de dato: ", tipo)
                return None
@@ -78,7 +80,7 @@ class MemoryManagerClass:
      def getEntryType (self, virDir) :
           if virDir in self.Dictionary.keys() :
                TypeIndex = ((math.floor(virDir / self.MaxVarsPerType)) % len(self.DataTypes)) - 1
-               return self.DataTypes[TypeIndex]
+               return list(self.DataTypes.keys())[list(self.DataTypes.values()).index(TypeIndex)]
           
           else :
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)

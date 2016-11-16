@@ -113,8 +113,8 @@ class VirtualMachineClass:
           R_ABS  = self.translateVirtualToAbsolute(self.R)
           
           resultType = self.MemoryManager.getEntryType(R_ABS)
-          if resultType == 'int'   : division = '//'
-          if resultType == 'float' : division = '/'
+          if   resultType == 'int'   : division = '//'
+          elif resultType == 'float' : division = '/'
 
           result = eval(str(self.MemoryManager.getEntryValue(V1_ABS)) + division + str(self.MemoryManager.getEntryValue(V2_ABS)))
           self.MemoryManager.setEntryValue(R_ABS, result)
