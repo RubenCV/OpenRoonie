@@ -14,10 +14,12 @@
 
 class EnumsClass:
      def __init__(self):
-          self.MemoryScopes  =  {'global'   :    0,
-                                 'const'    :    1,
-                                 'local'    :    2}
-          
+          # Tipos de alcance que existen en la clase MemoryManager
+          self.MemoryScopes  =  {'global'    :    0,
+                                 'const'     :    1,
+                                 'local'     :    2}
+
+          # Tipos de datos que existen en Open Roonie
           self.DataTypes     =  {'int'       :    0,
                                  'float'     :    1,
                                  'char'      :    2,
@@ -25,6 +27,7 @@ class EnumsClass:
                                  'string'    :    4,
                                  'void'      :    5}
 
+          # Operaciones que se pueden realizar en los cuadruplos
           self.Operations    =   {'+'        :    0,
                                   '-'        :    1,
                                   '*'        :    2,
@@ -47,8 +50,10 @@ class EnumsClass:
                                   'params'   :    19,
                                   'return'   :    20,
                                   'era'      :    21,
-                                  'end'      :    22}
-          
+                                  'verify'   :    22,
+                                  'end'      :    23}
+
+          # Funciones utilizadas para la creacion de los cuadruplos
           self.FunctionsQuadruples    =     {0      :    'literalOp',
                                              1      :    'literalOp',
                                              2      :    'literalOp',
@@ -71,8 +76,10 @@ class EnumsClass:
                                              19     :    'paramsOp',
                                              20     :    'returnOp',
                                              21     :    'eraOp',
-                                             22     :    'endOp'}
+                                             22     :    'verifyOp',
+                                             23     :    'endOp'}
 
+          # Funciones utilizadas para la interpretacion y ejecucion de los cuadruplos
           self.FunctionsVirtualMachine   =  {0      :    'literalOp',
                                              1      :    'literalOp',
                                              2      :    'literalOp',
@@ -95,9 +102,9 @@ class EnumsClass:
                                              19     :    'paramsOp',
                                              20     :    'returnOp',
                                              21     :    'eraOp',
-                                             22     :    'endOp'}
-
-
+                                             22     :    'verifyOp',
+                                             23     :    'endOp'}
+          
 class Enums:
      Instance = EnumsClass()
      

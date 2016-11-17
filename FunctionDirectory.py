@@ -15,10 +15,12 @@
 import Enums         as Enums
 import MemoryManager as MemoryManager
 import pprint
+from copy import deepcopy
+
 
 class FunctionDirectoryClass:
-     #####---- Directory's Methods ----#####
-
+     '''============ Directory's Methods ============'''
+     
      # Constructor del directorio de funciones.
      def __init__(self):
           self.Enums         = Enums.Enums().Instance
@@ -54,7 +56,7 @@ class FunctionDirectoryClass:
           self.MemoryManager.showMemory()
           return True
 
-     #####---- Function's Methods ----#####
+     '''============ Functions's Methods ============'''
 
      # Agrega una funcion a el directorio de funciones, se crean tuplas con esta forma:
      # Diccionario: {nombreFunc : id}
@@ -153,16 +155,17 @@ class FunctionDirectoryClass:
           else :
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", nombre)
                return None
-
+          
+     # Manda llamar a MemoryManager a que borre los registros locales y resetee los contadores locales
      def resetLocalMemory(self):
           self.MemoryManager.resetLocalMemory()
           return True
 
-     #####---- Variables's Methods ----#####
-
+     '''============ Variables's Methods ============'''
+     
      # Agregar una variable al renglon de la funcion correspondiente, de tal manera que quede una tupla:
-     # [nombreVar, tipo, direccion virtual]    
-     def addVariable(self, function, nombre, tipo):
+     # [nombreVar, tipo, direccion virtual, dimSizes[i, j, k, ...], offsets [di * dj * 1, dj * 1, 1, ...]]    
+     def addVariable(self, function, nombre, tipo, dimSizes):
           if function in self.functionDictionary.keys() :
                index = self.functionDictionary[function]
                if not nombre in self.functionRow[index][2].keys() :
@@ -172,7 +175,22 @@ class FunctionDirectoryClass:
                     self.functionRow[index][3][indexVar].append(nombre)
                     self.functionRow[index][3][indexVar].append(tipo)
                     self.functionRow[index][3][indexVar].append(self.MemoryManager.addEntry(index, tipo, None))
-                    self.functionRow[index][6][self.dataTypes[tipo]] += 1
+
+                    # Tamaño de cada una de las dimensiones
+                    dimSizes = list(reversed(dimSizes))
+                    self.functionRow[index][3][indexVar].append(deepcopy(dimSizes))
+
+                    # Calculo el tamaño total que tendra la variable y actualizo el reg. de activacion de esta var
+                    totalSize = self.calculateTotalVectorSize(dimSizes)
+                    self.functionRow[index][6][self.dataTypes[tipo]] += totalSize
+
+                    # Reservo / Pido ese espacio en memoria para la variable
+                    for i in range(1, totalSize):
+                         self.MemoryManager.addEntry(index, tipo, None)
+
+                    # Offset para cada una de las dimensiones
+                    self.functionRow[index][3][indexVar].append(self.calculateVectorOffsets(dimSizes))
+                    
                     return self.functionRow[index][3][indexVar]
                else :
                     print("\nERROR SEMANTICA. En el scope:", function, "ya existe una variable con nombre:", nombre)
@@ -181,6 +199,24 @@ class FunctionDirectoryClass:
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
+     def calculateTotalVectorSize(self, dimSizes):
+          totalSize = 1
+          for i in range(0, len(dimSizes)):
+               totalSize *= dimSizes[i]
+          return totalSize
+
+     def calculateVectorOffsets(self, dimSizes):
+          
+          if len(dimSizes) <= 1:
+               return [1]
+
+          offset = deepcopy(dimSizes)
+          
+          offset.pop(0)
+          offset.append(1)
+               
+          return offset
+     
      # Borra la tupla de la variable dada del renglon de la funcion correspondiente en el directorio de funciones.
      def deleteVariable(self, function, nombre):
           if function in self.functionDictionary.keys() :
@@ -231,12 +267,17 @@ class FunctionDirectoryClass:
      def getVariableVirtualDirection(self, function, nombre):
           return self.getVariable(function, nombre)[2]
 
+     def getVariableDimSize(self, function, nombre):
+          return self.getVariable(function, nombre)[3]
+
+     def getVariableOffset(self, function, nombre):
+          return self.getVariable(function, nombre)[4]
+
+     # Retorna el nombre de la variable que pertenece a la funcion y direccion virtual dada como argumento.
      def getVariableByVirtualDirection(self, function, virDir):
-          vars = self.getFunctionVariables(function)
-          for i in range(0, len(vars)):
-               if vars[i][2] == virDir:
-                    return vars[i][0]
-          return None
+          for variable in filter(lambda x: x[2] == virDir, self.getFunctionVariables(function)):
+               return variable[0]
+          return 'input'
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
      def setVariableValue(self, function, nombre, valor):
@@ -261,13 +302,13 @@ class FunctionDirectoryClass:
                print("\nERROR SEMANTICA. En este programa no existe una funcion con nombre:", function)
                return None
 
-     #####---- Temporal Var's Methods ----#####
+     '''============ Temporal Var's Methods ============'''
           
-     def addTemporalVariable(self, nombreFunc, valor, tipo):
+     def addTemporalVariable(self, nombreFunc, valor, tipo, dimSize):
           ScopeIndex = self.functionDictionary[nombreFunc]
           VarTempName = '_t' + str(self.getFunction(nombreFunc)[7])
           self.getFunction(nombreFunc)[7] += 1
-          self.addVariable(nombreFunc, VarTempName, tipo)
+          self.addVariable(nombreFunc, VarTempName, tipo, dimSize)
           self.setVariableValue(nombreFunc, VarTempName, valor)
           return self.getTemporalVariableVirtualDirection(nombreFunc, VarTempName)
 
@@ -283,7 +324,7 @@ class FunctionDirectoryClass:
      def getTemporalVariableType(self, nombreFunc, nombre):
           return self.getVariableType(nombreFunc, nombre)
 
-     #####---- Constants's Methods ----#####
+     '''============ Constants's Methods ============'''
 
      # Agregar una constante al scope 'const' de tal manera que quede una tupla:
      # [constante, tipo,  direccion virtual]    

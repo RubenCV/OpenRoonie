@@ -24,11 +24,14 @@ QuadrupleManager  = QuadrupleManager.QuadrupleManager().Instance
 VirtualMachine    = VirtualMachine.VirtualMachine().Instance
 
 # Sintaxis y Semantica
+DimsList       = []
 ParamsList     = []
+ArrayIDList    = []
 ParamTypeList  = []
 FCStack        = Stack.Stack()
 TypeStack      = Stack.Stack()
 FunctionStack  = Stack.Stack()
+PilasDimensionadas = Stack.Stack()
 
 # Generacion de Cuadruplos
 POper   = Stack.Stack()
@@ -128,7 +131,9 @@ def t_error(t):
 
 # Funciones utilizadas a lo largo de la compilacion
 def resetRoonie():
+    DimsList       = []
     ParamsList     = []
+    ArrayIDList    = []
     ParamTypeList  = []
     POper          = Stack.Stack()
     PilaO          = Stack.Stack()
@@ -276,8 +281,23 @@ def p_addQPP(t):
 
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
-                  | ID LSQBRACKET RSQBRACKET EQUALS LSQBRACKET expresion comaexpresion RSQBRACKET SEMICOLON'''
-    addIDPilaO(FunctionStack.peek(), t[1])
+                  | idarray LSQBRACKET dimsvar RSQBRACKET EQUALS expresion SEMICOLON'''
+    # Si es una var normal
+    if t[2] == '=':
+        addIDPilaO(FunctionStack.peek(), t[1])
+
+    # Si es una var vector    
+    else:
+        aux1 = PilaO.pop()
+        aux2 = PilaO.pop()
+
+        PilaO.push(aux1)
+        PilaO.push(aux2)
+        
+        ArrayIDList.pop()
+        for i in range(0, PilasDimensionadas.size()):
+            PilasDimensionadas.pop()
+            
     addPOper('=')
     addQuadruple(['='])
 
@@ -296,13 +316,71 @@ def p_rightparen(t):
     POper.pop()
 
 def p_varid(t):
-    'varid : ID arr'
-    addIDPilaO(FunctionStack.peek(), t[1])
+    '''varid : ID
+             | idarray LSQBRACKET dimsvar RSQBRACKET'''
+    if len(t) > 2:
+        ArrayIDList.pop()
+        for i in range(0, PilasDimensionadas.size()):
+            PilasDimensionadas.pop()
+    else:
+        addIDPilaO(FunctionStack.peek(), t[1])
+        
+def p_idarray(t):
+    'idarray : ID'
+    ArrayIDList.append(t[1])
     
-def p_arr(t):
-    '''arr : LSQBRACKET RSQBRACKET
-           | empty'''
-    
+def p_dimsvar(t):
+    'dimsvar : expdimvar masdimsvar'
+
+def p_expdimvar(t):
+    'expdimvar : expresion'
+    # El resultado de la exp debe ser un entero
+    if TypeStack.peek() == 'int':
+
+        vID = ArrayIDList[len(ArrayIDList)-1]
+        # Si la var es dimensionada
+        if len(FunctionDirectory.getVariableDimSize(FunctionStack.peek(), vID)) > 0:
+
+            if PilasDimensionadas.peek() == None:
+                DIM = 1
+                PilasDimensionadas.push([vID, DIM])
+                POper.push('Fake')
+        else :
+            print("No es array\n")
+
+        # Verificamos que el resultado de la exp este entre 0 y upperLimit
+        DIM_ID = PilasDimensionadas.peek()[0]
+        DIM    = PilasDimensionadas.peek()[1]
+        
+        listDIMsVar = FunctionDirectory.getVariableDimSize(FunctionStack.peek(), ArrayIDList[len(ArrayIDList)-1])
+        upperLimit = listDIMsVar[DIM - 1]
+        
+        QuadrupleManager.addQuadruple('verify', PilaO.peek(), None, FunctionStack.peek())
+        QuadrupleManager.updateReturnReference(QuadrupleManager.getQuadrupleListLength()-1, upperLimit)
+
+        Offset = FunctionDirectory.getVariableOffset(FunctionStack.peek(), DIM_ID)[DIM - 1]
+        dirOffset = FunctionDirectory.addConstant(str(Offset), 'int') 
+        PilaO.push(QuadrupleManager.addQuadruple('*', PilaO.pop(), dirOffset, FunctionStack.peek()))
+            
+        if DIM > 1 :
+            aux2 = PilaO.pop()
+            aux1 = PilaO.pop()
+            PilaO.push(QuadrupleManager.addQuadruple('+', aux1, aux2, FunctionStack.peek()))
+
+        auxPD = PilasDimensionadas.pop()
+        auxPD[1] += 1
+        PilasDimensionadas.push(auxPD)
+
+        if len(listDIMsVar) == DIM :
+            dirBase = FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), DIM_ID)
+            dirdirBase = FunctionDirectory.addConstant(str(dirBase), 'int')
+            PilaO.push('*'+str(QuadrupleManager.addQuadruple('+', PilaO.pop(), dirdirBase, FunctionStack.peek())))
+            POper.pop()
+
+def p_masdimsvar(t):
+    '''masdimsvar : COMMA dimsvar
+                  | empty'''
+  
 def p_exp(t):
     'exp : termino masexp'
         
@@ -405,7 +483,7 @@ def p_idfunc(t):
 
     # Si la funcion llamada no es Void, agrego una temporal al contexto actual para almacenar su valor de retorno
     if FunctionDirectory.getFunctionType(FCStack.peek()) != 'void':
-        PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek())))
+        PilaO.push(FunctionDirectory.addTemporalVariable(FunctionStack.peek(), None, FunctionDirectory.getFunctionType(FCStack.peek()), []))
     
     ParamTypeList.append(FunctionDirectory.getParameterTypeList(FCStack.peek()))
     for i in range(0, len(FunctionDirectory.getParameterTypeList(FCStack.peek()))):
@@ -444,11 +522,33 @@ def p_listaid(t):
 
 def p_initvar(t):
     '''initvar : ID EQUALS expresion 
-               | ID empty'''
+               | ID LSQBRACKET dims RSQBRACKET
+               | ID '''
     if checkVoid():
-        FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.peek())
-        if len(t) > 3 :
-            QuadrupleManager.addQuadruple('=', PilaO.pop(), FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), t[1]), FunctionStack.peek())
+
+        # Si estoy declarando un array
+        if len(t) > 4:
+            FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.peek(), DimsList)
+            for i in range(0, len(DimsList)):
+                DimsList.pop()
+        
+        # Si estoy declarando e inicializando
+        elif len(t) > 3:
+            FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.pop(), [])
+            if checkVoid():
+                QuadrupleManager.addQuadruple('=', PilaO.pop(), FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), t[1]), FunctionStack.peek())
+        
+        # Si solo estoy declarando
+        else:
+            FunctionDirectory.addVariable(FunctionStack.peek(), t[1], TypeStack.peek(), [])
+
+def p_dims(t):
+    'dims : CTEINT masdims'
+    DimsList.append(eval(t[1]))
+
+def p_masdims(t):
+    '''masdims : COMMA dims
+               | empty'''
 
 def p_masid(t):
     '''masid : COMMA listaid
@@ -493,7 +593,7 @@ def p_funcaux(t):
 
     # Si la funcion no es Void, creo una variable global que me sirve como avail para el retorno de la funcion
     if FunctionDirectory.getFunctionType(FunctionStack.peek()) != 'void':
-        FunctionDirectory.addVariable('global', '_'+FunctionStack.peek(), TypeStack.peek())
+        FunctionDirectory.addVariable('global', '_'+FunctionStack.peek(), TypeStack.peek(), [])
 
 def p_args(t):
     '''args : tipo ID 
@@ -501,7 +601,7 @@ def p_args(t):
     if len(t) > 2 :
         if checkVoid():
             FunctionDirectory.addParameterType(FunctionStack.peek(), TypeStack.peek())
-            FunctionDirectory.addVariable(FunctionStack.peek(), t[2], TypeStack.peek())
+            FunctionDirectory.addVariable(FunctionStack.peek(), t[2], TypeStack.peek(), [])
     
 def p_masargs(t):
     '''masargs : COMMA args masargs

@@ -45,9 +45,18 @@ class VirtualMachineClass:
      def updateActualQuadruple(self):
           self.actualQuadruple = self.QuadrupleManager.QuadrupleList[self.instructionPointer]
           self.Op = list(self.Operations.keys())[list(self.Operations.values()).index(self.actualQuadruple[0])]
+          
           self.V1 = self.actualQuadruple[1]
           self.V2 = self.actualQuadruple[2]
           self.R  = self.actualQuadruple[3]
+
+          virDirs = [self.V1, self.V2, self.R]
+          for i in range(0, 3):
+               strVD = str(virDirs[i])
+               if strVD.startswith('*'):
+                    virDirs[i] = self.MemoryManager.getEntryValue(eval(strVD[1:]))
+                    
+          self.V1, self.V2, self.R = virDirs
           return True
 
      def translateVirtualToAbsolute(self, virDir):
@@ -199,10 +208,18 @@ class VirtualMachineClass:
           self.loadFunction()
           self.asigningParams = True
 
+     def verifyOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          Num    = self.MemoryManager.getEntryValue(V1_ABS)
+          LimI   = self.V2
+          LimS   = self.R
+      
+          if Num < LimI or Num >= LimS:
+               print("ERROR. Array out of bounds.")
+          
      def endOp(self):
-          # Borrar variables globales y constantes (Limpiar completamente la memoria para el siguiente programa)
+          pass
           self.MemoryManager.resetMemory()
-          # Resetear variables de la VM
           self.resetVirtualMachine()
 
 class VirtualMachine:

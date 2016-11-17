@@ -1,0 +1,13 @@
+program test;
+
+main {	
+	var int vector[5], i = 0;
+	
+	while(i < 5){
+		vector[i] = i;
+		i = i + 1;
+	}
+	
+	print("Ultimo: ", vector[4], "\n");
+	
+}

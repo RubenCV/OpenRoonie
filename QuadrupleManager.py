@@ -38,9 +38,18 @@ class QuadrupleManagerClass:
         return True
 
     def showQuadruples(self):
-        print("\nQuadruples: ")
+        print('')
+        print('{0: <4}'.format('#'),
+              '{0: <7}'.format('Name'),
+              '{0: >21}'.format('Quadruple'))
+        
         for i in range(0, len(self.QuadrupleList)):
-            print('{0: <4}'.format(str(i)), '{0: <7}'.format(str(list(self.Operations.keys())[list(self.Operations.values()).index(self.QuadrupleList[i][0])])), '{0: <25}'.format(str(self.QuadrupleList[i])))
+            print('{0: <4}'.format(str(i)),
+                  '{0: <7}'.format(str(list(self.Operations.keys())[list(self.Operations.values()).index(self.QuadrupleList[i][0])])), '[',
+                  '{0: >3}'.format(str(self.QuadrupleList[i][0])),
+                  '{0: >7}'.format(str(self.QuadrupleList[i][1])),
+                  '{0: >7}'.format(str(self.QuadrupleList[i][2])),
+                  '{0: >7}'.format(str(self.QuadrupleList[i][3])), ']')
         return True
 
     def addQuadruple(self, Op, VirDir1, VirDir2, FuncName):
@@ -50,16 +59,19 @@ class QuadrupleManagerClass:
             print("\nERROR SINTAXIS / SEMANTICA. Operacion no reconocida: ", Op)
             return None
 
-        Type1 = self.MemoryManager.getEntryType(VirDir1) if VirDir1 != None else None
-        Type2 = self.MemoryManager.getEntryType(VirDir2) if VirDir2 != None else None
-   
+        if str(VirDir1).startswith('*'): Type1 = 'int'
+        else: Type1 = self.MemoryManager.getEntryType(VirDir1) if VirDir1 != None else None
+
+        if str(VirDir2).startswith('*'): Type2 = 'int'
+        else: Type2 = self.MemoryManager.getEntryType(VirDir2) if VirDir2 != None else None
+        
         return eval("self."+self.Functions[IndexOP])(Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName)
 
     # + - * / > < >= <= <> == | &
     def literalOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
         ResultingType = self.SemanticCube.getResultingType(Type1, Type2, Op)
         if ResultingType != None :
-            ResultVirDir =  self.FunctionDirectory.addTemporalVariable(FuncName, None, ResultingType)
+            ResultVirDir =  self.FunctionDirectory.addTemporalVariable(FuncName, None, ResultingType, [])
             self.QuadrupleList.append([IndexOP, VirDir1, VirDir2, ResultVirDir])
             return ResultVirDir
 
@@ -130,6 +142,11 @@ class QuadrupleManagerClass:
     def eraOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
         self.QuadrupleList.append([IndexOP, None, None, None])
         return True
+
+    # verify
+    def verifyOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
+        self.QuadrupleList.append([IndexOP, VirDir1, 0, None])
+        return True
         
     # end
     def endOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
@@ -139,7 +156,7 @@ class QuadrupleManagerClass:
     def updateReturnReference(self, index, quadIndex):
         if index < len(self.QuadrupleList):
             Op = list(self.Operations.keys())[list(self.Operations.values()).index(self.QuadrupleList[index][0])]
-            if Op in ['gotoT', 'gotoF', 'goto', 'goSub', 'era', 'return']:
+            if Op in ['gotoT', 'gotoF', 'goto', 'goSub', 'era', 'return', 'verify']:
                  self.QuadrupleList[index][3] = quadIndex;
                  return True
             else:
