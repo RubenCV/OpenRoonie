@@ -30,8 +30,7 @@ function showCode() {
   // Generate JavaScript code and display it.
   Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
   var code = Blockly.JavaScript.workspaceToCode(workspace);
-  element = document.getElementById("openRoonieTextArea");
-  element.value = code;
+  editor.setValue(code);
 }
 
 function runCode() {
