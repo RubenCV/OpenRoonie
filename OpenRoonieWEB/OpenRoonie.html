@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>OpenRoonie</title>
+		
+		<!-- Styles -->
+		<link rel="stylesheet" href="./console_style.css" type="text/css" media="screen">
+		
+		<!-- Scripts -->
+		<script type="text/javascript" src="./jQuery.js"></script>
+		<script type="text/javascript" src="./hterm_all.js"></script>
+		<script type="text/javascript" src="./load_console.js"></script>
+		
+		<!-- Relacionados con la Terminal / Consola -->
+		<script type="text/javascript">
+			// Hash del usuario RubenCV @ PythonAnywhere
+			var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
+			
+			// Id de la Consola que esta corriendo OpenRoonie.py
+			var consoleId = "3978373";
+		
+			// Cargar la Terminal / Consola
+			$(function () {
+				Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
+			});
+			
+			// Cargar un archivo con el sourcode (.roonie) ya existente. -> Ej. loadFile("v");
+			function loadFile(fn){
+				Anywhere.sockjs.send('loadFile()\r' + fn + '\r');
+			}
+		</script>
+	</head>
+	<body style="margin: 0;">
+		<!-- Terminal / Consola -->
+		<div id="terminal" style="position: absolute; width: 100%; height: 100%">
+			<div style="border-radius: 15px; font-size: xx-large; opacity: 0.75; padding: 0.2em 0.5em; position: absolute; user-select: none; transition: opacity 180ms ease-in; color: rgb(16, 16, 16); background-color: rgb(240, 240, 240); font-family: &quot;DejaVu Sans Mono for Powerline&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Everson Mono&quot;, FreeMono, Menlo, &quot;Lucida Console&quot;, Terminal, &quot;Source Code Pro&quot;, monospace; top: 112.109px; left: 698.156px;"></div>
+		</div>
+		
+		<!-- Loading Spinner & Connection starter -->
+		<div style="display: none;" id="id_connecting_to_server_indicator">
+			<img id="id_feedback_dialog_spinner" src="./spinner-small.gif">
+			<span id="id_connecting_to_server_indicator_text">Starting encrypted connection to consoles-2.pythonanywhere.com on port 443</span>
+		</div>
+	</body>
+</html>

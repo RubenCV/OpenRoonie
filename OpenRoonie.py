@@ -266,8 +266,7 @@ def p_print(t):
     addPOper('print')
 
 def p_listaprint(t):
-    '''listaprint : expresion masprint
-                  | ctestring masprint'''
+    'listaprint : expresion masprint'
     addQuadruple(['print'])
 
 def p_masprint(t):
@@ -276,9 +275,9 @@ def p_masprint(t):
 
 def p_addQPP(t):
     'addQPP : COMMA'
-    addQuadruple(['print'])
     addPOper('print')
-
+    addQuadruple(['print'])
+    
 def p_asignacion(t):
     '''asignacion : ID EQUALS expresion SEMICOLON
                   | idarray LSQBRACKET dimsvar RSQBRACKET EQUALS expresion SEMICOLON'''
@@ -324,7 +323,7 @@ def p_varid(t):
             PilasDimensionadas.pop()
     else:
         addIDPilaO(FunctionStack.peek(), t[1])
-        
+    
 def p_idarray(t):
     'idarray : ID'
     ArrayIDList.append(t[1])
@@ -363,15 +362,13 @@ def p_expdimvar(t):
         PilaO.push(QuadrupleManager.addQuadruple('*', PilaO.pop(), dirOffset, FunctionStack.peek()))
             
         if DIM > 1 :
-            aux2 = PilaO.pop()
-            aux1 = PilaO.pop()
-            PilaO.push(QuadrupleManager.addQuadruple('+', aux1, aux2, FunctionStack.peek()))
+            PilaO.push(QuadrupleManager.addQuadruple('+', PilaO.pop(), PilaO.pop(), FunctionStack.peek()))
 
         auxPD = PilasDimensionadas.pop()
         auxPD[1] += 1
         PilasDimensionadas.push(auxPD)
 
-        if len(listDIMsVar) == DIM :
+        if len(listDIMsVar) == DIM:
             dirBase = FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), DIM_ID)
             dirdirBase = FunctionDirectory.addConstant(str(dirBase), 'int')
             PilaO.push('*'+str(QuadrupleManager.addQuadruple('+', PilaO.pop(), dirdirBase, FunctionStack.peek())))
@@ -459,7 +456,6 @@ def p_estatuto(t):
 def p_lectura(t):
     'lectura : READ LPAREN ID RPAREN SEMICOLON'
     QuadrupleManager.addQuadruple('read', FunctionDirectory.getVariableVirtualDirection(FunctionStack.peek(), t[3]), None, FunctionStack.peek())
-
 
 def p_llamafunc(t):
     'llamafunc : idfunc LPAREN funcargs RPAREN'
@@ -656,32 +652,62 @@ def p_empty(t):
 import ply.yacc as yacc
 parser = yacc.yacc()
 
-# Main
-print("Escribe el nombre del archivo con el codigo fuente o 'exit' para salir: ")
-while True:
+print('\nTry: loadFile() or loadCode()')
+
+def loadFile():
     try:
-        fn = input('OpenRoonie > ')
-        if fn == 'exit' :
-            break
+        fn = input('Source Code File > ')
         file = open(fn+'.roonie', 'r')
         s = file.read()
         parser.parse(s)
         print("\nCompilacion terminada.")
-        
-        # Prints
-        FunctionDirectory.showDirectory()
-        QuadrupleManager.showQuadruples()
 
+    except (EOFError, IOError):
+        print("\nERROR IO. Verifica que el nombre del archivo sea el correcto.")
+    except:
+        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente")
+        return
+    
+    printAndExecute()
+
+
+def loadCode():
+    try:
+        lines = []
+        while True:
+            line = input('Source Code > ')
+            if line:
+                lines.append(line)
+            else:
+                break
+        code = '\n'.join(lines)
+        parser.parse(code)
+        print("\nCompilacion terminada.")
+        
+    except:
+        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente")
+        resetRoonie()
+        return
+    
+    printAndExecute()
+
+def printAndExecute():
+    # Prints
+    FunctionDirectory.showDirectory()
+    QuadrupleManager.showQuadruples()
+
+    try:
         # Execution
         print('\n---Start-Execution---\n')
         VirtualMachine.run()
         print('\n----End-Execution----')
 
+    except:
+        print("\nERROR RUNTIME. No se pudo ejecutar tu programa, verifica los errores marcados anteriormente")
         # Resetear para el siguiente archivo
         resetRoonie()
-    
-    except EOFError:
-        break
-    except IOError:
-        print("\nERROR IO. Verifica que el nombre del archivo sea el correcto.")
-    print('')
+        return
+
+    # Resetear para el siguiente archivo
+    resetRoonie()
+

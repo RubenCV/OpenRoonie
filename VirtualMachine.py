@@ -218,7 +218,6 @@ class VirtualMachineClass:
                print("ERROR. Array out of bounds.")
           
      def endOp(self):
-          pass
           self.MemoryManager.resetMemory()
           self.resetVirtualMachine()
 

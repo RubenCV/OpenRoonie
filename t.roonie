@@ -17,7 +17,7 @@ function int masDos (int n){
 }
 
 main {	
-	var int x, y = 25, z = 10, vector[25, 10, 2], n = 0;
+	var int x, y = 25, z = 10, n = 0;
 	
 	read(x);
 	

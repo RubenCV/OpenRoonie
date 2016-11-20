@@ -53,7 +53,7 @@ class MemoryManagerClass:
                indexInicial = self.getInitialIndexType(i)
                indexFinal   = self.translateToCounterIndex(2, list(self.DataTypes.keys())[list(self.DataTypes.values()).index(i)])
                self.Counters[len(self.DataTypes) * 2 + i] = indexInicial
-               for j in range(0, indexFinal - indexInicial):
+               for j in range(0, indexFinal - indexInicial + 1):
                     self.deleteEntry(indexInicial + j)
           return True
 
