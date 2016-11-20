@@ -5,129 +5,55 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- Bootstrap Styles -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-		<!-- Blockly Styles -->
-		<link rel="stylesheet" href="./blocklyTab/styles.css">
-
-		<!-- Python Anywhere Styles -->
-		<link rel="stylesheet" href="./pythonAnywhere/console_style.css" type="text/css" media="screen">
+		<!--
+			========================== STYLES ==========================
+		-->
 		
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- Blockly -->
+		<link rel="stylesheet" href="./Styles/blockly.css">
+		<!-- Python Anywhere -->
+		<link rel="stylesheet" href="./Styles/console.css" type="text/css" media="screen">
 		<!-- Ace -->
-		<style type="text/css" media="screen">
-			body {
-				overflow: hidden;
-			}
+		<link rel="stylesheet" href="./Styles/ace_editor.css">
 
-			#editor {
-				margin: 0;
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-			}
-		</style>
-
-		<!-- Bootstrap Scripts -->
+		<!--
+			========================== SCRIPTS ==========================
+		-->
+		
+		<!-- Bootstrap -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-		<!-- Blockly Scripts -->
+		<!-- Blockly -->
 		<script src="./blockly/blockly_compressed.js"></script>
 		<script src="./blockly/javascript_compressed.js"></script>
 		<script src="./blockly/msg/js/en.js"></script>
-
 		<script src="./blockly/generators/openroonie/program.js"></script>
 		<script src="./blockly/blocks/openroonie/program.js"></script>
-
 		<script src="./blockly/generators/openroonie/logic.js"></script>
 		<script src="./blockly/blocks/openroonie/logic.js"></script>
-
 		<script src="./blockly/generators/openroonie/loops.js"></script>
 		<script src="./blockly/blocks/openroonie/loops.js"></script>
-
 		<script src="./blockly/generators/openroonie/math.js"></script>
 		<script src="./blockly/blocks/openroonie/math.js"></script>
-
 		<script src="./blockly/generators/openroonie/text.js"></script>
 		<script src="./blockly/blocks/openroonie/text.js"></script>
-
 		<script src="./blockly/generators/openroonie/lists.js"></script>
 		<script src="./blockly/blocks/openroonie/lists.js"></script>
-
 		<script src="./blockly/generators/openroonie/variables.js"></script>
 		<script src="./blockly/blocks/openroonie/variables.js"></script>
-
 		<script src="./blockly/blocks/openroonie/functions.js"></script>
 		<script src="./blockly/generators/openroonie/functions.js"></script>
-
-		<!-- Scripts Python Anywhere -->
-		<script type="text/javascript" src="./pythonAnywhere/jQuery.js"></script>
-		<script type="text/javascript" src="./pythonAnywhere/hterm_all.js"></script>
-		<script type="text/javascript" src="./pythonAnywhere/load_console.js"></script>
-
-		<!-- Relacionados con la Terminal / Consola -->
-		<script type="text/javascript">
-			// Hash del usuario RubenCV @ PythonAnywhere
-			var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
-
-			// Id de la Consola que esta corriendo OpenRoonie.py
-			var consoleId = "3979711";
-
-			// Cargar la Terminal / Consola
-			$(function () {
-				Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
-			});
-
-			// Cargar un archivo con el sourcode (.roonie) ya existente. -> Ej. loadFile("v");
-			function loadFile(fn){
-				Anywhere.sockjs.send('loadFile()\r' + fn + '\r');
-			}
-			
-			// Cargar el codigo que este en el editor
-			function loadCode(){			
-				Anywhere.sockjs.send('loadCode()\r' + editor.getValue().split('\n').join('').split('\t').join('').split('\r').join('') + '\r');
-			}
-			
-			// Limpiar la consola
-			function cleanConsole(){
-				Anywhere.sockjs.send('cleanConsole()\r');
-			}
-			
-			function toCodeTab(){
-				// Cambiar a la tab de code
-				nextTab(0);
-				
-				// Asignar el codigo de blockly al editor ace
-				showCode();
-			}
-			
-			function toConsoleTab(){
-				// Cambiar a la tab de consola
-				nextTab(1);
-				
-				// Limpiar la consola
-				cleanConsole();
-				
-				// Mandar el codigo que esta en el editor ace a la consola y ejecutarlo
-				loadCode();
-			}
-			
-			function nextTab(currentTab){
-				// Cambiar el contenido de la tab
-				var nextTab = currentTab + 1;
-				document.getElementById("step"+currentTab).className = "tab-pane fade";
-				document.getElementById("step"+nextTab).className    = "tab-pane fade in active";
-				
-				// Cambiar la tab
-				var lis = document.getElementsByClassName("nav nav-tabs")[0].getElementsByTagName("li");
-				lis[currentTab].className = "";
-				lis[nextTab].className    = "active";
-			}
-			
-		</script>
+		<!-- Python Anywhere -->
+		<script type="text/javascript" src="./Scripts/jQuery.js"></script>
+		<script type="text/javascript" src="./Scripts/hterm_all.js"></script>
+		<script type="text/javascript" src="./Scripts/load_console.js"></script>
+		<!-- Ace Editor -->
+		<script type="text/javascript" src="ace_editor/ace.js" charset="utf-8"></script>
+		<!-- MainScript -->
+		<script type="text/javascript" src="./Scripts/mainScript.js"></script>
+		
 	</head>
 <body>
 	<div class="container">
@@ -135,20 +61,24 @@
 		<p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
 
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#step0">Blockly</a></li>
-			<li><a data-toggle="tab" href="#step1">Code</a></li>
-			<li><a data-toggle="tab" href="#step2">Console</a></li>
+			<li class="active"><a data-toggle="tab" href="#step0">Manual</a></li>
+			<li><a data-toggle="tab" onclick="resizeBlockly()">Blockly</a></li>
+			<li><a data-toggle="tab" href="#step2">Code</a></li>
+			<li><a data-toggle="tab" href="#step3">Console</a></li>
+			<li><a data-toggle="tab" href="#step4">Creditos</a></li>
 		</ul>
 
 		<div class="tab-content">
 			<div id="step0" class="tab-pane fade in active">
-				<h3>Blockly</h3>
-				<input type="button" value="Code it!" onclick="toCodeTab()">	
-				<input type="button" value="Export to XML" onclick="toXml()">
-				<input type="button" value="Import from XML" onclick="fromXml()" id="import">
-				<br /><br />
+				<h3>Manual</h3>
+			</div>
+			<div id="step1" class="tab-pane fade">
+				<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
+				<input type="button" class="btnBlue" value="Export to XML" onclick="toXml()">
+				<input type="button" class="btnBlue" value="Import from XML" onclick="fromXml()" id="import">
+				<br />
 
-				<table style="position: absolute; width: 70%; height: 62.5%; resize: none;">
+				<table style="position: absolute; width: 70%; height: 67.5%; resize: none;">
 					<tr>
 						<td id="blocklyArea" style="width: 80%; height: 100%; resize: none;">
 					</tr>
@@ -232,39 +162,34 @@
 						<block type="return_void"></block>
 					</category>
 				</xml>
-				<script src="./blocklyTab/mainScript.js"></script>
-			</div>
-			<div id="step1" class="tab-pane fade">
-				<h3>Code</h3>
-				<input type="button" value="Compile & Run" onclick="toConsoleTab()">
-				<input type="button" value="Make File" onclick="makeFile()">
-				<br /><br />
-				
-				<!-- Editor de codigo Ace -->
-				<pre id="openRoonieTextArea" style="position: absolute; width: 70%; height: 62.5%; resize: none;"></pre>
-				<script src="ace_editor/ace.js" type="text/javascript" charset="utf-8"></script>
-				<script>
-					var editor = ace.edit("openRoonieTextArea");
-					editor.setTheme("ace/theme/tomorrow_night_eighties");
-					editor.session.setMode("ace/mode/javascript");
-					document.getElementById("openRoonieTextArea").style.fontSize='14px';
-				</script>
 			</div>
 			<div id="step2" class="tab-pane fade">
-				<h3>Console</h3>
-				<input type="button" value="Clean Console" onclick="cleanConsole()">
-				<br /><br />
+				<input type="button" class="btnGreen" value="Compile & Run" onclick="toConsoleTab()">
+				<input type="button" class="btnBlue" value="Import Code" onclick="makeFile()">
+				<input type="button" class="btnBlue" value="Export Code" onclick="makeFile()">
+				<br />
+				
+				<!-- Editor de codigo Ace -->
+				<pre id="openRoonieTextArea" style="position: absolute; width: 70%; height: 67.5%; resize: none;"></pre>
+			</div>
+			<div id="step3" class="tab-pane fade">
+				<input type="button" class="btnBlue" value="Clean Console" onclick="cleanConsole()">
+				<input type="button" class="btnRed"  value="Kill Console" onclick="">
+				<br />
 				
 				<!-- Terminal / Consola -->
-				<div id="terminal" style="position: absolute; width: 70%; height: 62.5%">
+				<div id="terminal" style="position: absolute; width: 70%; height: 67.5%">
 					<div style="border-radius: 15px; font-size: xx-large; opacity: 0.75; padding: 0.2em 0.5em; position: absolute; transition: opacity 180ms ease-in; color: rgb(16, 16, 16); background-color: rgb(240, 240, 240); font-family: &quot;DejaVu Sans Mono for Powerline&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Everson Mono&quot;, FreeMono, Menlo, &quot;Lucida Console&quot;, Terminal, &quot;Source Code Pro&quot;, monospace; top: 112.109px; left: 698.156px;"></div>
 				</div>
 
 				<!-- Loading Spinner & Connection starter -->
 				<div style="display: none;" id="id_connecting_to_server_indicator">
-					<img id="id_feedback_dialog_spinner" src="./pythonAnywhere/spinner-small.gif">
+					<img id="id_feedback_dialog_spinner" src="./Styles/spinner-small.gif">
 					<span id="id_connecting_to_server_indicator_text">Starting encrypted connection to consoles-2.pythonanywhere.com on port 443</span>
 				</div>
+			</div>
+			<div id="step4" class="tab-pane fade">
+				<h3>Creditos</h3>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,117 @@
+// Global Vars
+var editor, workspace, onresize;
+
+//==================== Document Ready ====================//
+$(document).ready(function() {
+	// Blockly
+	var blocklyArea = document.getElementById('blocklyArea');
+	var blocklyDiv = document.getElementById('blocklyDiv');
+	var rtl = (document.location.search == '?rtl');
+	
+	workspace = Blockly.inject(blocklyDiv,
+		{media: './blockly/media/',
+		toolbox: document.getElementById('toolbox')});
+		
+	onresize = function(e) {
+		// Compute the absolute coordinates and dimensions of blocklyArea.
+		var element = blocklyArea;
+		var x = 0;
+		var y = 0;
+		do {
+			x += element.offsetLeft;
+			y += element.offsetTop;
+			element = element.offsetParent;
+		} while (element);
+		// Position blocklyDiv over blocklyArea.
+		blocklyDiv.style.left = x + 'px';
+		blocklyDiv.style.top = y + 'px';
+		blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+		blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+	};
+	window.addEventListener('resize', onresize, false);
+	
+	// Ace Editor
+	editor = ace.edit("openRoonieTextArea");
+	editor.setTheme("ace/theme/tomorrow_night_eighties");
+	editor.session.setMode("ace/mode/javascript");
+	document.getElementById("openRoonieTextArea").style.fontSize='14px';
+});
+
+
+//==================== Blockly ====================//
+function resizeBlockly(){
+	// Cambiar a la tab de Blockly
+	changeToTab(1);
+	
+	// Resize de Blockly
+	onresize();
+	Blockly.svgResize(workspace);
+}
+
+
+//==================== Consola ====================//
+// Cargar la Terminal / Consola
+$(function () {
+	// Hash del usuario RubenCV @ PythonAnywhere
+	var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
+
+	// Id de la Consola que esta corriendo OpenRoonie.py
+	var consoleId = "3981622";
+
+	Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
+});
+
+// Cargar un archivo con el sourcode (.roonie) ya existente. -> Ej. loadFile("v");
+function loadFile(fn){
+	Anywhere.sockjs.send('loadFile()\r' + fn + '\r');
+}
+
+// Cargar el codigo que este en el editor
+function loadCode(){			
+	Anywhere.sockjs.send('loadCode()\r' + editor.getValue().split('\n').join('').split('\t').join('').split('\r').join('') + '\r');
+}
+
+// Limpiar la consola
+function cleanConsole(){
+	Anywhere.sockjs.send('cleanConsole()\r');
+}
+
+
+//==================== Tabs ====================//
+// Cambiar la tab actual por la que se llame como parametro
+function changeToTab(idTab){
+	// Cambiar la tab
+	var lis = document.getElementsByClassName("nav nav-tabs")[0].getElementsByTagName("li");
+	for (var i = 0; i < lis.length; i++) { 
+		lis[i].className = "";
+	}
+	lis[idTab].className = "active";
+	
+	// Cambiar el contenido de la tab
+	var tabsContent = document.getElementsByClassName("tab-content")[0].children;
+	for (var i = 0; i < tabsContent.length; i++) { 
+		tabsContent[i].className = "tab-pane fade";
+		console.log(tabsContent[i]);
+	}
+	tabsContent[idTab].className = "tab-pane fade in active";
+}
+
+function toCodeTab(){
+	// Cambiar a la tab de code
+	changeToTab(2);
+	
+	// Asignar el codigo de blockly al editor ace
+	editor.setValue(Blockly.JavaScript.workspaceToCode(workspace));
+	editor.gotoLine(editor.session.getLength());
+}
+
+function toConsoleTab(){
+	// Cambiar a la tab de consola
+	changeToTab(3);
+	
+	// Limpiar la consola
+	cleanConsole();
+	
+	// Mandar el codigo que esta en el editor ace a la consola y ejecutarlo
+	loadCode();
+}

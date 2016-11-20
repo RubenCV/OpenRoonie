@@ -143,6 +143,7 @@ def resetRoonie():
     FunctionStack  = Stack.Stack()
     FunctionDirectory.resetDirectory()
     QuadrupleManager.resetQuadruples()
+    VirtualMachine.resetVirtualMachine()
 
 def addCtePilaO(cte, tipo):
     PilaO.push(FunctionDirectory.addConstant(cte, tipo))
