@@ -2,7 +2,7 @@ var blocklyArea = document.getElementById('blocklyArea');
 var blocklyDiv = document.getElementById('blocklyDiv');
 var rtl = (document.location.search == '?rtl');
 var workspace = Blockly.inject(blocklyDiv,
-    {media: '../media/',
+    {media: './blockly/media/',
      toolbox: document.getElementById('toolbox')});
 var onresize = function(e) {
   // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -31,7 +31,7 @@ function showCode() {
   Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
   var code = Blockly.JavaScript.workspaceToCode(workspace);
   element = document.getElementById("openRoonieTextArea");
-  element.innerHTML = code;
+  element.value = code;
 }
 
 function runCode() {

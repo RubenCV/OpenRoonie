@@ -11,6 +11,6 @@ Blockly.JavaScript['program'] = function(block) {
 
 Blockly.JavaScript['main'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  var code = 'main() {\n' + statements_name + '}\n';
+  var code = 'main {\n' + statements_name + '}\n';
   return code;
 };

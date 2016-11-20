@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Open Roonie</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap Styles -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- Blockly Styles -->
+		<link rel="stylesheet" href="./blocklyTab/styles.css">
+
+		<!-- Python Anywhere Styles -->
+		<link rel="stylesheet" href="./pythonAnywhere/console_style.css" type="text/css" media="screen">
+
+		<!-- Bootstrap Scripts -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- Blockly Scripts -->
+		<script src="./blockly/blockly_compressed.js"></script>
+		<script src="./blockly/javascript_compressed.js"></script>
+		<script src="./blockly/msg/js/en.js"></script>
+
+		<script src="./blockly/generators/openroonie/program.js"></script>
+		<script src="./blockly/blocks/openroonie/program.js"></script>
+
+		<script src="./blockly/generators/openroonie/logic.js"></script>
+		<script src="./blockly/blocks/openroonie/logic.js"></script>
+
+		<script src="./blockly/generators/openroonie/loops.js"></script>
+		<script src="./blockly/blocks/openroonie/loops.js"></script>
+
+		<script src="./blockly/generators/openroonie/math.js"></script>
+		<script src="./blockly/blocks/openroonie/math.js"></script>
+
+		<script src="./blockly/generators/openroonie/text.js"></script>
+		<script src="./blockly/blocks/openroonie/text.js"></script>
+
+		<script src="./blockly/generators/openroonie/lists.js"></script>
+		<script src="./blockly/blocks/openroonie/lists.js"></script>
+
+		<script src="./blockly/generators/openroonie/variables.js"></script>
+		<script src="./blockly/blocks/openroonie/variables.js"></script>
+
+		<script src="./blockly/blocks/openroonie/functions.js"></script>
+		<script src="./blockly/generators/openroonie/functions.js"></script>
+
+		<!-- Scripts Python Anywhere -->
+		<script type="text/javascript" src="./pythonAnywhere/jQuery.js"></script>
+		<script type="text/javascript" src="./pythonAnywhere/hterm_all.js"></script>
+		<script type="text/javascript" src="./pythonAnywhere/load_console.js"></script>
+
+		<!-- Relacionados con la Terminal / Consola -->
+		<script type="text/javascript">
+			// Hash del usuario RubenCV @ PythonAnywhere
+			var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
+
+			// Id de la Consola que esta corriendo OpenRoonie.py
+			var consoleId = "3979015";
+
+			// Cargar la Terminal / Consola
+			$(function () {
+				Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
+			});
+
+			// Cargar un archivo con el sourcode (.roonie) ya existente. -> Ej. loadFile("v");
+			function loadFile(fn){
+				Anywhere.sockjs.send('loadFile()\r' + fn + '\r');
+			}
+
+			function loadCode(){
+				Anywhere.sockjs.send('loadCode()\r' + document.getElementById("openRoonieTextArea").value.split('\n').join('') + '\r');
+			}
+			
+			function cleanConsole(){
+				Anywhere.sockjs.send('cleanConsole()\r');
+			}
+			
+		</script>
+	</head>
+<body>
+<div class="container">
+  <h2>Open Roonie</h2>
+  <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Blockly</a></li>
+    <li><a data-toggle="tab" href="#menu1">Code</a></li>
+    <li><a data-toggle="tab" href="#menu2">Console</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Blockly</h3>
+	    <input type="button" value="Export to XML" onclick="toXml()">
+        <input type="button" value="Import from XML" onclick="fromXml()" id="import">
+        <input type="button" value="OpenRoonie Code" onclick="showCode()">
+        <input type="button" value="Make File" onclick="makeFile()">
+		<br /><br />
+		
+		
+  <table style="position: absolute; width: 70%; height: 65%">
+    <tr>
+      <td id="blocklyArea" style="width: 80%; height: 100%; resize: none;">
+    </tr>
+  </table>
+
+  <div id="blocklyDiv" style="position: absolute;"></div>
+
+  <xml id="toolbox" style="display: none">
+  <category name="Program" colour="100">
+      <block type="program"></block>
+      <block type="main"></block>
+  </category>
+
+  <category name="Logic" colour="150">
+      <block type="controls_if"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+  </category>
+
+  <category name="Loops" colour="200">
+      <block type="controls_whileUntil"></block>
+  </category>
+
+  <category name="Math" colour="250">
+      <block type="math_number" gap="32"></block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random"></block>
+  </category>
+
+  <category name="Text" colour="300">
+      <block type="var_char"></block>
+      <block type="text"></block>
+      <block type="text_comma"></block>
+      <block type="text_print"></block>
+      <block type="text_read"></block>
+  </category>
+
+  <category name="Lists" colour="350">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+  </category>
+
+  <sep></sep>
+
+  <category name="Variables" colour="100">
+      <block type="variable_single"></block>
+      <block type="variable_single_name"></block>
+      <block type="variable_single_name_comma"></block>
+      <block type="variable_single_set"></block>
+      <block type="variable_array_one"></block>
+      <block type="variable_array_two"></block>
+      <block type="variable_array_one_set"></block>
+      <block type="variable_array_two_set"></block>
+      <block type="variable_array_one_get"></block>
+      <block type="variable_array_two_get"></block>
+      
+  </category>
+
+  <category name="Functions " colour="150">
+      <block type="function_statement"></block>
+      <block type="function_statement_no_params"></block>
+      <block type="function_param"></block>
+      <block type="function_param_coma"></block>
+      <block type="function_call"></block>
+      <block type="function_call_noparams"></block>
+      <block type="function_call_ret"></block>
+      <block type="function_call_ret_noparams"></block>
+      <block type="return"></block>
+      <block type="return_void"></block>
+  </category>
+
+  </xml>
+  <script src="./blocklyTab/mainScript.js"></script>
+  <!-- end blockly -->
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Code</h3>
+	  <input type="button" value="Compile & Run" onclick="loadCode()">
+	  <br /><br />
+	  <textarea id="openRoonieTextArea" style="position: absolute; width: 70%; height: 65%; resize: none;"></textarea>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Console</h3>
+	  <input type="button" value="Clean Console" onclick="cleanConsole()">
+	  <br /><br />
+		<!-- Terminal / Consola -->
+		<div id="terminal" style="position: absolute; width: 70%; height: 65%">
+			<div style="border-radius: 15px; font-size: xx-large; opacity: 0.75; padding: 0.2em 0.5em; position: absolute; transition: opacity 180ms ease-in; color: rgb(16, 16, 16); background-color: rgb(240, 240, 240); font-family: &quot;DejaVu Sans Mono for Powerline&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Everson Mono&quot;, FreeMono, Menlo, &quot;Lucida Console&quot;, Terminal, &quot;Source Code Pro&quot;, monospace; top: 112.109px; left: 698.156px;"></div>
+		</div>
+		
+		<!-- Loading Spinner & Connection starter -->
+		<div style="display: none;" id="id_connecting_to_server_indicator">
+			<img id="id_feedback_dialog_spinner" src="./pythonAnywhere/spinner-small.gif">
+			<span id="id_connecting_to_server_indicator_text">Starting encrypted connection to consoles-2.pythonanywhere.com on port 443</span>
+		</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+

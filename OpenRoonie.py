@@ -673,14 +673,15 @@ def loadFile():
 
 def loadCode():
     try:
-        lines = []
+        '''lines = []
         while True:
             line = input('Source Code > ')
             if line:
                 lines.append(line)
             else:
                 break
-        code = '\n'.join(lines)
+        code = '\n'.join(lines)'''
+        code = input('Source Code > ')
         parser.parse(code)
         print("\nCompilacion terminada.")
         
@@ -711,3 +712,5 @@ def printAndExecute():
     # Resetear para el siguiente archivo
     resetRoonie()
 
+def cleanConsole():
+    print('\n' * 100)
