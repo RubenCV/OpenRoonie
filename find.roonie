@@ -37,13 +37,13 @@ function void findIndex(int value){
 
 main {
 	initVector();
-	print("Introduzca el indice del valor a buscar: ", endl);
+	print("Introduzca el valor a buscar: ", endl);
 	read(valor);
 
 	findIndex(valor);
 
 	if(indice <> -1){
-		print("¡Valor encontrado!", endl);
+		print("Valor encontrado!", endl);
 		print("El valor se encuentra en la posicion vector[", indice, "]", endl);
 	}
 	else{

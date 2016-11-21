@@ -38,7 +38,9 @@ Blockly.JavaScript['text'] = function(block) {
 Blockly.JavaScript['text_comma'] = function(block) {
   var text_var = '\"' + block.getFieldValue('TEXT') + '\"';
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  value_name = value_name.substring(0,value_name.length);
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var code = text_var + ', ' + value_name;
 
 

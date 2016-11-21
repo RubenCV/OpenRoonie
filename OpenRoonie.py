@@ -702,3 +702,9 @@ def runLoadedCode():
 
 def cleanConsole():
     print('\n' * 100)
+
+def loadAll():
+    while True:
+        loadFile()
+        runLoadedCode()
+        print('')

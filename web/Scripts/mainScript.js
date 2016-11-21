@@ -1,5 +1,5 @@
 // Global Vars
-var editor, workspace, onresize, fileData;
+var editor, workspace, onresize, fileData, roonieData;
 
 //==================== Document Ready ====================//
 $(document).ready(function() {
@@ -38,13 +38,11 @@ $(document).ready(function() {
 
 
 	var fileInput = document.getElementById('fileInput');
-    var fileDisplayArea = document.getElementById('fileDisplayArea');
-
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0];
-        var textType = /text.*/;
+        var textType = '/text.*/';
 
-        if (file.type.match(textType)) {
+        if (file.name.endsWith(".xml")) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
@@ -53,7 +51,25 @@ $(document).ready(function() {
 
             reader.readAsText(file);    
         } else {
-            alert("File not supported!");
+            alert("Please, upload an XML file.");
+        }
+    });
+
+    var roonieInput = document.getElementById('roonieInput');
+    roonieInput.addEventListener('change', function(e) {
+        var file = roonieInput.files[0];
+        var textType = '/text.*/';
+
+        if (file.name.endsWith(".roonie")) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+            	roonieData = reader.result;
+            }
+
+            reader.readAsText(file);    
+        } else {
+            alert("Please, upload a .roonie file.");
         }
     });
 });
@@ -173,7 +189,7 @@ function toXml(){
 	var plaintext = Blockly.Xml.domToPrettyText(xml);
 	var data = plaintext;
 	
-	var filename = document.getElementById("customFileName").value;
+	var filename = document.getElementById("xmlFileName").value;
 	filename += ".xml";
 
 	var blob = new Blob([data], {type: 'text/csv'});
@@ -193,4 +209,29 @@ function toXml(){
 function fromXml(){
 	var xml = Blockly.Xml.textToDom(fileData);
 	Blockly.Xml.domToWorkspace(xml, workspace);
+}
+
+//==================== Salvar codigo a .roonie ====================//
+function toRoonie(){
+	var data = editor.getValue();
+	
+	var filename = document.getElementById("roonieFileName").value;
+	filename += ".roonie";
+
+	var blob = new Blob([data], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else{
+        var elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
+}
+
+function fromRoonie(){
+	editor.setValue(roonieData);
 }

@@ -49,6 +49,14 @@ Blockly.JavaScript['math_arithmetic'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.JavaScript.valueToCode(block, 'B', order) || '0';
 
+  if(argument0.indexOf("(") > -1) {
+    argument0 = argument0.substring(1,argument0.length-1);
+  }
+
+  if(argument1.indexOf("(") > -1) {
+    argument1 = argument1.substring(1,argument1.length-1);
+  }
+
   var code;
   // Power in JavaScript requires a special case since it has no operator.
   if (!operator) {

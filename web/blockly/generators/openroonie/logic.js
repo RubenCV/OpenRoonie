@@ -64,6 +64,16 @@ Blockly.JavaScript['logic_compare'] = function(block) {
       Blockly.JavaScript.ORDER_EQUALITY : Blockly.JavaScript.ORDER_RELATIONAL;
   var argument0 = Blockly.JavaScript.valueToCode(block, 'A', order);
   var argument1 = Blockly.JavaScript.valueToCode(block, 'B', order);
+
+  if(argument0.indexOf("(") > -1) {
+    argument0 = argument0.substring(1,argument0.length-1);
+  }
+
+  if(argument1.indexOf("(") > -1) {
+    argument1 = argument1.substring(1,argument1.length-1);
+  }
+
+  
   var code = argument0 + ' ' + operator + ' ' + argument1;
   return [code, order];
 };

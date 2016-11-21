@@ -7,8 +7,11 @@ Blockly.JavaScript['function_statement'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var text_var = block.getFieldValue('VAR');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var statements_block = Blockly.JavaScript.statementToCode(block, 'BLOCK');
-  var code = 'function ' + dropdown_type + ' ' + text_var + '' + value_name + ' {\n' + statements_block + '}\n';
+  var code = 'function ' + dropdown_type + ' ' + text_var + ' (' + value_name + ') {\n' + statements_block + '}\n';
   
   return code;
 };
@@ -17,6 +20,9 @@ Blockly.JavaScript['function_statement_no_params'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var text_var = block.getFieldValue('VAR');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var statements_block = Blockly.JavaScript.statementToCode(block, 'BLOCK');
   var code = 'function ' + dropdown_type + ' ' + text_var + '() {\n' + statements_block + '}\n';
   
@@ -44,7 +50,9 @@ Blockly.JavaScript['function_param_coma'] = function(block) {
 Blockly.JavaScript['function_call'] = function(block) {
   var text_fname = block.getFieldValue('FNAME');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var code = text_fname + value_name;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -59,7 +67,10 @@ Blockly.JavaScript['function_call_noparams'] = function(block) {
 Blockly.JavaScript['function_call_ret'] = function(block) {
   var text_var = block.getFieldValue('FUNC');
   var value_name = '(' + Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC) + ')';
-  var code = text_var +  value_name + '\n';
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
+  var code = text_var +  value_name + ';\n';
   return code;
 };
 

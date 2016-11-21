@@ -91,7 +91,7 @@
 				      <div class="modal-body">
 				        <p>Please, type the name of file to generate.</p>
 				        <div class=".form-inline">
-				        Filename: <input type="text" class="form-control" id="customFileName">
+				        Filename: <input type="text" class="form-control" id="xmlFileName">
 				        </div>
 				      </div>
 				      <div class="modal-footer">
@@ -118,7 +118,7 @@
 				        
 				        <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
 				        <label class="btn btn-block btn-default">
-						    Browse <input id="fileInput" type="file" onchange="fromXml()" style="display: none;"/>
+						    Browse <input id="fileInput" type="file" style="display: none;"/>
 						</label>
 				      </div>
 				      <div class="modal-footer">
@@ -129,9 +129,6 @@
 
 				  </div>
 				</div>
-
-				
-
 
 				<br />
 
@@ -222,11 +219,63 @@
 			</div>
 			<div id="step2" class="tab-pane fade">
 				<input type="button" class="btnGreen" value="Compile it!" onclick="toConsoleTab()">
-				<input type="button" class="btnBlue" value="Export Code" onclick="">
-				<input type="button" class="btnBlue" value="Import Code" onclick="">
+				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportCODE">Export Code</button>
+				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportCODE">Import Code</button>
 				<input type="button" class="btnRed" value="Flush Code" onclick="flushCode()">
 				<br />
 				
+				<!-- EXPORT CODE MODAL -->
+				<div id="modalExportCODE" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Export to OpenRoonie</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Please, type the name of file to generate.</p>
+				        <div class=".form-inline">
+				        Filename: <input type="text" class="form-control" id="roonieFileName">
+				        </div>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" value="Save" onclick="toRoonie()" data-dismiss="modal">Save</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
+
+				<!-- IMPORT CODE MODAL -->
+				<div id="modalImportCODE" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Import from OpenRoonie</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<p>Please, select your .roonie file.</p>
+				        
+				        <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
+				        <label class="btn btn-block btn-default">
+						    Browse <input id="roonieInput" type="file" style="display: none;"/>
+						</label>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" value="Save" onclick="fromRoonie()" data-dismiss="modal">Open</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
+
 				<!-- Editor de codigo Ace -->
 				<pre id="openRoonieTextArea" style="position: absolute; width: 70%; height: 67.5%; resize: none;"></pre>
 			</div>
