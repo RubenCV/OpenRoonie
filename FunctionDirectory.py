@@ -273,12 +273,6 @@ class FunctionDirectoryClass:
      def getVariableOffset(self, function, nombre):
           return self.getVariable(function, nombre)[4]
 
-     # Retorna el nombre de la variable que pertenece a la funcion y direccion virtual dada como argumento.
-     def getVariableByVirtualDirection(self, function, virDir):
-          for variable in filter(lambda x: x[2] == virDir, self.getFunctionVariables(function)):
-               return variable[0]
-          return 'input'
-
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
      def setVariableValue(self, function, nombre, valor):
           if function in self.functionDictionary.keys() :
