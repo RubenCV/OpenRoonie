@@ -1,0 +1,53 @@
+program find;
+
+var string endl = "\n";
+var int valor;
+var int indice;
+var int vector[10];
+
+function void initVector(){
+	vector[0] =  10;
+	vector[1] = -24;
+	vector[2] = 432;
+	vector[3] =   1;
+	vector[4] =  -3;
+	vector[5] =  66;
+	vector[6] =  89;
+	vector[7] =  72;
+	vector[8] =   7;
+	vector[9] =  -3;
+	return;
+}
+
+function void findIndex(int value){
+	var int i = 0;
+	var int n;
+
+	indice = -1;
+
+	while(i < 10){
+		n = vector[i];
+		if(n == value){
+			indice = i;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+main {
+	initVector();
+	print("Introduzca el indice del valor a buscar: ", endl);
+	read(valor);
+
+	findIndex(valor);
+
+	if(indice <> -1){
+		print("¡Valor encontrado!", endl);
+		print("El valor se encuentra en la posicion vector[", indice, "]", endl);
+	}
+	else{
+		print("El valor no se encuentra en el vector.", endl);
+	}
+	
+}

@@ -53,7 +53,7 @@ Blockly.JavaScript['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
     'EQ': '==',
-    'NEQ': '!=',
+    'NEQ': '<>',
     'LT': '<',
     'LTE': '<=',
     'GT': '>',

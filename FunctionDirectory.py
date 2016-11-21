@@ -277,6 +277,8 @@ class FunctionDirectoryClass:
      def getVariableByVirtualDirection(self, function, virDir):
           for variable in filter(lambda x: x[2] == virDir, self.getFunctionVariables(function)):
                return variable[0]
+          for variable in filter(lambda x: x[2] == virDir, self.getFunctionVariables('global')):
+               return variable[0]
           return 'input'
 
      # Sirve para establecer o modificar el valor que contiene la variable de la funcion dada como argumento.
