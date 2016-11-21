@@ -32,7 +32,7 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.texts.HUE = 160;
+Blockly.Blocks.texts.HUE = 300;
 
 Blockly.Blocks['text'] = {
   /**
@@ -119,7 +119,7 @@ Blockly.Blocks['var_char'] = {
         .appendField(new Blockly.FieldTextInput("a"), "TEXT")
         .appendField("'");
     this.setOutput(true);
-    this.setColour(160);
+    this.setColour(Blockly.Blocks.texts.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -145,18 +145,5 @@ Blockly.Blocks['text_print'] = {
       "tooltip": Blockly.Msg.TEXT_PRINT_TOOLTIP,
       "helpUrl": Blockly.Msg.TEXT_PRINT_HELPURL
     });
-  }
-};
-
-Blockly.Blocks['text_read'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("read(")
-        .appendField(new Blockly.FieldTextInput("varname"), "VAR")
-        .appendField(")");
-        
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(210);
   }
 };

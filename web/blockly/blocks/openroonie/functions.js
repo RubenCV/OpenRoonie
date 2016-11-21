@@ -3,6 +3,8 @@
 goog.provide('Blockly.Blocks.functions');
 goog.require('Blockly.Blocks');
 
+Blockly.Blocks.functions.HUE = 150;
+
 Blockly.Blocks['function_statement'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -13,7 +15,7 @@ Blockly.Blocks['function_statement'] = {
     this.appendStatementInput("BLOCK");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -29,7 +31,7 @@ Blockly.Blocks['function_statement_no_params'] = {
     this.appendStatementInput("BLOCK");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -42,7 +44,7 @@ Blockly.Blocks['function_param'] = {
         .appendField(new Blockly.FieldTextInput("name"), "VAR")
         .appendField(" )");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -55,7 +57,7 @@ Blockly.Blocks['function_param_coma'] = {
         .appendField(new Blockly.FieldTextInput("name"), "VAR")
         .appendField(", ");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -68,7 +70,7 @@ Blockly.Blocks['function_call'] = {
         .appendField(new Blockly.FieldTextInput("name"), "FNAME")
         .appendField(" parameters: ");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -81,7 +83,7 @@ Blockly.Blocks['function_call_noparams'] = {
         .appendField(new Blockly.FieldTextInput("name"), "FNAME")
         .appendField(" no parameters ");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -95,7 +97,7 @@ Blockly.Blocks['function_call_ret'] = {
         .appendField(" parameters: ");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -109,7 +111,7 @@ Blockly.Blocks['function_call_ret_noparams'] = {
         .appendField(" no parameters: ");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -120,7 +122,7 @@ Blockly.Blocks['return'] = {
     this.appendValueInput("NAME")
         .appendField("return");
     this.setPreviousStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -131,7 +133,7 @@ Blockly.Blocks['return_void'] = {
     this.appendDummyInput()
         .appendField("return");
     this.setPreviousStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.functions.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }

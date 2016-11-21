@@ -60,9 +60,5 @@ Blockly.JavaScript['text_print'] = function(block) {
   return 'print(' + msg + ');\n';
 };
 
-Blockly.JavaScript['text_read'] = function(block) {
-  // Print statement.
-  var code = block.getFieldValue('VAR');
-  return 'read(' + code + ');\n';
-};
+
 

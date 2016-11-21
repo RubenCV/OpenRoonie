@@ -74,8 +74,65 @@
 			</div>
 			<div id="step1" class="tab-pane fade">
 				<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
-				<input type="button" class="btnBlue" value="Export to XML" onclick="toXml()">
-				<input type="button" class="btnBlue" value="Import from XML" onclick="fromXml()" id="import">
+				
+				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportXML">Export to XML</button>
+				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportXML">Import from XML</button>
+				
+				<!-- EXPORT XML MODAL -->
+				<div id="modalExportXML" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Export to XML</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Please, type the name of file to generate.</p>
+				        <div class=".form-inline">
+				        Filename: <input type="text" class="form-control" id="customFileName">
+				        </div>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" value="Save" onclick="toXml()" data-dismiss="modal">Save</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
+
+				<!-- IMPORT XML MODAL -->
+				<div id="modalImportXML" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Import from XML</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<p>Please, select your blockly XML file.</p>
+				        
+				        <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
+				        <label class="btn btn-block btn-default">
+						    Browse <input id="fileInput" type="file" onchange="fromXml()" style="display: none;"/>
+						</label>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" value="Save" onclick="fromXml()" data-dismiss="modal">Open</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
+
+				
+
+
 				<br />
 
 				<table style="position: absolute; width: 70%; height: 67.5%; resize: none;">
@@ -125,7 +182,6 @@
 						<block type="text"></block>
 						<block type="text_comma"></block>
 						<block type="text_print"></block>
-						<block type="text_read"></block>
 					</category>
 
 					<category name="Lists" colour="350">
@@ -147,6 +203,7 @@
 						<block type="variable_array_two_set"></block>
 						<block type="variable_array_one_get"></block>
 						<block type="variable_array_two_get"></block>
+						<block type="variable_read"></block>
 					</category>
 
 					<category name="Functions " colour="150">

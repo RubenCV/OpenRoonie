@@ -24,7 +24,9 @@ Blockly.JavaScript['variable_single_name'] = function(block) {
 Blockly.JavaScript['variable_single_name_comma'] = function(block) {
   var text_var = block.getFieldValue('VAR');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  value_name = value_name.substring(1,value_name.length-1);
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var code = text_var + ', ' + value_name;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -91,4 +93,10 @@ Blockly.JavaScript['variable_array_two_get'] = function(block) {
   var dim2 = block.getFieldValue('VAR2');
   var code = text_var + '[' + dim1 + ', ' + dim2 + ']';
   return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['variable_read'] = function(block) {
+  // Print statement.
+  var code = block.getFieldValue('VAR');
+  return 'read(' + code + ');\n';
 };

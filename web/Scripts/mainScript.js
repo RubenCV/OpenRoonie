@@ -1,5 +1,6 @@
 // Global Vars
 var editor, workspace, onresize;
+var fileData;
 
 //==================== Document Ready ====================//
 $(document).ready(function() {
@@ -35,6 +36,27 @@ $(document).ready(function() {
 	editor.setTheme("ace/theme/tomorrow_night_eighties");
 	editor.session.setMode("ace/mode/javascript");
 	document.getElementById("openRoonieTextArea").style.fontSize='14px';
+
+
+	var fileInput = document.getElementById('fileInput');
+    var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+    fileInput.addEventListener('change', function(e) {
+        var file = fileInput.files[0];
+        var textType = /text.*/;
+
+        if (file.type.match(textType)) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+            	fileData = reader.result;
+            }
+
+            reader.readAsText(file);    
+        } else {
+            alert("File not supported!");
+        }
+    });
 });
 
 
@@ -91,7 +113,7 @@ function changeToTab(idTab){
 	var tabsContent = document.getElementsByClassName("tab-content")[0].children;
 	for (var i = 0; i < tabsContent.length; i++) { 
 		tabsContent[i].className = "tab-pane fade";
-		console.log(tabsContent[i]);
+		//console.log(tabsContent[i]);
 	}
 	tabsContent[idTab].className = "tab-pane fade in active";
 }
@@ -114,4 +136,35 @@ function toConsoleTab(){
 	
 	// Mandar el codigo que esta en el editor ace a la consola y ejecutarlo
 	loadCode();
+}
+
+function toXml(){
+	var output = document.getElementById('openRoonieTextArea');
+	var xml = Blockly.Xml.workspaceToDom(workspace);
+	var plaintext = Blockly.Xml.domToPrettyText(xml);
+
+	var data = plaintext;
+
+
+	var filename = document.getElementById("customFileName").value;
+
+	filename += ".xml";
+
+	var blob = new Blob([data], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else{
+        var elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
+}
+
+function fromXml(){
+	var xml = Blockly.Xml.textToDom(fileData);
+	Blockly.Xml.domToWorkspace(xml, workspace);
 }

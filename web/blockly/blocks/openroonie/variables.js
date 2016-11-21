@@ -32,7 +32,7 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.variables.HUE = 330;
+Blockly.Blocks.variables.HUE = 100;
 
 Blockly.Blocks['variable_single'] = {
   init: function() {
@@ -41,7 +41,7 @@ Blockly.Blocks['variable_single'] = {
         .appendField(new Blockly.FieldDropdown([["int", "int"], ["float", "float"], ["bool", "bool"], ["char", "char"], ["string", "string"]]), "TYPE")
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
   }
 };
 
@@ -50,7 +50,7 @@ Blockly.Blocks['variable_single_name'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("varname"), "VAR");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -62,7 +62,7 @@ Blockly.Blocks['variable_single_name_comma'] = {
         .appendField(new Blockly.FieldTextInput("varname"), "VAR")
         .appendField(", ");
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -75,7 +75,7 @@ Blockly.Blocks['variable_single_set'] = {
         .appendField("= ");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
   }
 };
 
@@ -91,7 +91,7 @@ Blockly.Blocks['variable_array_one'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setOutput(false);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -111,7 +111,7 @@ Blockly.Blocks['variable_array_two'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setOutput(false);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -126,7 +126,7 @@ Blockly.Blocks['variable_array_one_set'] = {
         .appendField("] =");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -143,7 +143,7 @@ Blockly.Blocks['variable_array_two_set'] = {
         .appendField("] =");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -159,7 +159,7 @@ Blockly.Blocks['variable_array_one_get'] = {
     this.setPreviousStatement(false);
     this.setNextStatement(false);
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -177,8 +177,21 @@ Blockly.Blocks['variable_array_two_get'] = {
     this.setPreviousStatement(false);
     this.setNextStatement(false);
     this.setOutput(true);
-    this.setColour(210);
+    this.setColour(Blockly.Blocks.variables.HUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['variable_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("read(")
+        .appendField(new Blockly.FieldTextInput("varname"), "VAR")
+        .appendField(")");
+        
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(Blockly.Blocks.variables.HUE);
   }
 };
