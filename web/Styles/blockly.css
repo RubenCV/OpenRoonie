@@ -3,7 +3,6 @@ html, body {
       margin: 0;
     }
     body {
-      background-color: #fff;
       font-family: sans-serif;
       overflow: hidden;
     }
@@ -22,16 +21,49 @@ html, body {
 button, input[type="button"], input[type="submit"] {
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    margin: 10px 2px;
+    margin: 10px 5px;
     cursor: pointer;
+	width : 190px;
 }
 .btnGreen {background-color: #4CAF50;} /* Green */
 .btnBlue  {background-color: #008CBA;} /* Blue */
 .btnRed   {background-color: #f44336;} /* Red */
 .btnGray  {background-color: #e7e7e7; color: black;} /* Gray */
 .btnBlack {background-color: #555555;} /* Black */
+
+/* blog */
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
+.blog-title {
+	color : white;
+	margin-bottom: 0;
+	font-size: 28px;
+	font-weight: normal;
+}
+.blog-description {
+	color : white;
+	font-size: 16px;
+}
+
+/**/
+
+#gradient{
+	background: #134E5E; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #134E5E , #71B280); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, #134E5E , #71B280); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+

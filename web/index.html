@@ -1,308 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Open Roonie</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<!--
-			========================== STYLES ==========================
-		-->
-		
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!-- Blockly -->
-		<link rel="stylesheet" href="./Styles/blockly.css">
-		<!-- Python Anywhere -->
-		<link rel="stylesheet" href="./Styles/console.css" type="text/css" media="screen">
-		<!-- Ace -->
-		<link rel="stylesheet" href="./Styles/ace_editor.css">
-
-		<!--
-			========================== SCRIPTS ==========================
-		-->
-		
-		<!-- Bootstrap -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<!-- Blockly -->
-		<script src="./blockly/blockly_compressed.js"></script>
-		<script src="./blockly/javascript_compressed.js"></script>
-		<script src="./blockly/msg/js/en.js"></script>
-		<script src="./blockly/generators/openroonie/program.js"></script>
-		<script src="./blockly/blocks/openroonie/program.js"></script>
-		<script src="./blockly/generators/openroonie/logic.js"></script>
-		<script src="./blockly/blocks/openroonie/logic.js"></script>
-		<script src="./blockly/generators/openroonie/loops.js"></script>
-		<script src="./blockly/blocks/openroonie/loops.js"></script>
-		<script src="./blockly/generators/openroonie/math.js"></script>
-		<script src="./blockly/blocks/openroonie/math.js"></script>
-		<script src="./blockly/generators/openroonie/text.js"></script>
-		<script src="./blockly/blocks/openroonie/text.js"></script>
-		<script src="./blockly/generators/openroonie/lists.js"></script>
-		<script src="./blockly/blocks/openroonie/lists.js"></script>
-		<script src="./blockly/generators/openroonie/variables.js"></script>
-		<script src="./blockly/blocks/openroonie/variables.js"></script>
-		<script src="./blockly/blocks/openroonie/functions.js"></script>
-		<script src="./blockly/generators/openroonie/functions.js"></script>
-		<!-- Python Anywhere -->
-		<script type="text/javascript" src="./Scripts/jQuery.js"></script>
-		<script type="text/javascript" src="./Scripts/hterm_all.js"></script>
-		<script type="text/javascript" src="./Scripts/load_console.js"></script>
-		<!-- Ace Editor -->
-		<script type="text/javascript" src="ace_editor/ace.js" charset="utf-8"></script>
-		<!-- MainScript -->
-		<script type="text/javascript" src="./Scripts/mainScript.js"></script>
-		
-	</head>
-<body>
-	<div class="container">
-		<h2>Open Roonie</h2>
-		<p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
-
-		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#step0">Manual</a></li>
-			<li><a data-toggle="tab" onclick="resizeBlockly()">Blockly</a></li>
-			<li><a data-toggle="tab" href="#step2">Code</a></li>
-			<li><a data-toggle="tab" href="#step3">Console</a></li>
-			<li><a data-toggle="tab" href="#step4">Creditos</a></li>
-		</ul>
-
-		<div class="tab-content">
-			<div id="step0" class="tab-pane fade in active">
-				<h3>Manual</h3>
-			</div>
-			<div id="step1" class="tab-pane fade">
-				<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
-				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportXML">Export to XML</button>
-				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportXML">Import from XML</button>
-				<input type="button" class="btnRed" value="Flush Blocks" onclick="flushBlocks()">
-				
-				<!-- EXPORT XML MODAL -->
-				<div id="modalExportXML" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title">Export to XML</h4>
-				      </div>
-				      <div class="modal-body">
-				        <p>Please, type the name of file to generate.</p>
-				        <div class=".form-inline">
-				        Filename: <input type="text" class="form-control" id="xmlFileName">
-				        </div>
-				      </div>
-				      <div class="modal-footer">
-				      	<button type="button" class="btn btn-default" value="Save" onclick="toXml()" data-dismiss="modal">Save</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-
-				  </div>
-				</div>
-
-				<!-- IMPORT XML MODAL -->
-				<div id="modalImportXML" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title">Import from XML</h4>
-				      </div>
-				      <div class="modal-body">
-				      	<p>Please, select your blockly XML file.</p>
-				        
-				        <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
-				        <label class="btn btn-block btn-default">
-						    Browse <input id="fileInput" type="file" style="display: none;"/>
-						</label>
-				      </div>
-				      <div class="modal-footer">
-				      	<button type="button" class="btn btn-default" value="Save" onclick="fromXml()" data-dismiss="modal">Open</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-
-				  </div>
-				</div>
-
-				<br />
-
-				<table style="position: absolute; width: 70%; height: 67.5%; resize: none;">
-					<tr>
-						<td id="blocklyArea" style="width: 80%; height: 100%; resize: none;">
-					</tr>
-				</table>
-
-				<div id="blocklyDiv" style="position: absolute;"></div>
-
-				<xml id="toolbox" style="display: none">
-					<category name="Program" colour="100">
-						<block type="program"></block>
-						<block type="main"></block>
-					</category>
-
-					<category name="Logic" colour="150">
-						<block type="controls_if"></block>
-						<block type="logic_boolean"></block>
-						<block type="logic_compare"></block>
-						<block type="logic_operation"></block>
-					</category>
-
-					<category name="Loops" colour="200">
-						<block type="controls_whileUntil"></block>
-					</category>
-
-					<category name="Math" colour="250">
-						<block type="math_number" gap="32"></block>
-						<block type="math_arithmetic">
-							<value name="A">
-								<shadow type="math_number">
-									<field name="NUM">1</field>
-								</shadow>
-							</value>
-							<value name="B">
-								<shadow type="math_number">
-									<field name="NUM">1</field>
-								</shadow>
-							</value>
-						</block>
-						<block type="math_random"></block>
-					</category>
-
-					<category name="Text" colour="300">
-						<block type="var_char"></block>
-						<block type="text"></block>
-						<block type="text_comma"></block>
-						<block type="text_print"></block>
-					</category>
-
-					<category name="Lists" colour="350">
-						<block type="lists_create_with">
-							<mutation items="0"></mutation>
-						</block>
-					</category>
-
-					<sep></sep>
-
-					<category name="Variables" colour="100">
-						<block type="variable_single"></block>
-						<block type="variable_single_name"></block>
-						<block type="variable_single_name_comma"></block>
-						<block type="variable_single_set"></block>
-						<block type="variable_array_one"></block>
-						<block type="variable_array_two"></block>
-						<block type="variable_array_one_set"></block>
-						<block type="variable_array_two_set"></block>
-						<block type="variable_array_one_get"></block>
-						<block type="variable_array_two_get"></block>
-						<block type="variable_read"></block>
-					</category>
-
-					<category name="Functions " colour="150">
-						<block type="function_statement"></block>
-						<block type="function_statement_no_params"></block>
-						<block type="function_param"></block>
-						<block type="function_param_coma"></block>
-						<block type="function_call"></block>
-						<block type="function_call_noparams"></block>
-						<block type="function_call_ret"></block>
-						<block type="function_call_ret_noparams"></block>
-						<block type="return"></block>
-						<block type="return_void"></block>
-					</category>
-				</xml>
-			</div>
-			<div id="step2" class="tab-pane fade">
-				<input type="button" class="btnGreen" value="Compile it!" onclick="toConsoleTab()">
-				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportCODE">Export Code</button>
-				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportCODE">Import Code</button>
-				<input type="button" class="btnRed" value="Flush Code" onclick="flushCode()">
-				<br />
-				
-				<!-- EXPORT CODE MODAL -->
-				<div id="modalExportCODE" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title">Export to OpenRoonie</h4>
-				      </div>
-				      <div class="modal-body">
-				        <p>Please, type the name of file to generate.</p>
-				        <div class=".form-inline">
-				        Filename: <input type="text" class="form-control" id="roonieFileName">
-				        </div>
-				      </div>
-				      <div class="modal-footer">
-				      	<button type="button" class="btn btn-default" value="Save" onclick="toRoonie()" data-dismiss="modal">Save</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-
-				  </div>
-				</div>
-
-				<!-- IMPORT CODE MODAL -->
-				<div id="modalImportCODE" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title">Import from OpenRoonie</h4>
-				      </div>
-				      <div class="modal-body">
-				      	<p>Please, select your .roonie file.</p>
-				        
-				        <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
-				        <label class="btn btn-block btn-default">
-						    Browse <input id="roonieInput" type="file" style="display: none;"/>
-						</label>
-				      </div>
-				      <div class="modal-footer">
-				      	<button type="button" class="btn btn-default" value="Save" onclick="fromRoonie()" data-dismiss="modal">Open</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-
-				  </div>
-				</div>
-
-				<!-- Editor de codigo Ace -->
-				<pre id="openRoonieTextArea" style="position: absolute; width: 70%; height: 67.5%; resize: none;"></pre>
-			</div>
-			<div id="step3" class="tab-pane fade">
-				<input type="button" class="btnGreen" value="Run it!" onclick="runLoadedCode()">
-				<input type="button" class="btnBlue" value="Reset Roonie" onclick="resetRoonie()">
-				<input type="button" class="btnBlue" value="Clean Console" onclick="cleanConsole()">
-				<input type="button" class="btnRed"  value="Kill Console" onclick="killConsole()">
-				<br />
-				
-				<!-- Terminal / Consola -->
-				<div id="terminal" style="position: absolute; width: 70%; height: 67.5%">
-					<div style="border-radius: 15px; font-size: xx-large; opacity: 0.75; padding: 0.2em 0.5em; position: absolute; transition: opacity 180ms ease-in; color: rgb(16, 16, 16); background-color: rgb(240, 240, 240); font-family: &quot;DejaVu Sans Mono for Powerline&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Everson Mono&quot;, FreeMono, Menlo, &quot;Lucida Console&quot;, Terminal, &quot;Source Code Pro&quot;, monospace; top: 112.109px; left: 698.156px;"></div>
-				</div>
-
-				<!-- Loading Spinner & Connection starter -->
-				<div style="display: none;" id="id_connecting_to_server_indicator">
-					<img id="id_feedback_dialog_spinner" src="./Styles/spinner-small.gif">
-					<span id="id_connecting_to_server_indicator_text">Starting encrypted connection to consoles-2.pythonanywhere.com on port 443</span>
-				</div>
-			</div>
-			<div id="step4" class="tab-pane fade">
-				<h3>Creditos</h3>
-			</div>
-		</div>
-	</div>
-
-	</body>
+   <head>
+      <title>Open Roonie</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--
+         ========================== STYLES ==========================
+         -->
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <!-- Blockly -->
+      <link rel="stylesheet" href="./Styles/blockly.css">
+      <!-- Python Anywhere -->
+      <link rel="stylesheet" href="./Styles/console.css" type="text/css" media="screen">
+      <!-- Ace -->
+      <link rel="stylesheet" href="./Styles/ace_editor.css">
+      <!-- Tabs -->
+      <link rel="stylesheet" href="./Styles/customtabs.css">
+      <!--
+         ========================== SCRIPTS ==========================
+         -->
+      <!-- Bootstrap -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <!-- Blockly -->
+      <script src="./blockly/blockly_compressed.js"></script>
+      <script src="./blockly/javascript_compressed.js"></script>
+      <script src="./blockly/msg/js/en.js"></script>
+      <script src="./blockly/generators/openroonie/program.js"></script>
+      <script src="./blockly/blocks/openroonie/program.js"></script>
+      <script src="./blockly/generators/openroonie/logic.js"></script>
+      <script src="./blockly/blocks/openroonie/logic.js"></script>
+      <script src="./blockly/generators/openroonie/loops.js"></script>
+      <script src="./blockly/blocks/openroonie/loops.js"></script>
+      <script src="./blockly/generators/openroonie/math.js"></script>
+      <script src="./blockly/blocks/openroonie/math.js"></script>
+      <script src="./blockly/generators/openroonie/text.js"></script>
+      <script src="./blockly/blocks/openroonie/text.js"></script>
+      <script src="./blockly/generators/openroonie/lists.js"></script>
+      <script src="./blockly/blocks/openroonie/lists.js"></script>
+      <script src="./blockly/generators/openroonie/variables.js"></script>
+      <script src="./blockly/blocks/openroonie/variables.js"></script>
+      <script src="./blockly/blocks/openroonie/functions.js"></script>
+      <script src="./blockly/generators/openroonie/functions.js"></script>
+      <!-- Python Anywhere -->
+      <script type="text/javascript" src="./Scripts/jQuery.js"></script>
+      <script type="text/javascript" src="./Scripts/hterm_all.js"></script>
+      <script type="text/javascript" src="./Scripts/load_console.js"></script>
+      <!-- Ace Editor -->
+      <script type="text/javascript" src="./ace_editor/ace.js" charset="utf-8"></script>
+      <!-- MainScript -->
+      <script type="text/javascript" src="./Scripts/mainScript.js"></script>
+   </head>
+   <body style="background:#f6f6f6;>
+      <a class="github-ribbon" href="https://github.com/RubenCV/OpenRoonie">
+      <img style="position: fixed; top: 0; right: 0; border: 0; z-index: 200;"
+         src="./Styles/git-ribbon.png" alt="Fork me on GitHub">
+      </a>
+      <div id="gradient" class="blog-header">
+         <div class="container">
+            <h1 class="blog-title">Open Roonie</h1>
+            <p class="lead blog-description">Open Source hybrid compiled language.</p>
+         </div>
+      </div>
+      <section style="background:#f6f6f6;">
+         <div class="container">
+            <div class="row" >
+               <div class="board">
+                  <div class="board-inner">
+                     <ul class="nav nav-tabs">
+                        <div class="liner"></div>
+                        <li class="active">
+                           <a href="#step0" data-toggle="tab" title="Manual">
+                           <span class="round-tabs one">
+                           <i class="glyphicon glyphicon-book"></i>
+                           </span> 
+                           </a>
+                        </li>
+                        <li><a onclick="resizeBlockly()" data-toggle="tab" title="Blockly">
+                           <span class="round-tabs two">
+                           <i class="glyphicon glyphicon-user"></i>
+                           </span> 
+                           </a>
+                        </li>
+                        <li><a href="#step2" data-toggle="tab" title="Code">
+                           <span class="round-tabs three">
+                           <i class="glyphicon glyphicon-gift"></i>
+                           </span> </a>
+                        </li>
+                        <li><a href="#step3" data-toggle="tab" title="Console">
+                           <span class="round-tabs four">
+                           <i class="glyphicon glyphicon-comment"></i>
+                           </span> 
+                           </a>
+                        </li>
+                        <li><a href="#step4" data-toggle="tab" title="Creditos">
+                           <span class="round-tabs five">
+                           <i class="glyphicon glyphicon-ok"></i>
+                           </span> </a>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="tab-content">
+                     <div id="step0" class="tab-pane fade in active" >
+                        <div style="width: 100%; height: 540px; padding-right: 20px; padding-left: 20px;">
+                           <h2>Manual</h2>
+                        </div>
+                     </div>
+                     <div id="step1" class="tab-pane fade">
+						 <div style="text-align: center;">
+							<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
+							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportXML">Export to XML</button>
+							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportXML">Import from XML</button>
+							<input type="button" class="btnRed" value="Flush Blocks" onclick="flushBlocks()">
+						</div>
+                        <!-- EXPORT XML MODAL -->
+                        <div id="modalExportXML" class="modal fade" role="dialog">
+                           <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Export to XML</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <p>Please, type the name of file to generate.</p>
+                                    <div class=".form-inline">
+                                       Filename: <input type="text" class="form-control" id="xmlFileName">
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" value="Save" onclick="toXml()" data-dismiss="modal">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- IMPORT XML MODAL -->
+                        <div id="modalImportXML" class="modal fade" role="dialog">
+                           <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Import from XML</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <p>Please, select your blockly XML file.</p>
+                                    <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
+                                    <label class="btn btn-block btn-default">
+                                    Browse <input id="fileInput" type="file" style="display: none;"/>
+                                    </label>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" value="Save" onclick="fromXml()" data-dismiss="modal">Open</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div id="blocklyArea" style="position: absolute; width: 100%; height: 500px;"></div>
+                        <div id="blocklyDiv"></div>
+                        <xml id="toolbox" style="display: none">
+                           <category name="Program" colour="100">
+                              <block type="program"></block>
+                              <block type="main"></block>
+                           </category>
+                           <category name="Logic" colour="150">
+                              <block type="controls_if"></block>
+                              <block type="logic_boolean"></block>
+                              <block type="logic_compare"></block>
+                              <block type="logic_operation"></block>
+                           </category>
+                           <category name="Loops" colour="200">
+                              <block type="controls_whileUntil"></block>
+                           </category>
+                           <category name="Math" colour="250">
+                              <block type="math_number" gap="32"></block>
+                              <block type="math_arithmetic">
+                                 <value name="A">
+                                    <shadow type="math_number">
+                                       <field name="NUM">1</field>
+                                    </shadow>
+                                 </value>
+                                 <value name="B">
+                                    <shadow type="math_number">
+                                       <field name="NUM">1</field>
+                                    </shadow>
+                                 </value>
+                              </block>
+                              <block type="math_random"></block>
+                           </category>
+                           <category name="Text" colour="300">
+                              <block type="var_char"></block>
+                              <block type="text"></block>
+                              <block type="text_comma"></block>
+                              <block type="text_print"></block>
+                           </category>
+                           <category name="Lists" colour="350">
+                              <block type="lists_create_with">
+                                 <mutation items="0"></mutation>
+                              </block>
+                           </category>
+                           <sep></sep>
+                           <category name="Variables" colour="100">
+                              <block type="variable_single"></block>
+                              <block type="variable_single_name"></block>
+                              <block type="variable_single_name_comma"></block>
+                              <block type="variable_single_set"></block>
+                              <block type="variable_array_one"></block>
+                              <block type="variable_array_two"></block>
+                              <block type="variable_array_one_set"></block>
+                              <block type="variable_array_two_set"></block>
+                              <block type="variable_array_one_get"></block>
+                              <block type="variable_array_two_get"></block>
+                              <block type="variable_read"></block>
+                           </category>
+                           <category name="Functions " colour="150">
+                              <block type="function_statement"></block>
+                              <block type="function_statement_no_params"></block>
+                              <block type="function_param"></block>
+                              <block type="function_param_coma"></block>
+                              <block type="function_call"></block>
+                              <block type="function_call_noparams"></block>
+                              <block type="function_call_ret"></block>
+                              <block type="function_call_ret_noparams"></block>
+                              <block type="return"></block>
+                              <block type="return_void"></block>
+                           </category>
+                        </xml>
+                     </div>
+                     <div id="step2" class="tab-pane fade">
+						<div style="text-align: center;">
+							<input type="button" class="btnGreen" value="Compile it!" onclick="toConsoleTab()">
+							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportCODE">Export Code</button>
+							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportCODE">Import Code</button>
+							<input type="button" class="btnRed" value="Flush Code" onclick="flushCode()">
+						</div>
+                        <!-- EXPORT CODE MODAL -->
+                        <div id="modalExportCODE" class="modal fade" role="dialog">
+                           <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Export to OpenRoonie</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <p>Please, type the name of file to generate.</p>
+                                    <div class=".form-inline">
+                                       Filename: <input type="text" class="form-control" id="roonieFileName">
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" value="Save" onclick="toRoonie()" data-dismiss="modal">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- IMPORT CODE MODAL -->
+                        <div id="modalImportCODE" class="modal fade" role="dialog">
+                           <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Import from OpenRoonie</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <p>Please, select your .roonie file.</p>
+                                    <!-- style="padding: 15px 32px; color: white; font-size: 18px; font-weight: normal; cursor: pointer;" -->
+                                    <label class="btn btn-block btn-default">
+                                    Browse <input id="roonieInput" type="file" style="display: none;"/>
+                                    </label>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" value="Save" onclick="fromRoonie()" data-dismiss="modal">Open</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- Editor de codigo Ace -->
+                        <pre id="openRoonieTextArea" style="width: 100%; height: 500px;"></pre>
+                     </div>
+                     <div id="step3" class="tab-pane fade">
+						<div style="text-align: center;">
+							<input type="button" class="btnGreen" value="Run it!" onclick="runLoadedCode()">
+							<input type="button" class="btnBlue" value="Reset Roonie" onclick="resetRoonie()">
+							<input type="button" class="btnBlue" value="Clean Console" onclick="cleanConsole()">
+							<input type="button" class="btnRed"  value="Kill Console" onclick="killConsole()">
+						</div>
+                        <!-- Terminal / Consola -->
+                        <div id="terminal" style="width: 100%; height: 430px;">
+                           <div style="border-radius: 15px; font-size: xx-large; opacity: 0.75; padding: 0.2em 0.5em; position: absolute; transition: opacity 180ms ease-in; color: rgb(16, 16, 16); background-color: rgb(240, 240, 240); font-family: &quot;DejaVu Sans Mono for Powerline&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Everson Mono&quot;, FreeMono, Menlo, &quot;Lucida Console&quot;, Terminal, &quot;Source Code Pro&quot;, monospace; top: 112.109px; left: 698.156px;"></div>
+                        </div>
+                        <!-- Loading Spinner & Connection starter -->
+                        <div style="display: none;" id="id_connecting_to_server_indicator">
+                           <img id="id_feedback_dialog_spinner" src="./Styles/spinner-small.gif">
+                           <span id="id_connecting_to_server_indicator_text">Starting encrypted connection to consoles-2.pythonanywhere.com on port 443</span>
+                        </div>
+                     </div>
+                     <div id="step4" class="tab-pane fade">
+                        <div style="width: 100%; height: 540px; padding-right: 20px; padding-left: 20px;">
+                           <h2>Creditos</h2>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
 </html>
-
