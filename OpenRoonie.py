@@ -656,48 +656,39 @@ parser = yacc.yacc()
 print('\nTry: loadFile() or loadCode()')
 
 def loadFile():
+    resetRoonie()
     try:
         fn = input('Source Code File > ')
         file = open(fn+'.roonie', 'r')
         s = file.read()
         parser.parse(s)
-        print("\nCompilacion terminada.")
+        printDireAndQuads()
 
     except (EOFError, IOError):
         print("\nERROR IO. Verifica que el nombre del archivo sea el correcto.")
     except:
-        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente")
-        return
-    
-    printAndExecute()
-
-
-def loadCode():
-    try:
-        '''lines = []
-        while True:
-            line = input('Source Code > ')
-            if line:
-                lines.append(line)
-            else:
-                break
-        code = '\n'.join(lines)'''
-        code = input('Source Code > ')
-        parser.parse(code)
-        print("\nCompilacion terminada.")
-        
-    except:
-        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente")
+        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente.")
         resetRoonie()
         return
     
-    printAndExecute()
+def loadCode():
+    resetRoonie()
+    try:
+        code = input('Source Code > ')
+        parser.parse(code)
+        printDireAndQuads()
+        
+    except:
+        print("\nERROR COMPILACION. No se pudo compilar tu programa, verifica los errores marcados anteriormente.")
+        resetRoonie()
 
-def printAndExecute():
+def printDireAndQuads():
     # Prints
+    print("\nCompilacion terminada.")
     FunctionDirectory.showDirectory()
     QuadrupleManager.showQuadruples()
 
+def runLoadedCode():
     try:
         # Execution
         print('\n---Start-Execution---\n')
@@ -708,10 +699,6 @@ def printAndExecute():
         print("\nERROR RUNTIME. No se pudo ejecutar tu programa, verifica los errores marcados anteriormente")
         # Resetear para el siguiente archivo
         resetRoonie()
-        return
-
-    # Resetear para el siguiente archivo
-    resetRoonie()
 
 def cleanConsole():
     print('\n' * 100)

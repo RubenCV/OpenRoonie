@@ -1,6 +1,5 @@
 // Global Vars
-var editor, workspace, onresize;
-var fileData;
+var editor, workspace, onresize, fileData;
 
 //==================== Document Ready ====================//
 $(document).ready(function() {
@@ -70,6 +69,19 @@ function resizeBlockly(){
 	Blockly.svgResize(workspace);
 }
 
+// Limpiar el workspace de Blockly
+function flushBlocks(){
+	Blockly.mainWorkspace.clear();
+}
+
+
+//==================== Ace Editor ====================//
+// Limpiar el Editor Ace
+function flushCode(){
+	editor.setValue("");
+	editor.gotoLine(editor.session.getLength());
+}
+
 
 //==================== Consola ====================//
 // Cargar la Terminal / Consola
@@ -78,7 +90,7 @@ $(function () {
 	var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
 
 	// Id de la Consola que esta corriendo OpenRoonie.py
-	var consoleId = "3981622";
+	var consoleId = "3982570";
 
 	Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
 });
@@ -96,6 +108,17 @@ function loadCode(){
 // Limpiar la consola
 function cleanConsole(){
 	Anywhere.sockjs.send('cleanConsole()\r');
+}
+
+// Correr el codigo obj que ya se habia creado previamente
+function runLoadedCode(){
+	Anywhere.sockjs.send('runLoadedCode()\r');
+}
+
+// Matar la terminal... por que lo harias!?!??!
+function killConsole(){
+	alert("Deshabilitado.");
+	//Anywhere.sockjs.send('exit()\r');
 }
 
 
@@ -138,16 +161,15 @@ function toConsoleTab(){
 	loadCode();
 }
 
+
+//==================== Salvar Blocks a XML ====================//
 function toXml(){
 	var output = document.getElementById('openRoonieTextArea');
 	var xml = Blockly.Xml.workspaceToDom(workspace);
 	var plaintext = Blockly.Xml.domToPrettyText(xml);
-
 	var data = plaintext;
-
-
+	
 	var filename = document.getElementById("customFileName").value;
-
 	filename += ".xml";
 
 	var blob = new Blob([data], {type: 'text/csv'});

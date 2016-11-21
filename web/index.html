@@ -74,9 +74,9 @@
 			</div>
 			<div id="step1" class="tab-pane fade">
 				<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
-				
 				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportXML">Export to XML</button>
 				<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalImportXML">Import from XML</button>
+				<input type="button" class="btnRed" value="Flush Blocks" onclick="flushBlocks()">
 				
 				<!-- EXPORT XML MODAL -->
 				<div id="modalExportXML" class="modal fade" role="dialog">
@@ -221,17 +221,19 @@
 				</xml>
 			</div>
 			<div id="step2" class="tab-pane fade">
-				<input type="button" class="btnGreen" value="Compile & Run" onclick="toConsoleTab()">
+				<input type="button" class="btnGreen" value="Compile it!" onclick="toConsoleTab()">
 				<input type="button" class="btnBlue" value="Import Code" onclick="makeFile()">
 				<input type="button" class="btnBlue" value="Export Code" onclick="makeFile()">
+				<input type="button" class="btnRed" value="Flush Code" onclick="flushCode()">
 				<br />
 				
 				<!-- Editor de codigo Ace -->
 				<pre id="openRoonieTextArea" style="position: absolute; width: 70%; height: 67.5%; resize: none;"></pre>
 			</div>
 			<div id="step3" class="tab-pane fade">
+				<input type="button" class="btnGreen" value="Run it!" onclick="runLoadedCode()">
 				<input type="button" class="btnBlue" value="Clean Console" onclick="cleanConsole()">
-				<input type="button" class="btnRed"  value="Kill Console" onclick="">
+				<input type="button" class="btnRed"  value="Kill Console" onclick="killConsole()">
 				<br />
 				
 				<!-- Terminal / Consola -->
