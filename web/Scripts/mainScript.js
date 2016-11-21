@@ -90,7 +90,7 @@ $(function () {
 	var userId = "66de0ly7uel6sfx69be2vji2tpngcw8i";
 
 	// Id de la Consola que esta corriendo OpenRoonie.py
-	var consoleId = "3982570";
+	var consoleId = "3982774";
 
 	Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
 });
@@ -113,6 +113,10 @@ function cleanConsole(){
 // Correr el codigo obj que ya se habia creado previamente
 function runLoadedCode(){
 	Anywhere.sockjs.send('runLoadedCode()\r');
+}
+
+function resetRoonie(){
+	Anywhere.sockjs.send('resetRoonie()\r');
 }
 
 // Matar la terminal... por que lo harias!?!??!

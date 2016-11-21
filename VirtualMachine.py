@@ -162,8 +162,7 @@ class VirtualMachineClass:
 
      def readOp(self):
           R_ABS  = self.translateVirtualToAbsolute(self.R)
-          varName = self.FunctionDirectory.getVariableByVirtualDirection(self.contextStack.peek()[0], self.R)
-          result = input(varName + " = ")
+          result = input('')
           self.MemoryManager.setEntryValue(R_ABS, result)
           
      def gotoTOp(self):
