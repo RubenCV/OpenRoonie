@@ -17,6 +17,9 @@
       <link rel="stylesheet" href="./Styles/ace_editor.css">
       <!-- Tabs -->
       <link rel="stylesheet" href="./Styles/customtabs.css">
+	  <!-- Icons -->
+	  <link rel="stylesheet" href="./Styles/icons.css">
+	  
       <!--
          ========================== SCRIPTS ==========================
          -->
@@ -73,30 +76,30 @@
                         <li class="active">
                            <a href="#step0" data-toggle="tab" title="Manual">
                            <span class="round-tabs one">
-                           <i class="glyphicon glyphicon-book"></i>
+                           <i class="icon-book"></i>
                            </span> 
                            </a>
                         </li>
-                        <li><a onclick="resizeBlockly()" data-toggle="tab" title="Blockly">
+                        <li><a onclick="resizeBlockly()" data-toggle="tab" title="Blockly" style="cursor: pointer;">
                            <span class="round-tabs two">
-                           <i class="glyphicon glyphicon-user"></i>
+                           <i class="icon-checkbox-unchecked"></i>
                            </span> 
                            </a>
                         </li>
                         <li><a href="#step2" data-toggle="tab" title="Code">
                            <span class="round-tabs three">
-                           <i class="glyphicon glyphicon-gift"></i>
+                           <i class="icon-embed2"></i>
                            </span> </a>
                         </li>
                         <li><a href="#step3" data-toggle="tab" title="Console">
                            <span class="round-tabs four">
-                           <i class="glyphicon glyphicon-comment"></i>
+                           <i class="icon-terminal"></i>
                            </span> 
                            </a>
                         </li>
-                        <li><a href="#step4" data-toggle="tab" title="Creditos">
+                        <li><a href="#step4" data-toggle="tab" title="References">
                            <span class="round-tabs five">
-                           <i class="glyphicon glyphicon-ok"></i>
+                           <i class="icon-bookmarks"></i>
                            </span> </a>
                         </li>
                      </ul>
@@ -104,10 +107,57 @@
                   <div class="tab-content">
                      <div id="step0" class="tab-pane fade in active" >
                         <div style="width: 100%; height: 540px; padding-right: 20px; padding-left: 20px;">
-                           <h2>Manual</h2>
+                           <h2 style="font-weight: bold;">Manual</h2>
+						   
+						   <p style="text-align: justify;">
+						   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis commodo diam sed laoreet. 
+						   Integer non iaculis lectus. Mauris molestie tempus orci in pellentesque. Nam non libero consequat, 
+						   tempor nulla commodo, iaculis ligula. Etiam ornare sagittis erat id dapibus. Nullam pretium dictum ipsum, a porta leo. 
+						   Ut nisi lacus, malesuada a rutrum quis, tempus non metus. Etiam sit amet pellentesque diam, vitae molestie tellus. 
+						   Aliquam sit amet rutrum elit. Nam ac orci ac lectus volutpat euismod. Cras eget suscipit ligula. Donec vitae massa velit. 
+						   Proin interdum tortor at ante vulputate, pellentesque posuere metus ultrices. Ut convallis, ipsum porta aliquet venenatis, 
+						   quam velit vulputate lectus, non blandit ligula turpis eget nisl. Morbi imperdiet augue metus, pharetra sollicitudin nibh 
+						   semper ac. Quisque pretium lectus ac eros lobortis, vitae accumsan tortor sollicitudin.
+						   </p>
+						   
+						   <p style="text-align: justify;">
+						   Aliquam ligula massa, hendrerit in diam ac, efficitur vehicula sem. Cras et nibh rhoncus nisi vulputate finibus.
+						   Maecenas leo nisi, aliquam tincidunt volutpat ut, dictum non felis. Etiam a sagittis augue, id volutpat orci.
+						   Vivamus velit metus, rhoncus id pellentesque quis, ullamcorper ac velit. Phasellus ac aliquet metus, laoreet
+						   blandit leo. Curabitur felis orci, dictum quis convallis vel, ornare non ipsum. Morbi elit justo, sollicitudin ut ultrices 
+						   mattis ut ligula. Cras sed urna ut ex posuere feugiat. Nunc ac vestibulum neque, quis auctor dolor. Ut iaculis 
+						   dui non mollis ullamcorper. In porta condimentum turpis et dapibus. Pellentesque commodo molestie velit cursus gravida.
+						   </p style="text-align: justify;">
+						   
+						   <p style="text-align: justify;">
+						   Nulla gravida lorem dolor, eget facilisis lacus varius in. Duis in aliquet leo, eu pellentesque odio. Proin congue 
+						   ligula consequat tellus varius scelerisque. Sed ultrices imperdiet odio. Lorem ipsum dolor sit amet, consectetur 
+						   adipiscing elit. In scelerisque sit amet elit in sagittis. Phasellus imperdiet a enim venenatis aliquet. Donec ut 
+						   enim elit. Vestibulum venenatis molestie turpis at efficitur. Proin vel bibendum turpis. Cras ullamcorper erat odio, 
+						   non pulvinar nibh volutpat eget. Aenean eu rutrum nulla, sit amet tempus velit.
+						   </p style="text-align: justify;">
+						   
+						   <p style="text-align: justify;">
+							Sed eu neque sit amet felis pretium imperdiet. Quisque suscipit condimentum ipsum quis euismod. Suspendisse ac 
+							leo ut leo aliquet semper. Etiam at eleifend ante. Nulla ut nunc felis. Pellentesque vulputate suscipit ex, sit 
+							amet congue nisl posuere eget. Vivamus magna felis, mattis eget tortor eu, lobortis euismod nisi. Vestibulum et 
+							rutrum diam. Integer eu vulputate felis, faucibus gravida sem. Nam erat urna, blandit consectetur condimentum 
+							sed, commodo ac dui. Fusce et nisl quis nunc blandit semper. In elementum fermentum libero eu tempus. Nunc molestie 
+							velit magna, sed cursus sem tempus nec. Aliquam dictum finibus orci in tempus.
+						   </p>
+						   
+						   <p style="text-align: justify;">
+						   Nulla gravida lorem dolor, eget facilisis lacus varius in. Duis in aliquet leo, eu pellentesque odio. Proin congue 
+						   ligula consequat tellus varius scelerisque. Sed ultrices imperdiet odio. Lorem ipsum dolor sit amet, consectetur 
+						   adipiscing elit. In scelerisque sit amet elit in sagittis. Phasellus imperdiet a enim venenatis aliquet. Donec ut 
+						   enim elit.
+						   </p>
+						   <input type="button" class="btnGreen" style="float: right;" value="Lets start!" onclick="resizeBlockly()">
+						   
                         </div>
                      </div>
                      <div id="step1" class="tab-pane fade">
+						<h2 style="position: absolute; font-weight: bold; padding-right: 20px; padding-left: 20px;">Blockly</h2>
 						 <div style="text-align: center;">
 							<input type="button" class="btnGreen" value="Code it!" onclick="toCodeTab()">	
 							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportXML">Export to XML</button>
@@ -231,6 +281,7 @@
                         </xml>
                      </div>
                      <div id="step2" class="tab-pane fade">
+						<h2 style="position: absolute; font-weight: bold; padding-right: 20px; padding-left: 20px;">Code</h2>
 						<div style="text-align: center;">
 							<input type="button" class="btnGreen" value="Compile it!" onclick="toConsoleTab()">
 							<button type="button" class="btnBlue" data-toggle="modal" data-target="#modalExportCODE">Export Code</button>
@@ -286,6 +337,7 @@
                         <pre id="openRoonieTextArea" style="width: 100%; height: 500px;"></pre>
                      </div>
                      <div id="step3" class="tab-pane fade">
+						<h2 style="position: absolute; font-weight: bold; padding-right: 20px; padding-left: 20px;">Console</h2>
 						<div style="text-align: center;">
 							<input type="button" class="btnGreen" value="Run it!" onclick="runLoadedCode()">
 							<input type="button" class="btnBlue" value="Reset Roonie" onclick="resetRoonie()">
@@ -304,7 +356,21 @@
                      </div>
                      <div id="step4" class="tab-pane fade">
                         <div style="width: 100%; height: 540px; padding-right: 20px; padding-left: 20px;">
-                           <h2>Creditos</h2>
+                           <h2 style="font-weight: bold;">References</h2>
+						   
+						   <p> Python-Lex-Yacc (PLY) </p>
+						   <p> Google's Blockly </p>
+						   <p> Python Anywhere </p>
+						   <p> Ace Editor </p>
+						   <p> Bootstrap </p>
+						   <p> jQuery </p>
+						   
+						   <br />
+						   <b>
+							   <p> A00813182 - Antonio Carlos Vargas Torres </p>
+							   <p> A00814298 - Ruben Eugenio Cantu Vota </p>
+						   </b>
+						   
                         </div>
                      </div>
                   </div>

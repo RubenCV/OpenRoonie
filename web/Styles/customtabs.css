@@ -52,7 +52,8 @@ span.round-tabs{
 }
 
 span.round-tabs.one{
-    color: rgb(34, 194, 34);border: 2px solid rgb(34, 194, 34);
+    color: rgb(34, 194, 34);
+	border: 2px solid rgb(34, 194, 34);
 }
 
 li.active span.round-tabs.one{
@@ -62,7 +63,8 @@ li.active span.round-tabs.one{
 }
 
 span.round-tabs.two{
-    color: #febe29;border: 2px solid #febe29;
+    color: #febe29;
+	border: 2px solid #febe29;
 }
 
 li.active span.round-tabs.two{
@@ -72,7 +74,8 @@ li.active span.round-tabs.two{
 }
 
 span.round-tabs.three{
-    color: #3e5e9a;border: 2px solid #3e5e9a;
+    color: #3e5e9a;
+	border: 2px solid #3e5e9a;
 }
 
 li.active span.round-tabs.three{
@@ -82,7 +85,8 @@ li.active span.round-tabs.three{
 }
 
 span.round-tabs.four{
-    color: #f1685e;border: 2px solid #f1685e;
+    color: #f1685e;
+	border: 2px solid #f1685e;
 }
 
 li.active span.round-tabs.four{
@@ -92,13 +96,14 @@ li.active span.round-tabs.four{
 }
 
 span.round-tabs.five{
-    color: #999;border: 2px solid #999;
+    color: #A901DB;
+	border: 2px solid #A901DB;
 }
 
 li.active span.round-tabs.five{
     background: #fff !important;
     border: 2px solid #ddd;
-    color: #999;
+    color: #A901DB;
 }
 
 .nav-tabs > li.active > a span.round-tabs{
@@ -107,23 +112,12 @@ li.active span.round-tabs.five{
 .nav-tabs > li {
     width: 20%;
 }
-/*li.active:before {
-    content: " ";
-    position: absolute;
-    left: 45%;
-    opacity:0;
-    margin: 0 auto;
-    bottom: -2px;
-    border: 10px solid transparent;
-    border-bottom-color: #fff;
-    z-index: 1;
-    transition:0.2s ease-in-out;
-}*/
+
 .nav-tabs > li:after {
     content: " ";
     position: absolute;
     left: 45%;
-   opacity:0;
+	opacity:0;
     margin: 0 auto;
     bottom: 0px;
     border: 5px solid transparent;
@@ -131,17 +125,18 @@ li.active span.round-tabs.five{
     transition:0.1s ease-in-out;
     
 }
+
 .nav-tabs > li.active:after {
     content: " ";
     position: absolute;
     left: 45%;
-   opacity:1;
+    opacity:1;
     margin: 0 auto;
     bottom: 0px;
     border: 10px solid transparent;
     border-bottom-color: #ddd;
-    
 }
+
 .nav-tabs > li a{
    width: 50px;
    height: 50px;
@@ -156,15 +151,18 @@ li.active span.round-tabs.five{
 
 .tab-content{
 }
+
 .tab-pane{
    position: relative;
 
 }
+
 .tab-content .head{
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 25px;
     text-transform: uppercase;
 }
+
 .btn-outline-rounded{
     padding: 10px 40px;
     margin: 20px 0;
@@ -178,36 +176,36 @@ li.active span.round-tabs.five{
     color: #ffffff;
 }
 
-
-
 @media( max-width : 585px ){
-    
-    .board {
-width: 90%;
-height:auto !important;
-}
-    span.round-tabs {
-        font-size:16px;
-width: 50px;
-height: 50px;
-line-height: 50px;
-    }
-    .tab-content .head{
-        font-size:20px;
-        }
-    .nav-tabs > li a {
-width: 50px;
-height: 50px;
-line-height:50px;
-}
-
-.nav-tabs > li.active:after {
-content: " ";
-position: absolute;
-left: 35%;
-}
-
-.btn-outline-rounded {
-    padding:12px 20px;
-    }
+	.board {
+		width: 90%;
+		height:auto !important;
+	}
+	
+	span.round-tabs {
+		font-size:16px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+	}
+	
+	.tab-content .head{
+		font-size:20px;
+	}
+	
+	.nav-tabs > li a {
+		width: 50px;
+		height: 50px;
+		line-height:50px;
+	}
+	
+	.nav-tabs > li.active:after {
+		content: " ";
+		position: absolute;
+		left: 35%;
+	}
+	
+	.btn-outline-rounded {
+		padding:12px 20px;
+	}
 }
