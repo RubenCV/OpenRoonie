@@ -1,4 +1,4 @@
-program fibboRecursivo;
+program fibRecursivo;
 
 var int iter = 0;
 
@@ -11,7 +11,6 @@ function int tailFibonacci(int n0, int n1, int n2){
 	*/
 	var int ret;
 	
-	// Aumentamos en 1 la cantidad de iteraciones
 	iter = iter + 1;
  
 	if (n0 <= 0) {
@@ -29,34 +28,15 @@ function int fibonacci(int n){
 	return tailFibonacci(n, 1, 0);
 }
 
-function int factorial (int n) {
-	var int ret = 1;
-
-	if(n > 1) {
-		ret = n * factorial(n - 1);
-	}
-	
-	return ret;
-}
-
 main {
 	var string endl = "\n";
-	var int fib, num, num2, fact, numNeg;
-	
-	// Llamada a func fibo
+	var int fib, num;
+
+	print("Fibonacci de: ");
 	read(num);
 	fib = fibonacci(num);
-	
-	// Llamada a func fact
-	num2 = 5;
-	fact = factorial(num2);
-	
-	// Prueba con numero negativo
-	numNeg = -5 * 2;
-	
-	// Impresion de los resultados
+
 	print("Fib(", num, ") = ", fib, endl);
 	print("Iteraciones fib: ", iter, endl);
-	print(num2, "! = ", fact, endl);
-	print("Numero negativo: ", numNeg, endl);
+
 }

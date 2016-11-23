@@ -6,16 +6,24 @@ var int indice;
 var int vector[10];
 
 function void initVector(){
-	vector[0] =  10;
-	vector[1] = -24;
-	vector[2] = 432;
-	vector[3] =   1;
-	vector[4] =  -3;
-	vector[5] =  66;
-	vector[6] =  89;
-	vector[7] =  72;
-	vector[8] =   7;
-	vector[9] =  -3;
+	var int i = 0;
+
+	while(i < 10){
+		vector[i] = random(-50, 50);
+		i = i + 1;
+	}
+	return;
+}
+
+function void showVector(){
+	var int i = 0;
+	var int n;
+
+	while(i < 10){
+		n = vector[i];
+		print("Vector[", i , "] = ", n, endl);
+		i = i + 1;
+	}
 	return;
 }
 
@@ -37,6 +45,7 @@ function void findIndex(int value){
 
 main {
 	initVector();
+	showVector();
 	print("Introduzca el valor a buscar: ", endl);
 	read(valor);
 

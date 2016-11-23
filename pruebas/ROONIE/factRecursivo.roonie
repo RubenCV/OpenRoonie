@@ -1,0 +1,22 @@
+program factRecursivo;
+
+function int factorial (int n) {
+	var int ret = 1;
+
+	if(n > 1) {
+		ret = n * factorial(n - 1);
+	}
+	
+	return ret;
+}
+
+main {
+	var string endl = "\n";
+	var int num, fact;
+	
+	print("Factorial de: ");
+	read(num);
+	fact = factorial(num);
+	
+	print(num, "! = ", fact, endl);
+}

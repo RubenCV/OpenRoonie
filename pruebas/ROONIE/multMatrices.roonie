@@ -1,0 +1,114 @@
+program find;
+
+var string endl = "\n";
+var int valor;
+var int indice;
+var int A[3, 3];
+var int B[3, 3];
+var int C[3, 3];
+
+
+function void initVectors(){
+	var int i = 0;
+	var int j = 0;
+
+	while(i < 3){
+		j = 0;
+
+		while(j < 3){
+			A[i, j] = random(1, 8);
+			B[i, j] = random(55, 100);
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+function void showVectorA(){
+	var int i = 0;
+	var int j = 0;
+	var int n;
+	while(i < 3){
+		j = 0;
+
+		while(j < 3){
+			n = A[i, j];
+			print("A[", i , ", ", j ,"] = ", n, endl);
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+function void showVectorB(){
+	var int i = 0;
+	var int j = 0;
+	var int n;
+	while(i < 3){
+		j = 0;
+
+		while(j < 3){
+			n = B[i, j];
+			print("B[", i , ", ", j ,"] = ", n, endl);
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+function void showVectorC(){
+	var int i = 0;
+	var int j = 0;
+	var int n;
+
+	while(i < 3){
+		j = 0;
+		while(j < 3){
+			n = C[i, j];
+			print("C[", i , ", ", j ,"] = ", n, endl);
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+function void multiplyVectors(){
+	var int i = 0;
+	var int j = 0;
+	var int k = 0;
+
+	var int nA, nB, nC, res;
+
+	while(i < 3){
+		j = 0;
+		while(j < 3){
+			k = 0;
+			C[i, j] = 0;
+			while(k < 3){
+				nA = A[i, k];
+				nB = B[k, j];
+				nC = C[i, j];
+				res = nC +  nA * nB;
+				C[i, j] = res;
+
+				k = k + 1;
+			}
+			j = j + 1;
+		}
+		i = i + 1;
+	}
+
+	return;
+}
+
+main {
+	initVectors();
+	showVectorA();
+	showVectorB();
+	multiplyVectors();
+	showVectorC();
+}

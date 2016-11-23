@@ -1,0 +1,29 @@
+program factIterativo;
+
+function int factorial (int n) {
+	var int ret = 1;
+	var int i = 2;
+
+	if(n == 0 | n == 1){
+		ret = 1;
+	}
+
+	while(i <= n){
+		ret = ret * i;
+		i = i + 1;
+	}
+
+	return ret;
+}
+
+main {
+	var string endl = "\n";
+	var int num, fact;
+	
+	print("Factorial de: ");
+	read(num);
+	fact = factorial(num);
+	
+	print(num, "! = ", fact, endl);
+
+}
