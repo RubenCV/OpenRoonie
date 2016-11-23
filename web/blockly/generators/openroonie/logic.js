@@ -65,11 +65,11 @@ Blockly.JavaScript['logic_compare'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'A', order);
   var argument1 = Blockly.JavaScript.valueToCode(block, 'B', order);
 
-  if(argument0.indexOf("(") > -1) {
+  if(argument0.indexOf("(") == 0) {
     argument0 = argument0.substring(1,argument0.length-1);
   }
 
-  if(argument1.indexOf("(") > -1) {
+  if(argument1.indexOf("(") == 0) {
     argument1 = argument1.substring(1,argument1.length-1);
   }
 

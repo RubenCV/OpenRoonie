@@ -49,11 +49,11 @@ Blockly.JavaScript['math_arithmetic'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.JavaScript.valueToCode(block, 'B', order) || '0';
 
-  if(argument0.indexOf("(") > -1) {
+  if(argument0.indexOf("(") == 0) {
     argument0 = argument0.substring(1,argument0.length-1);
   }
 
-  if(argument1.indexOf("(") > -1) {
+  if(argument1.indexOf("(") == 0) {
     argument1 = argument1.substring(1,argument1.length-1);
   }
 
@@ -69,6 +69,17 @@ Blockly.JavaScript['math_arithmetic'] = function(block) {
 
 Blockly.JavaScript['math_random'] = function(block) {
   // Numeric value.
-  var code = 'rand(' + parseFloat(block.getFieldValue('NUM')) + ')';
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_NONE);
+  var argument1 = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_NONE);
+
+  if(argument0.indexOf("(") == 0) {
+    argument0 = argument0.substring(1,argument0.length-1);
+  }
+
+  if(argument1.indexOf("(") == 0) {
+    argument1 = argument1.substring(1,argument1.length-1);
+  }
+
+  var code = 'random(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

@@ -40,7 +40,7 @@ Blockly.JavaScript['function_param_coma'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var text_var = block.getFieldValue('VAR');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  if(value_name.indexOf("(") > -1) {
+  if(value_name.indexOf("(") == 0) {
     value_name = value_name.substring(1,value_name.length-1);
   }
   var code = dropdown_type + ' ' + text_var + ', ' + value_name;

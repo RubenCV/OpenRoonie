@@ -108,24 +108,58 @@ Blockly.Blocks['math_arithmetic'] = {
 
 Blockly.Blocks['math_random'] = {
   /**
-   * Block for numeric value.
+   * Block for comparison operator.
    * @this Blockly.Block
    */
-  init: function() {
-    this.setColour(Blockly.Blocks.math.HUE);
-    this.appendDummyInput()
-        .appendField("rand(")
-        .appendField(new Blockly.FieldNumber('0'), 'NUM')
-        .appendField(")");
-    this.setOutput(true);
-    // Assign 'this' to a variable for use in the tooltip closure below.
+
+   init: function() {
+    this.jsonInit({
+      "message0": "random (%1 , %2)",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "A",
+          "check": "Number"
+        },
+        {
+          "type": "input_value",
+          "name": "B",
+          "check": "Number"
+        }
+      ],
+      "inputsInline": true,
+      "output": "Number",
+      "colour": Blockly.Blocks.math.HUE,
+      "helpUrl": Blockly.Msg.MATH_ARITHMETIC_HELPURL
+    });
+  // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    // Number block is trivial.  Use tooltip of parent block if it exists.
     this.setTooltip(function() {
-      var parent = thisBlock.getParent();
-      return (parent && parent.getInputsInline() && parent.tooltip) ||
-          Blockly.Msg.MATH_NUMBER_TOOLTIP;
+      var mode = thisBlock.getFieldValue('OP');
+      var TOOLTIPS = {
+        'ADD': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_ADD,
+        'MINUS': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MINUS,
+        'MULTIPLY': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MULTIPLY,
+        'DIVIDE': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_DIVIDE,
+        'POWER': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_POWER
+      };
+      return TOOLTIPS[mode];
     });
   }
-};
 
+
+
+   /*
+  init: function() {
+
+    this.setColour(Blockly.Blocks.math.HUE);
+    this.setOutput(true, 'Boolean');
+    this.appendValueInput('A')
+        .appendField("rand(");
+    this.appendValueInput('B')
+        .appendField(", ");
+    this.appendDummyInput()
+        .appendField(") ");
+    this.setInputsInline(true);
+  }*/
+};
