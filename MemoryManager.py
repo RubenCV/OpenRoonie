@@ -75,6 +75,9 @@ class MemoryManagerClass:
           VirtualMemoryIndex = self.Counters[Index]
           self.Dictionary[VirtualMemoryIndex] = valor
           self.Counters[Index] = VirtualMemoryIndex + 1
+
+          self.checkMemoryOverflow()
+          
           return VirtualMemoryIndex
 
      def getEntryType (self, virDir) :
@@ -122,6 +125,13 @@ class MemoryManagerClass:
           else :
                print("\nERROR MEMORIA. Direccion de memoria invalida. Direccion: ", virDir)
                return None
+
+     def checkMemoryOverflow(self):
+          for i in range(0, len(self.Counters)) :
+               if self.Counters[i] < ((self.MaxVarsPerType * i) + self.MaxVarsPerType) :
+                    print("\nERROR MEMORIA. Memoria saturada, ya no se puede cargar mas variables")
+                    return None          
+          return True
 
      def deleteVarsByBounds(self, oldCounters, newCounters):
           for i in range(0,  len(self.DataTypes)):

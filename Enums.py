@@ -43,15 +43,16 @@ class EnumsClass:
                                   '='        :    12,
                                   'print'    :    13,
                                   'read'     :    14,
-                                  'gotoT'    :    15,
-                                  'gotoF'    :    16,
-                                  'goto'     :    17,
-                                  'goSub'    :    18,
-                                  'params'   :    19,
-                                  'return'   :    20,
-                                  'era'      :    21,
-                                  'verify'   :    22,
-                                  'end'      :    23}
+                                  'random'   :    15,
+                                  'gotoT'    :    16,
+                                  'gotoF'    :    17,
+                                  'goto'     :    18,
+                                  'goSub'    :    19,
+                                  'params'   :    20,
+                                  'return'   :    21,
+                                  'era'      :    22,
+                                  'verify'   :    23,
+                                  'end'      :    24}
 
           # Funciones utilizadas para la creacion de los cuadruplos
           self.FunctionsQuadruples    =     {0      :    'literalOp',
@@ -69,15 +70,16 @@ class EnumsClass:
                                              12     :    'assignOp',
                                              13     :    'printOp',
                                              14     :    'readOp',
-                                             15     :    'gotoTOp',
-                                             16     :    'gotoFOp',
-                                             17     :    'gotoOp',
-                                             18     :    'goSubOp',
-                                             19     :    'paramsOp',
-                                             20     :    'returnOp',
-                                             21     :    'eraOp',
-                                             22     :    'verifyOp',
-                                             23     :    'endOp'}
+                                             15     :    'randomOp',
+                                             16     :    'gotoTOp',
+                                             17     :    'gotoFOp',
+                                             18     :    'gotoOp',
+                                             19     :    'goSubOp',
+                                             20     :    'paramsOp',
+                                             21     :    'returnOp',
+                                             22     :    'eraOp',
+                                             23     :    'verifyOp',
+                                             24     :    'endOp'}
 
           # Funciones utilizadas para la interpretacion y ejecucion de los cuadruplos
           self.FunctionsVirtualMachine   =  {0      :    'literalOp',
@@ -95,15 +97,16 @@ class EnumsClass:
                                              12     :    'assignOp',
                                              13     :    'printOp',
                                              14     :    'readOp',
-                                             15     :    'gotoTOp',
-                                             16     :    'gotoFOp',
-                                             17     :    'gotoOp',
-                                             18     :    'goSubOp',
-                                             19     :    'paramsOp',
-                                             20     :    'returnOp',
-                                             21     :    'eraOp',
-                                             22     :    'verifyOp',
-                                             23     :    'endOp'}
+                                             15     :    'randomOp',
+                                             16     :    'gotoTOp',
+                                             17     :    'gotoFOp',
+                                             18     :    'gotoOp',
+                                             19     :    'goSubOp',
+                                             20     :    'paramsOp',
+                                             21     :    'returnOp',
+                                             22     :    'eraOp',
+                                             23     :    'verifyOp',
+                                             24     :    'endOp'}
           
 class Enums:
      Instance = EnumsClass()

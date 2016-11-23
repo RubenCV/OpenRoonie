@@ -54,6 +54,7 @@ reserved = {
    'string'   :  'STRING',
    'read'     :  'READ',
    'print'    :  'PRINT',
+   'random'   :  'RANDOM',
    'function' :  'FUNCTION',
    'main'     :  'MAIN',
    'while'    :  'WHILE',
@@ -305,7 +306,8 @@ def p_factor(t):
     '''factor : leftparen expresion rightparen
               | varcte
               | varid
-              | llamafunc'''
+              | llamafunc
+              | random'''
 
 def p_leftparen(t):
     'leftparen : LPAREN'
@@ -453,6 +455,12 @@ def p_estatuto(t):
                 | llamafunc SEMICOLON
                 | COMMENT
                 | CPPCOMMENT'''
+
+def p_random(t):
+    'random : RANDOM LPAREN expresion COMMA expresion RPAREN'
+    lastnum  = PilaO.pop()
+    firstnum = PilaO.pop()
+    PilaO.push(QuadrupleManager.addQuadruple('random', firstnum, lastnum, FunctionStack.peek()))
 
 def p_lectura(t):
     'lectura : READ LPAREN ID RPAREN SEMICOLON'

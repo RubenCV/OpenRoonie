@@ -20,6 +20,8 @@ import QuadrupleManager  as QuadrupleManager
 
 from copy import deepcopy
 
+import random
+
 class VirtualMachineClass:
 
      def __init__(self):
@@ -99,12 +101,20 @@ class VirtualMachineClass:
      def run(self):
           self.updateActualQuadruple()
           while (self.Op != 'end'):
-               
-               IndexOP = self.Operations[self.Op]
-               eval("self."+self.Functions[IndexOP])()
-               
-               self.instructionPointer += 1
-               self.updateActualQuadruple()
+               try: 
+                    IndexOP = self.Operations[self.Op]
+                    eval("self."+self.Functions[IndexOP])()
+
+                    self.instructionPointer += 1
+                    self.updateActualQuadruple()
+                    
+               except ZeroDivisionError:
+                    print("\nERROR RUNTIME. Operacion aritmetica invalida: division entre 0.")
+                    return None
+
+               except:
+                    print("\nUNEXPECTED ERROR RUNTIME. Operacion", self.Op ,"fallo.")
+                    return None
           
           self.endOp()
           return True
@@ -163,6 +173,17 @@ class VirtualMachineClass:
      def readOp(self):
           R_ABS  = self.translateVirtualToAbsolute(self.R)
           result = input('')
+          self.MemoryManager.setEntryValue(R_ABS, result)
+
+     def randomOp(self):
+          V1_ABS = self.translateVirtualToAbsolute(self.V1)
+          V2_ABS = self.translateVirtualToAbsolute(self.V2)
+          R_ABS  = self.translateVirtualToAbsolute(self.R) 
+          
+          limInf = self.MemoryManager.getEntryValue(V1_ABS)
+          limSup = self.MemoryManager.getEntryValue(V2_ABS)
+          
+          result = random.randint(limInf, limSup)
           self.MemoryManager.setEntryValue(R_ABS, result)
           
      def gotoTOp(self):

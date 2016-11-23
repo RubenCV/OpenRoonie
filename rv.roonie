@@ -1,0 +1,17 @@
+program test;
+
+main{
+var int num[10];
+var int i = 0;
+while(i < 10){
+num[i] = random(-100, 5);
+i = i + 1;
+}
+
+i = 0;
+while(i < 10){
+print(num[i], "\n");
+i = i + 1;
+}
+
+}

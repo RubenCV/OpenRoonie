@@ -71,7 +71,7 @@ class QuadrupleManagerClass:
     def literalOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
         ResultingType = self.SemanticCube.getResultingType(Type1, Type2, Op)
         if ResultingType != None :
-            ResultVirDir =  self.FunctionDirectory.addTemporalVariable(FuncName, None, ResultingType, [])
+            ResultVirDir  = self.FunctionDirectory.addTemporalVariable(FuncName, None, ResultingType, [])
             self.QuadrupleList.append([IndexOP, VirDir1, VirDir2, ResultVirDir])
             return ResultVirDir
 
@@ -94,6 +94,16 @@ class QuadrupleManagerClass:
     def readOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
         self.QuadrupleList.append([IndexOP, None, None, VirDir1])
         return True
+
+    # Random
+    def randomOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
+        if Type1 == 'int' and Type2 == 'int':
+            ResultVirDir  = self.FunctionDirectory.addTemporalVariable(FuncName, None, 'int', [])
+            self.QuadrupleList.append([IndexOP, VirDir1, VirDir2, ResultVirDir])
+            return ResultVirDir
+        else:
+            print("\nERROR SEMANTICA. La funcion random solo puede recibir como parametros numeros enteros.")
+            return None
             
     # gotoT -> [gotoT, BoolVirDir, None, Pendiente]
     def gotoTOp(self, Op, IndexOP, VirDir1, VirDir2, Type1, Type2, FuncName):
