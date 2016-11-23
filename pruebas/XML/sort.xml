@@ -1,0 +1,746 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="program" id="H2c2Mi/Ne{z$Xt)!Jbem" x="169" y="-6">
+    <field name="ID">sort</field>
+    <next>
+      <block type="main" id="^5i0K#GqyW~tdgHd?(n0">
+        <statement name="NAME">
+          <block type="variable_single" id="rw_i4H5:aC/z]|+F@kQ#">
+            <field name="TYPE">string</field>
+            <value name="NAME">
+              <block type="variable_single_name" id="[=M{$eY?kqy8Agmg#Qzp">
+                <field name="VAR">endl</field>
+              </block>
+            </value>
+            <next>
+              <block type="variable_array_one" id="jtma:C/@bx^C;^%%w4G0">
+                <field name="TYPE">int</field>
+                <field name="NAME">vector</field>
+                <field name="VAR1">10</field>
+                <next>
+                  <block type="variable_single_set" id="idH3tXmU;x8Bk;!?8{/l">
+                    <field name="VAR">endl</field>
+                    <value name="NAME">
+                      <block type="text" id="9$uA@[-q-79aYn5K1v|l">
+                        <field name="TEXT">\n</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variable_single" id="|^B%u#}/_`U8Z/3z;YoM">
+                        <field name="TYPE">int</field>
+                        <value name="NAME">
+                          <block type="variable_single_name" id="#Id!%9oy%,VzcM}G=VRk">
+                            <field name="VAR">i</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variable_single" id="0umvo==VbyrP7i%!aKI+">
+                            <field name="TYPE">int</field>
+                            <value name="NAME">
+                              <block type="variable_single_name" id="sK_1:;1qGf$MkeM)G8KY">
+                                <field name="VAR">j</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variable_single" id="C$O`/h?#ZJws9W]NVJ(?">
+                                <field name="TYPE">int</field>
+                                <value name="NAME">
+                                  <block type="variable_single_name" id="67K%$vGQPV2(}yff(-[:">
+                                    <field name="VAR">cantidad</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variable_single" id="*x)Zy6ZwuW+zwbO:OCDw">
+                                    <field name="TYPE">int</field>
+                                    <value name="NAME">
+                                      <block type="variable_single_name" id="mI4k9g9us~7Oy2gIjE#I">
+                                        <field name="VAR">pasada</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variable_single" id="9CWdfniCB7#P)0RS7@:7">
+                                        <field name="TYPE">int</field>
+                                        <value name="NAME">
+                                          <block type="variable_single_name" id="?U,w0})=wFZv]2|n}kit">
+                                            <field name="VAR">n</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variable_single_set" id="c5z)X4)^j`B%Aq/Q8y,v">
+                                            <field name="VAR">i</field>
+                                            <value name="NAME">
+                                              <block type="math_number" id="RykDaLmA[6P[ubPksx=s">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variable_single_set" id="a[Tn/bWxZhR_4;MigI5k">
+                                                <field name="VAR">j</field>
+                                                <value name="NAME">
+                                                  <block type="math_number" id="A/E!OQ^P|+KO|wnEzV~}">
+                                                    <field name="NUM">0</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variable_single_set" id="uGi~1c!TtR-nL,eGr0JP">
+                                                    <field name="VAR">cantidad</field>
+                                                    <value name="NAME">
+                                                      <block type="math_number" id="QJzU6x.T4E=vfk/x*lRL">
+                                                        <field name="NUM">10</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="variable_single_set" id=")h_[t}=:(JA=iJ-/c%I2">
+                                                        <field name="VAR">pasada</field>
+                                                        <value name="NAME">
+                                                          <block type="math_number" id="]Z;$p/POrgDm.V!~cu7i">
+                                                            <field name="NUM">1</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="controls_whileUntil" id="u#%K]w@(y,,qB2u9j;UU">
+                                                            <field name="MODE">WHILE</field>
+                                                            <value name="BOOL">
+                                                              <block type="logic_compare" id="OrCljymIyeEIW4^a`C[D">
+                                                                <field name="OP">LT</field>
+                                                                <value name="A">
+                                                                  <block type="variable_single_name" id="$7vJ]-*:^z2!E{`MPvV`">
+                                                                    <field name="VAR">i</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="math_number" id="iXr:e+wM+A%oP^3o2n(0">
+                                                                    <field name="NUM">10</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <statement name="DO">
+                                                              <block type="variable_array_one_set" id="Yj`q?~9wO_;BM7?4h3N~">
+                                                                <field name="VARNAME">vector</field>
+                                                                <field name="VAR1">i</field>
+                                                                <value name="NAME">
+                                                                  <block type="math_random" id="@ko0]5g`omXv.at/yHp!">
+                                                                    <value name="A">
+                                                                      <shadow type="math_number" id="7lPIz=dD*GaG8HL=SuNZ">
+                                                                        <field name="NUM">1</field>
+                                                                      </shadow>
+                                                                      <block type="math_number" id="dmrE=PHj~)|MC{7fn=l2">
+                                                                        <field name="NUM">-50</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <shadow type="math_number" id=";WR9XQ+0NNHKZz)7sTDP">
+                                                                        <field name="NUM">1</field>
+                                                                      </shadow>
+                                                                      <block type="math_number" id="]GGyzMtC+6UMv9mmpe]b">
+                                                                        <field name="NUM">50</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variable_single_set" id="$mW#*18l`;Q}N#c8o[l.">
+                                                                    <field name="VAR">i</field>
+                                                                    <value name="NAME">
+                                                                      <block type="math_arithmetic" id=")7H.jo]Ke.Z{5N5N;H3v">
+                                                                        <field name="OP">ADD</field>
+                                                                        <value name="A">
+                                                                          <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="variable_single_name" id="fk4}9h7ch6#:|]Yg.{i8">
+                                                                            <field name="VAR">i</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="math_number" id=".HI%@4P=!9eo6~iZ2|kl">
+                                                                            <field name="NUM">1</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </statement>
+                                                            <next>
+                                                              <block type="text_print" id="OsZMS,DZSO)3u`(0cm}]">
+                                                                <value name="TEXT">
+                                                                  <block type="text_comma" id="Q#fJXCqGE6#q?K9RZBaq">
+                                                                    <field name="TEXT">Vector generado aleatoriamente</field>
+                                                                    <value name="NAME">
+                                                                      <block type="variable_single_name" id="IL|xCi_4PF#SJ]iJn,^b">
+                                                                        <field name="VAR">endl</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variable_single_set" id="P:wuI3o{Hx*yA{an?^Zl">
+                                                                    <field name="VAR">i</field>
+                                                                    <value name="NAME">
+                                                                      <block type="math_number" id="e#?y|Gz~C7!J!aAo6}c/">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="controls_whileUntil" id="!/2?SGrEqVKS~_~gJ7%3">
+                                                                        <field name="MODE">WHILE</field>
+                                                                        <value name="BOOL">
+                                                                          <block type="logic_compare" id="S77=WyN{=4=MTJS=orHa">
+                                                                            <field name="OP">LT</field>
+                                                                            <value name="A">
+                                                                              <block type="variable_single_name" id="4zz!kAU*QR?W1lL75{:E">
+                                                                                <field name="VAR">i</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <block type="math_number" id="#%j)|igWHBi?qbF9kA#]">
+                                                                                <field name="NUM">10</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <statement name="DO">
+                                                                          <block type="variable_single_set" id="26p1?9JLCvgm)iahIPN+">
+                                                                            <field name="VAR">n</field>
+                                                                            <value name="NAME">
+                                                                              <block type="variable_array_one_get" id=".nR6F!EdSj[CL*DWSl1!">
+                                                                                <field name="VARNAME">vector</field>
+                                                                                <field name="VAR1">i</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="text_print" id="CxIMihmKzZsF=W74E?Hk">
+                                                                                <value name="TEXT">
+                                                                                  <block type="text_comma" id="4FzNe:6,z7)/6bfN6yUR">
+                                                                                    <field name="TEXT">Vector[</field>
+                                                                                    <value name="NAME">
+                                                                                      <block type="variable_single_name_comma" id="]Ae7poG%R9%8]}1KgK;u">
+                                                                                        <field name="VAR">i</field>
+                                                                                        <value name="NAME">
+                                                                                          <block type="text_comma" id="Q~M#$q[={^Bd=#yuXtz=">
+                                                                                            <field name="TEXT">] = </field>
+                                                                                            <value name="NAME">
+                                                                                              <block type="variable_single_name_comma" id="*k:_TfWYTijvF8jAG7E9">
+                                                                                                <field name="VAR">n</field>
+                                                                                                <value name="NAME">
+                                                                                                  <block type="variable_single_name" id="5d7J%w%_Zy5]K~[L)v/W">
+                                                                                                    <field name="VAR">endl</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="variable_single_set" id=")I7O}5ZE#sdJr@h3PIWN">
+                                                                                    <field name="VAR">i</field>
+                                                                                    <value name="NAME">
+                                                                                      <block type="math_arithmetic" id="@cSl:npX-mxOTIryBT@@">
+                                                                                        <field name="OP">ADD</field>
+                                                                                        <value name="A">
+                                                                                          <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                                            <field name="NUM">1</field>
+                                                                                          </shadow>
+                                                                                          <block type="variable_single_name" id="5h*jB;XawU6g{=$:b(V8">
+                                                                                            <field name="VAR">i</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <value name="B">
+                                                                                          <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                                            <field name="NUM">1</field>
+                                                                                          </shadow>
+                                                                                          <block type="math_number" id="k`@Fqa@4eox:awvx-3wK">
+                                                                                            <field name="NUM">1</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="variable_single" id="6fV4-D?02#`i]?g%M#Hg">
+                                                                            <field name="TYPE">bool</field>
+                                                                            <value name="NAME">
+                                                                              <block type="variable_single_name" id="_,sN3N.Uk}1|2-H@D,i@">
+                                                                                <field name="VAR">intercambio</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="variable_single_set" id="g9_Qigyz@5/}BKnH[Rjg">
+                                                                                <field name="VAR">intercambio</field>
+                                                                                <value name="NAME">
+                                                                                  <block type="logic_boolean" id="EvWkn2b/qCU1dSjOySf{">
+                                                                                    <field name="BOOL">TRUE</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="controls_whileUntil" id="C{zRJ$~X8B8{hS@=t3l1">
+                                                                                    <field name="MODE">WHILE</field>
+                                                                                    <value name="BOOL">
+                                                                                      <block type="logic_compare" id="MbZ;s|m{gNhU)lO,Idp+">
+                                                                                        <field name="OP">LT</field>
+                                                                                        <value name="A">
+                                                                                          <block type="variable_single_name" id="lC#N,Bn@wjsvpTWa)AU-">
+                                                                                            <field name="VAR">pasada</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <value name="B">
+                                                                                          <block type="variable_single_name" id="xvmG-=7e3;(@lf}*{iX%">
+                                                                                            <field name="VAR">cantidad</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <statement name="DO">
+                                                                                      <block type="controls_if" id="y+*c%+y.~S;/i0NH-2I-">
+                                                                                        <mutation else="1"></mutation>
+                                                                                        <value name="IF0">
+                                                                                          <block type="variable_single_name" id="_5`yiIP20YJe|Ws/L,ZL">
+                                                                                            <field name="VAR">intercambio</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <statement name="DO0">
+                                                                                          <block type="variable_single_set" id="f;Uo[Vyl$@XF8(*/$|n{">
+                                                                                            <field name="VAR">intercambio</field>
+                                                                                            <value name="NAME">
+                                                                                              <block type="logic_boolean" id="jH{U+A3yEYINz1[+2jk]">
+                                                                                                <field name="BOOL">FALSE</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="variable_single_set" id="X32}JfN`X*?ll32JAu$P">
+                                                                                                <field name="VAR">j</field>
+                                                                                                <value name="NAME">
+                                                                                                  <block type="math_number" id="YSMP0FQ#Mr1#[DwGQ|y7">
+                                                                                                    <field name="NUM">0</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="variable_single" id=".y%z-IyY!]1]U+8N!c]c">
+                                                                                                    <field name="TYPE">int</field>
+                                                                                                    <value name="NAME">
+                                                                                                      <block type="variable_single_name" id="cy7q2gx$@l(9KL4ZQ@Y@">
+                                                                                                        <field name="VAR">resta</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="variable_single_set" id="7~ZexIWv(:g+2CZNmp{W">
+                                                                                                        <field name="VAR">resta</field>
+                                                                                                        <value name="NAME">
+                                                                                                          <block type="math_arithmetic" id="#iJ9;CP2{`jm/gr6^pPD">
+                                                                                                            <field name="OP">MINUS</field>
+                                                                                                            <value name="A">
+                                                                                                              <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                                                                <field name="NUM">1</field>
+                                                                                                              </shadow>
+                                                                                                              <block type="variable_single_name" id="*q^]M|nRjH;p!#=xqgA!">
+                                                                                                                <field name="VAR">cantidad</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <value name="B">
+                                                                                                              <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                                                                <field name="NUM">1</field>
+                                                                                                              </shadow>
+                                                                                                              <block type="variable_single_name" id="aC-Yk^*Ov]h!CcJl?7!V">
+                                                                                                                <field name="VAR">pasada</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <next>
+                                                                                                          <block type="controls_whileUntil" id="xUFI@tjl^^kn?`ktE-Tm">
+                                                                                                            <field name="MODE">WHILE</field>
+                                                                                                            <value name="BOOL">
+                                                                                                              <block type="logic_compare" id="O8Yfxk]h%/=9IA3=55nG">
+                                                                                                                <field name="OP">LT</field>
+                                                                                                                <value name="A">
+                                                                                                                  <block type="variable_single_name" id="0b$vN??XAp{?(}:_Py@]">
+                                                                                                                    <field name="VAR">j</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                                <value name="B">
+                                                                                                                  <block type="variable_single_name" id="XtfQ[w!4@OV[5^wnPm^6">
+                                                                                                                    <field name="VAR">resta</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <statement name="DO">
+                                                                                                              <block type="variable_single" id="l*FbI[JFdvCeK#bMVWt!">
+                                                                                                                <field name="TYPE">int</field>
+                                                                                                                <value name="NAME">
+                                                                                                                  <block type="variable_single_name" id="6+SO1|S[00{:9J%gy}3_">
+                                                                                                                    <field name="VAR">a</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                                <next>
+                                                                                                                  <block type="variable_single" id="^sd#%?ACCJ;SU5g`/wDb">
+                                                                                                                    <field name="TYPE">int</field>
+                                                                                                                    <value name="NAME">
+                                                                                                                      <block type="variable_single_name" id="`),M%8EIAZ5fyds6?t:m">
+                                                                                                                        <field name="VAR">b</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                    <next>
+                                                                                                                      <block type="variable_single_set" id="-$Y[k4A-]vyY*rZtA^a[">
+                                                                                                                        <field name="VAR">a</field>
+                                                                                                                        <value name="NAME">
+                                                                                                                          <block type="variable_array_one_get" id="]0$!d}QDw*G8O|LXR`I0">
+                                                                                                                            <field name="VARNAME">vector</field>
+                                                                                                                            <field name="VAR1">j</field>
+                                                                                                                          </block>
+                                                                                                                        </value>
+                                                                                                                        <next>
+                                                                                                                          <block type="variable_single_set" id="Sj1z#cG~/fbXXT#{9jXq">
+                                                                                                                            <field name="VAR">b</field>
+                                                                                                                            <value name="NAME">
+                                                                                                                              <block type="variable_array_one_get" id="`R2zb-MK7;.iA/8h^ySM">
+                                                                                                                                <field name="VARNAME">vector</field>
+                                                                                                                                <field name="VAR1">j + 1</field>
+                                                                                                                              </block>
+                                                                                                                            </value>
+                                                                                                                            <next>
+                                                                                                                              <block type="controls_if" id="?Ja}xK|`x9omur_Q7]4B">
+                                                                                                                                <value name="IF0">
+                                                                                                                                  <block type="logic_compare" id="0PJgso9dB3F`CA,%~h5A">
+                                                                                                                                    <field name="OP">GT</field>
+                                                                                                                                    <value name="A">
+                                                                                                                                      <block type="variable_single_name" id="*a!pU-zj7$d3K|}1j3Ki">
+                                                                                                                                        <field name="VAR">a</field>
+                                                                                                                                      </block>
+                                                                                                                                    </value>
+                                                                                                                                    <value name="B">
+                                                                                                                                      <block type="variable_single_name" id="nT]#G5H,^kf:*{|dK2Qd">
+                                                                                                                                        <field name="VAR">b</field>
+                                                                                                                                      </block>
+                                                                                                                                    </value>
+                                                                                                                                  </block>
+                                                                                                                                </value>
+                                                                                                                                <statement name="DO0">
+                                                                                                                                  <block type="variable_single" id="q./X*.N5ibj^U{FA`D;l">
+                                                                                                                                    <field name="TYPE">int</field>
+                                                                                                                                    <value name="NAME">
+                                                                                                                                      <block type="variable_single_name" id="UR,zqzTZ^w`0L~K`Q7YM">
+                                                                                                                                        <field name="VAR">aux</field>
+                                                                                                                                      </block>
+                                                                                                                                    </value>
+                                                                                                                                    <next>
+                                                                                                                                      <block type="variable_single_set" id="roJRSo+fXbFd:}`4;w7S">
+                                                                                                                                        <field name="VAR">aux</field>
+                                                                                                                                        <value name="NAME">
+                                                                                                                                          <block type="variable_array_one_get" id="h=RvSt)h4`(cd(p:uVwR">
+                                                                                                                                            <field name="VARNAME">vector</field>
+                                                                                                                                            <field name="VAR1">j</field>
+                                                                                                                                          </block>
+                                                                                                                                        </value>
+                                                                                                                                        <next>
+                                                                                                                                          <block type="variable_single" id="c=jUtfxT4]iFE919w-(e">
+                                                                                                                                            <field name="TYPE">int</field>
+                                                                                                                                            <value name="NAME">
+                                                                                                                                              <block type="variable_single_name" id="GOyRbF3?yuhy:SUmRa;0">
+                                                                                                                                                <field name="VAR">aux2</field>
+                                                                                                                                              </block>
+                                                                                                                                            </value>
+                                                                                                                                            <next>
+                                                                                                                                              <block type="variable_single_set" id="wd*{L!h*S3]sAG,N8`41">
+                                                                                                                                                <field name="VAR">aux2</field>
+                                                                                                                                                <value name="NAME">
+                                                                                                                                                  <block type="variable_array_one_get" id=";#+!|{ONqnSgR).%7b52">
+                                                                                                                                                    <field name="VARNAME">vector</field>
+                                                                                                                                                    <field name="VAR1">j + 1</field>
+                                                                                                                                                  </block>
+                                                                                                                                                </value>
+                                                                                                                                                <next>
+                                                                                                                                                  <block type="variable_array_one_set" id="mEKP$KD1DK]`L=#~?#6u">
+                                                                                                                                                    <field name="VARNAME">vector</field>
+                                                                                                                                                    <field name="VAR1">j</field>
+                                                                                                                                                    <value name="NAME">
+                                                                                                                                                      <block type="variable_single_name" id="q.akfTi7z@vBF{[lH2A3">
+                                                                                                                                                        <field name="VAR">aux2</field>
+                                                                                                                                                      </block>
+                                                                                                                                                    </value>
+                                                                                                                                                    <next>
+                                                                                                                                                      <block type="variable_array_one_set" id="i*rnRrlA9*`i;h5t/^us">
+                                                                                                                                                        <field name="VARNAME">vector</field>
+                                                                                                                                                        <field name="VAR1">j + 1</field>
+                                                                                                                                                        <value name="NAME">
+                                                                                                                                                          <block type="variable_single_name" id="Y;Be5/OCCqUArS/;34@u">
+                                                                                                                                                            <field name="VAR">aux</field>
+                                                                                                                                                          </block>
+                                                                                                                                                        </value>
+                                                                                                                                                        <next>
+                                                                                                                                                          <block type="variable_single_set" id="g2aUSpb#uUX`gcJW[-Qe">
+                                                                                                                                                            <field name="VAR">intercambio</field>
+                                                                                                                                                            <value name="NAME">
+                                                                                                                                                              <block type="logic_boolean" id="Ab%D}3[d,dVjLbe%uGfn">
+                                                                                                                                                                <field name="BOOL">TRUE</field>
+                                                                                                                                                              </block>
+                                                                                                                                                            </value>
+                                                                                                                                                          </block>
+                                                                                                                                                        </next>
+                                                                                                                                                      </block>
+                                                                                                                                                    </next>
+                                                                                                                                                  </block>
+                                                                                                                                                </next>
+                                                                                                                                              </block>
+                                                                                                                                            </next>
+                                                                                                                                          </block>
+                                                                                                                                        </next>
+                                                                                                                                      </block>
+                                                                                                                                    </next>
+                                                                                                                                  </block>
+                                                                                                                                </statement>
+                                                                                                                                <next>
+                                                                                                                                  <block type="variable_single_set" id="G:w]MBvLsCelfd]2/yOp">
+                                                                                                                                    <field name="VAR">j</field>
+                                                                                                                                    <value name="NAME">
+                                                                                                                                      <block type="math_arithmetic" id="/N-4.#x(UVe8GEc4B6?e">
+                                                                                                                                        <field name="OP">ADD</field>
+                                                                                                                                        <value name="A">
+                                                                                                                                          <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                                                                                            <field name="NUM">1</field>
+                                                                                                                                          </shadow>
+                                                                                                                                          <block type="variable_single_name" id="BzQQp|ZUH4Ox0jOG5cm)">
+                                                                                                                                            <field name="VAR">j</field>
+                                                                                                                                          </block>
+                                                                                                                                        </value>
+                                                                                                                                        <value name="B">
+                                                                                                                                          <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                                                                                            <field name="NUM">1</field>
+                                                                                                                                          </shadow>
+                                                                                                                                          <block type="math_number" id="d{7MAuG::Ws.^u%~duRY">
+                                                                                                                                            <field name="NUM">1</field>
+                                                                                                                                          </block>
+                                                                                                                                        </value>
+                                                                                                                                      </block>
+                                                                                                                                    </value>
+                                                                                                                                  </block>
+                                                                                                                                </next>
+                                                                                                                              </block>
+                                                                                                                            </next>
+                                                                                                                          </block>
+                                                                                                                        </next>
+                                                                                                                      </block>
+                                                                                                                    </next>
+                                                                                                                  </block>
+                                                                                                                </next>
+                                                                                                              </block>
+                                                                                                            </statement>
+                                                                                                            <next>
+                                                                                                              <block type="variable_single_set" id="8ex{wnP%hn@3D?CL3h{C">
+                                                                                                                <field name="VAR">pasada</field>
+                                                                                                                <value name="NAME">
+                                                                                                                  <block type="math_arithmetic" id="AsL@zx;?1{6h$~fBA,So">
+                                                                                                                    <field name="OP">ADD</field>
+                                                                                                                    <value name="A">
+                                                                                                                      <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                                                                        <field name="NUM">1</field>
+                                                                                                                      </shadow>
+                                                                                                                      <block type="variable_single_name" id="74jYYgQ+}Vc+VKqV1Pyb">
+                                                                                                                        <field name="VAR">pasada</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                    <value name="B">
+                                                                                                                      <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                                                                        <field name="NUM">1</field>
+                                                                                                                      </shadow>
+                                                                                                                      <block type="math_number" id="[-+4Rzf;%!FNDB)BaI!?">
+                                                                                                                        <field name="NUM">1</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </next>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                        <statement name="ELSE">
+                                                                                          <block type="variable_single_set" id="{dzZwawxbM(P4Zuv])B3">
+                                                                                            <field name="VAR">pasada</field>
+                                                                                            <value name="NAME">
+                                                                                              <block type="variable_single_name" id="WOl5$?fMxx#W[]w_YuK8">
+                                                                                                <field name="VAR">cantidad</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                      </block>
+                                                                                    </statement>
+                                                                                    <next>
+                                                                                      <block type="text_print" id="`sJZmsrcYwQ+aG@]PZS!">
+                                                                                        <value name="TEXT">
+                                                                                          <block type="variable_single_name_comma" id="z|.O`SgLsy7UCTL#~R`%">
+                                                                                            <field name="VAR">endl</field>
+                                                                                            <value name="NAME">
+                                                                                              <block type="text_comma" id="vYAG=,0YP}M@SO.#*z10">
+                                                                                                <field name="TEXT">Vector ordenado</field>
+                                                                                                <value name="NAME">
+                                                                                                  <block type="variable_single_name" id="]DZ=uzK/h$kV:_sp38@}">
+                                                                                                    <field name="VAR">endl</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="variable_single_set" id="ZDvN$d)_{(1`X`@hAh[5">
+                                                                                            <field name="VAR">i</field>
+                                                                                            <value name="NAME">
+                                                                                              <block type="math_number" id="r$k!#lMEG./(Udlo(!V?">
+                                                                                                <field name="NUM">0</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="controls_whileUntil" id="cMf^*pIH]PqVmNT@|sC~">
+                                                                                                <field name="MODE">WHILE</field>
+                                                                                                <value name="BOOL">
+                                                                                                  <block type="logic_compare" id="bZTt8Mey{%vq=6EIg=Kk">
+                                                                                                    <field name="OP">LT</field>
+                                                                                                    <value name="A">
+                                                                                                      <block type="variable_single_name" id=";|b[8r^hX,-(gEF[Sc.b">
+                                                                                                        <field name="VAR">i</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="B">
+                                                                                                      <block type="math_number" id="oXw)]C~Y3Ty/TWt+dgzu">
+                                                                                                        <field name="NUM">10</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <statement name="DO">
+                                                                                                  <block type="variable_single_set" id="bGnWuUY`9|1Dvst4{6ZW">
+                                                                                                    <field name="VAR">n</field>
+                                                                                                    <value name="NAME">
+                                                                                                      <block type="variable_array_one_get" id="YJ0Q^Fme_-2YsIJ5MMQN">
+                                                                                                        <field name="VARNAME">vector</field>
+                                                                                                        <field name="VAR1">i</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="text_print" id="ueRq.oGGC+c!6juG:xVo">
+                                                                                                        <value name="TEXT">
+                                                                                                          <block type="text_comma" id="o!q`wJ!N]y?n$K#)jUn}">
+                                                                                                            <field name="TEXT">Vector[</field>
+                                                                                                            <value name="NAME">
+                                                                                                              <block type="variable_single_name_comma" id="4.(tX:48cBfAw@T@|Q%P">
+                                                                                                                <field name="VAR">i</field>
+                                                                                                                <value name="NAME">
+                                                                                                                  <block type="text_comma" id="e7IxX_|;aUz(?8-(f`Bi">
+                                                                                                                    <field name="TEXT">] = </field>
+                                                                                                                    <value name="NAME">
+                                                                                                                      <block type="variable_single_name_comma" id="?TYpE`D+tS3~dh/,7*]2">
+                                                                                                                        <field name="VAR">n</field>
+                                                                                                                        <value name="NAME">
+                                                                                                                          <block type="variable_single_name" id="e[=~yz8/E@q/WY-[IRqq">
+                                                                                                                            <field name="VAR">endl</field>
+                                                                                                                          </block>
+                                                                                                                        </value>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <next>
+                                                                                                          <block type="variable_single_set" id="{v9TP+piM-[jLSxMW7Tg">
+                                                                                                            <field name="VAR">i</field>
+                                                                                                            <value name="NAME">
+                                                                                                              <block type="math_arithmetic" id="m8H;PLVFH35eMC3-6mK{">
+                                                                                                                <field name="OP">ADD</field>
+                                                                                                                <value name="A">
+                                                                                                                  <shadow type="math_number" id="2?D}Z}aI;Ndj$MtJ`*pR">
+                                                                                                                    <field name="NUM">1</field>
+                                                                                                                  </shadow>
+                                                                                                                  <block type="variable_single_name" id="zWqb-{LtVLrYrZlZ=;te">
+                                                                                                                    <field name="VAR">i</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                                <value name="B">
+                                                                                                                  <shadow type="math_number" id="V%X2d)rR8egK:e=,`ikw">
+                                                                                                                    <field name="NUM">1</field>
+                                                                                                                  </shadow>
+                                                                                                                  <block type="math_number" id="T~[aumyUaB!`3xB7NI~v">
+                                                                                                                    <field name="NUM">1</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </statement>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

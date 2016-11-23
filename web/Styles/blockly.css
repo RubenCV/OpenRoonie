@@ -28,7 +28,7 @@ button, input[type="button"], input[type="submit"] {
     font-size: 18px;
     margin: 10px 5px;
     cursor: pointer;
-	width : 190px;
+	width : 180px;
 }
 .btnGreen {background-color: #4CAF50;} /* Green */
 .btnBlue  {background-color: #008CBA;} /* Blue */

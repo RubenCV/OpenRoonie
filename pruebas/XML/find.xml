@@ -1,6 +1,6 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <block type="program" id="EQftnea[fMd@`1fyEkzj" x="149" y="84">
-    <field name="ID">id</field>
+    <field name="ID">find</field>
     <next>
       <block type="variable_single" id="dXO}$KJ?s{C]/-Y]+Gde">
         <field name="TYPE">string</field>
@@ -35,110 +35,93 @@
                         <field name="TYPE">void</field>
                         <field name="VAR">initVector</field>
                         <statement name="BLOCK">
-                          <block type="variable_array_one_set" id="Al0I+uc,afl!n@:ZGr%5">
-                            <field name="VARNAME">vector</field>
-                            <field name="VAR1">0</field>
+                          <block type="variable_single" id="rv4:B4T)T[10UL71kX!V">
+                            <field name="TYPE">int</field>
                             <value name="NAME">
-                              <block type="math_number" id="`-F[e;j$~5nPcxB7mQ$=">
-                                <field name="NUM">10</field>
+                              <block type="variable_single_name" id="awm,pWGE.,W;lL=i0KRe">
+                                <field name="VAR">i</field>
                               </block>
                             </value>
                             <next>
-                              <block type="variable_array_one_set" id="Qbqh(]%o,M#IK]yT]T|,">
-                                <field name="VARNAME">vector</field>
-                                <field name="VAR1">1</field>
+                              <block type="variable_single_set" id="(v^^0yY.%Rj;`$EQUNQv">
+                                <field name="VAR">i</field>
                                 <value name="NAME">
-                                  <block type="math_number" id="9{Ct(nHrzqLfZY+6{ZW?">
-                                    <field name="NUM">-24</field>
+                                  <block type="math_number" id="U;HSQe~mkg50.L!XX)EY">
+                                    <field name="NUM">0</field>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="variable_array_one_set" id="@NwQ295_Sts{vTvtT/~(">
-                                    <field name="VARNAME">vector</field>
-                                    <field name="VAR1">2</field>
-                                    <value name="NAME">
-                                      <block type="math_number" id="gV{0lT*OG[99wrLhE,Z+">
-                                        <field name="NUM">432</field>
+                                  <block type="controls_whileUntil" id="M,BqJ/8IQpWVy/)Uquff">
+                                    <field name="MODE">WHILE</field>
+                                    <value name="BOOL">
+                                      <block type="logic_compare" id="-rb)(nip+b;w.BL!N4?n">
+                                        <field name="OP">LT</field>
+                                        <value name="A">
+                                          <block type="variable_single_name" id="-dSEf`hQk=Y?qD``9T[9">
+                                            <field name="VAR">i</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id=".dFTa={Mau#l6Vq![[93">
+                                            <field name="NUM">10</field>
+                                          </block>
+                                        </value>
                                       </block>
                                     </value>
-                                    <next>
-                                      <block type="variable_array_one_set" id="5sDP5X8QB3%kxW9YOF4?">
+                                    <statement name="DO">
+                                      <block type="variable_array_one_set" id="Al0I+uc,afl!n@:ZGr%5">
                                         <field name="VARNAME">vector</field>
-                                        <field name="VAR1">3</field>
+                                        <field name="VAR1">i</field>
                                         <value name="NAME">
-                                          <block type="math_number" id="2X{`9meWgpJrdscm*U=S">
-                                            <field name="NUM">1</field>
+                                          <block type="math_random" id="}iZxv?5?,[8`hD,)!:fk">
+                                            <value name="A">
+                                              <shadow type="math_number" id="mD2npx|I6Wi1WmjYH~st">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="math_number" id="gzyivpq/)xDR^6S7B{62">
+                                                <field name="NUM">1</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <shadow type="math_number" id="FgEC7VG9KbCC#SX30}3#">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="math_number" id="ij~WVZ+LO?anmE8R:LKT">
+                                                <field name="NUM">100</field>
+                                              </block>
+                                            </value>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="variable_array_one_set" id="ZgO6y6DKO%BXy2^DrZMA">
-                                            <field name="VARNAME">vector</field>
-                                            <field name="VAR1">4</field>
+                                          <block type="variable_single_set" id="Li$,OxNb/#Y4/ypx(1|D">
+                                            <field name="VAR">i</field>
                                             <value name="NAME">
-                                              <block type="math_number" id="YHujm)$=VuTnqn0Mk{3o">
-                                                <field name="NUM">-3</field>
-                                              </block>
-                                            </value>
-                                            <next>
-                                              <block type="variable_array_one_set" id="rk=/-2fmqkuVK8uZcWb9">
-                                                <field name="VARNAME">vector</field>
-                                                <field name="VAR1">5</field>
-                                                <value name="NAME">
-                                                  <block type="math_number" id="p(iVS6f(!ohq[%Tv[I:?">
-                                                    <field name="NUM">66</field>
+                                              <block type="math_arithmetic" id="n2O{TT:/RZE#!ZN:$H.q">
+                                                <field name="OP">ADD</field>
+                                                <value name="A">
+                                                  <shadow type="math_number" id="JPR4z+fL4Y7UOG%z@L;:">
+                                                    <field name="NUM">1</field>
+                                                  </shadow>
+                                                  <block type="variable_single_name" id="7-Kkdg0/)VDGv?Yda3WB">
+                                                    <field name="VAR">i</field>
                                                   </block>
                                                 </value>
-                                                <next>
-                                                  <block type="variable_array_one_set" id="pH-w3ZASu]1kjye050B9">
-                                                    <field name="VARNAME">vector</field>
-                                                    <field name="VAR1">6</field>
-                                                    <value name="NAME">
-                                                      <block type="math_number" id=":r_VmQM0Fp!iD6rk(:Qv">
-                                                        <field name="NUM">89</field>
-                                                      </block>
-                                                    </value>
-                                                    <next>
-                                                      <block type="variable_array_one_set" id="YVcsv|oq}tEI[s5+0w;W">
-                                                        <field name="VARNAME">vector</field>
-                                                        <field name="VAR1">7</field>
-                                                        <value name="NAME">
-                                                          <block type="math_number" id="[S6;#X$$EZ%DaV6`j,0n">
-                                                            <field name="NUM">72</field>
-                                                          </block>
-                                                        </value>
-                                                        <next>
-                                                          <block type="variable_array_one_set" id="seO)NpkMpK=4D#reT3]d">
-                                                            <field name="VARNAME">vector</field>
-                                                            <field name="VAR1">8</field>
-                                                            <value name="NAME">
-                                                              <block type="math_number" id="mym4FA`~ecOAoJdl+W_d">
-                                                                <field name="NUM">7</field>
-                                                              </block>
-                                                            </value>
-                                                            <next>
-                                                              <block type="variable_array_one_set" id="TWE6^1YA-VD*xAXr~vCh">
-                                                                <field name="VARNAME">vector</field>
-                                                                <field name="VAR1">9</field>
-                                                                <value name="NAME">
-                                                                  <block type="math_number" id="B,saOd32wAH%Ap(FoQ!b">
-                                                                  </block>
-                                                                </value>
-                                                                <next>
-                                                                  <block type="return_void" id="!uwtkY0P:V9/VKn2N[R8"></block>
-                                                                </next>
-                                                              </block>
-                                                            </next>
-                                                          </block>
-                                                        </next>
-                                                      </block>
-                                                    </next>
+                                                <value name="B">
+                                                  <shadow type="math_number" id="y,lG~X2Uv@v(}/5$p;gJ">
+                                                    <field name="NUM">1</field>
+                                                  </shadow>
+                                                  <block type="math_number" id="isYy9r[^iYWHyaHz=~AY">
+                                                    <field name="NUM">1</field>
                                                   </block>
-                                                </next>
+                                                </value>
                                               </block>
-                                            </next>
+                                            </value>
                                           </block>
                                         </next>
                                       </block>
+                                    </statement>
+                                    <next>
+                                      <block type="return_void" id="!uwtkY0P:V9/VKn2N[R8"></block>
                                     </next>
                                   </block>
                                 </next>

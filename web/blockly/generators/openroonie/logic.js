@@ -92,6 +92,6 @@ Blockly.JavaScript['logic_operation'] = function(block) {
 
 Blockly.JavaScript['logic_boolean'] = function(block) {
   // Boolean values true and false.
-  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'True' : 'False';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

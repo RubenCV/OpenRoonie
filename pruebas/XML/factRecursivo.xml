@@ -1,0 +1,209 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="program" id="d1+Yp?1TRf_h3XZaXK!g" x="97" y="21">
+    <field name="ID">factRecursivo</field>
+    <next>
+      <block type="function_statement" id="LIM|zl-h#UHgv1U4#[17">
+        <field name="TYPE">int</field>
+        <field name="VAR">factorial</field>
+        <value name="NAME">
+          <block type="function_param" id="HVoXqP4Rl{}b__B+S`.@">
+            <field name="TYPE">int</field>
+            <field name="VAR">n</field>
+          </block>
+        </value>
+        <statement name="BLOCK">
+          <block type="variable_single" id="NJ6ABizbZn:2VZyQTK@:">
+            <field name="TYPE">int</field>
+            <value name="NAME">
+              <block type="variable_single_name_comma" id="bps:-eOd`WB*kgef,6nQ">
+                <field name="VAR">ret</field>
+                <value name="NAME">
+                  <block type="variable_single_name" id="MMadJZAd]1DtlAl~E6ms">
+                    <field name="VAR">i</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="variable_single_set" id="@XtO@RDvciF{{?*;$MJ4">
+                <field name="VAR">ret</field>
+                <value name="NAME">
+                  <block type="math_number" id="p@tZTli(NE9Th7t~]$R:">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" id="biN%NmolKl(wkU3hGCv@">
+                    <value name="IF0">
+                      <block type="logic_compare" id="h$SO^lO:HW7{S:W5#fFV">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="variable_single_name" id="}C)()!6N_7LZIkB{:uLD">
+                            <field name="VAR">n</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="%*Q+S8c@5}--UU|y:XyP">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variable_single_set" id="gt8%CjbD;ZZ/{|V5Xr?H">
+                        <field name="VAR">ret</field>
+                        <value name="NAME">
+                          <block type="math_arithmetic" id="i;ehqFbyoX|.ii3=]s$W">
+                            <field name="OP">MULTIPLY</field>
+                            <value name="A">
+                              <shadow type="math_number" id="M/B^8IR1lC*P[snqWE.2">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variable_single_name" id="*}af*(h;xc0,}TVmO-E1">
+                                <field name="VAR">n</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number" id="RDy%$x[=+c1v2e-4,h1S">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="function_call" id="MX_^4V8H;UL;4bNS+/fq">
+                                <field name="FNAME">factorial</field>
+                                <value name="NAME">
+                                  <block type="math_arithmetic" id="Caz|xw)D3f?cCUlZy^]s">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <shadow type="math_number" id="o2+{KQXV.]LrFZqUEQen">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="variable_single_name" id="htOlnZ.An1!ZQqZtgUpM">
+                                        <field name="VAR">n</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number" id="Ug0sZbi[bz}_+nl;1a8e">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="math_number" id=")9q.*Y23=R!NYjMU6/BR">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="return" id="J:J://,IRew9SzvS0RG~">
+                        <value name="NAME">
+                          <block type="variable_single_name" id="w.G9#]vv?.}Z2RlxGxf-">
+                            <field name="VAR">ret</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="main" id="1S(p.pat;:$D3_tPzlM|">
+            <statement name="NAME">
+              <block type="variable_single" id="N{$s@E4YVZO$W^K[p4.L">
+                <field name="TYPE">string</field>
+                <value name="NAME">
+                  <block type="variable_single_name" id="9U!iH[}=MJMoAiky[5]i">
+                    <field name="VAR">endl</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variable_single" id="[c.t.yb*tV_+uE3vl8WW">
+                    <field name="TYPE">int</field>
+                    <value name="NAME">
+                      <block type="variable_single_name_comma" id="^~iQtCa25=X3+}l5V:yK">
+                        <field name="VAR">num</field>
+                        <value name="NAME">
+                          <block type="variable_single_name" id="aJ044K2+1~!J?9fsD[mJ">
+                            <field name="VAR">fact</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variable_single_set" id="c-qB):0Q?2kbX0[9J:KR">
+                        <field name="VAR">endl</field>
+                        <value name="NAME">
+                          <block type="text" id="F;xs@8yDa%:@t!{3BH[1">
+                            <field name="TEXT">\n</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="text_print" id="=+Wdj}]]OT^kY3YGr/rL">
+                            <value name="TEXT">
+                              <block type="text" id="gpoI.7X?J5ipSBeK8zYY">
+                                <field name="TEXT">Factorial de: </field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variable_read" id="eU/[Awbm.4*PHVRg?Q30">
+                                <field name="VAR">num</field>
+                                <next>
+                                  <block type="variable_single_set" id="zYTSfA,iFBMF#M;Jpz0R">
+                                    <field name="VAR">fact</field>
+                                    <value name="NAME">
+                                      <block type="function_call" id="6{IPyhdA*C+m9OwIFWF0">
+                                        <field name="FNAME">factorial</field>
+                                        <value name="NAME">
+                                          <block type="variable_single_name" id="mjAwBV+il%Ah%:aya[KC">
+                                            <field name="VAR">num</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="text_print" id=",u7J5)XIU:MqC[dwTzx!">
+                                        <value name="TEXT">
+                                          <block type="variable_single_name_comma" id=".?7?uaLA?{A)m1RiLt7;">
+                                            <field name="VAR">num</field>
+                                            <value name="NAME">
+                                              <block type="text_comma" id="621JHd9P}PtIq%86{tgA">
+                                                <field name="TEXT">! = </field>
+                                                <value name="NAME">
+                                                  <block type="variable_single_name_comma" id="pBsW(R$6dT*8J:1+F-Kv">
+                                                    <field name="VAR">fact</field>
+                                                    <value name="NAME">
+                                                      <block type="variable_single_name" id="V(x/$~M}$3lwPXt}:FE+">
+                                                        <field name="VAR">endl</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

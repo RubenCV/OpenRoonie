@@ -50,10 +50,11 @@ Blockly.JavaScript['function_param_coma'] = function(block) {
 Blockly.JavaScript['function_call'] = function(block) {
   var text_fname = block.getFieldValue('FNAME');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+
   if(value_name.indexOf("(") == 0) {
     value_name = value_name.substring(1,value_name.length-1);
   }
-  var code = text_fname + value_name;
+  var code = text_fname + '(' + value_name + ')';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -82,7 +83,9 @@ Blockly.JavaScript['function_call_ret_noparams'] = function(block) {
 
 Blockly.JavaScript['return'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  value_name = value_name.substring(1,value_name.length-1);
+  if(value_name.indexOf("(") == 0) {
+    value_name = value_name.substring(1,value_name.length-1);
+  }
   var code = 'return ' + value_name +';\n';
   return code;
 };
