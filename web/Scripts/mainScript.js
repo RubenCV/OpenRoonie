@@ -108,7 +108,7 @@ $(function () {
 	// Id de la Consola que esta corriendo OpenRoonie.py
 	var consoleId = "4002449";
 
-	Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
+	//Anywhere.LoadConsole("consoles-2.pythonanywhere.com", userId, consoleId, "", false);
 });
 
 // Cargar un archivo con el sourcode (.roonie) ya existente. -> Ej. loadFile("v");
